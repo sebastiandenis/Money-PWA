@@ -10,11 +10,24 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EffectsModule } from '@ngrx/effects';
 import { firebaseConfig } from '../environments/firebase.config';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import 'hammerjs';
+import { MatToolbarModule, MatIconModule, MatMenuModule, MatTabsModule, MatButtonModule, MatSidenavModule } from '@angular/material';
+import { MatListModule, MatInputModule, MatFormFieldModule } from '@angular/material';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { AppRoutingModule } from './app-routing.module';
+import { reducers } from './store/app.reducers';
+import { AuthModule } from './auth/auth.module';
+import { AuthEffects } from './auth/store/auth.effects';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { environment } from '../environments/environment';
+import { HomeComponent } from './home/home.component';
+import { BudgetService } from '../services/budget.service';
 
 
 
@@ -25,21 +38,26 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
+    AuthModule,
+    AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([AuthEffects]),
     FlexLayoutModule,
     HttpClientModule,
-    StoreModule.forRoot({}),
-    StoreDevtoolsModule.instrument({
-      maxAge: 25 //  Retains last 25 states
-    }),
+    MatIconModule, MatMenuModule, MatToolbarModule, MatTabsModule, MatButtonModule, MatSidenavModule,
+    NoopAnimationsModule, MatListModule, MatInputModule, MatFormFieldModule,
+    ReactiveFormsModule,
+    StoreModule.forRoot(reducers),
+    StoreRouterConnectingModule,
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -48,7 +66,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     })
   ],
-  providers: [],
+  providers: [ BudgetService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

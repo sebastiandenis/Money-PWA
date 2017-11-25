@@ -1,0 +1,13 @@
+<div>
+    Budget ID: {{ (budget$ | async)?.id}}
+</div>
+<div>
+    Budget name: {{ (budget$ | async)?.name}}
+</div>
+<div>
+    <ul>
+        <li *ngFor="let bline of budgetLines$ | async">
+          {{ bline.name }}
+        </li>
+      </ul>
+</div>
