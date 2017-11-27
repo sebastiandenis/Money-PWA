@@ -28,6 +28,7 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { environment } from '../environments/environment';
 import { HomeComponent } from './home/home.component';
 import { BudgetService } from '../services/budget.service';
+import { BudgetEffects } from './store/effects/budget.effects';
 
 
 
@@ -49,13 +50,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
-    EffectsModule.forRoot([AuthEffects]),
     FlexLayoutModule,
     HttpClientModule,
     MatIconModule, MatMenuModule, MatToolbarModule, MatTabsModule, MatButtonModule, MatSidenavModule,
     NoopAnimationsModule, MatListModule, MatInputModule, MatFormFieldModule,
     ReactiveFormsModule,
     StoreModule.forRoot(reducers),
+    EffectsModule.forRoot([AuthEffects, BudgetEffects]),
     StoreRouterConnectingModule,
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     TranslateModule.forRoot({

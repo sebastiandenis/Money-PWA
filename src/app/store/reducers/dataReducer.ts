@@ -7,8 +7,6 @@ import * as _ from 'lodash';
 
 
 export interface State {
-
-    budget: Budget;
     savings: Savings;
     user: User;
 
@@ -16,14 +14,6 @@ export interface State {
 
 
 export const INITIAL_STORE_DATA: State = {
-    budget: {
-        id: undefined,
-        name: undefined,
-        dateStart: undefined,
-        dateEnd: undefined,
-        totalCash: 0,
-        cashLeft: 0,
-    },
     savings: {
         id: undefined,
         name: undefined,
@@ -39,7 +29,6 @@ export const INITIAL_STORE_DATA: State = {
 
 export function storeData(state = INITIAL_STORE_DATA, action: Action): State {
     switch (action.type) {
-
         case storeActions.LOAD_DEFAULT_SAVINGS_ACTION:
             return {
                 ...state
@@ -54,6 +43,7 @@ export function storeData(state = INITIAL_STORE_DATA, action: Action): State {
             return state;
     }
 }
+
 
 
 function handleDefaultSavingsLoadedAction(state: State, action: storeActions.DefaultSavingsLoadedAction): State {

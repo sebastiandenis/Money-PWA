@@ -10,6 +10,10 @@ export const DEFAULT_SAVINGS_LOADED_ACTION = 'DEFAULT_SAVINGS_LOADED_ACTION';
 export const LOAD_RANDOM_QUOTE_ACTION = 'LOAD_RANDOM_QUOTE_ACTION';
 export const RANDOM_QUOTE_LOADED_ACTION = 'RANDOM_QUOTE_LOADED_ACTION';
 
+
+
+
+// ------------------------------------------------------------------SAVINGS ACTIONS
 export class LoadDefaultSavingsAction implements Action {
     readonly type: string = LOAD_DEFAULT_SAVINGS_ACTION;
 }
@@ -20,7 +24,9 @@ export class DefaultSavingsLoadedAction implements Action {
     }
 }
 
+// ------------------------------------------------------------------END SAVINGS ACTIONS
 
+// ------------------------------------------------------------------QUOTE ACTIONS
 export class LoadRandomQuoteAction implements Action {
     readonly type: string = LOAD_RANDOM_QUOTE_ACTION;
 
@@ -31,6 +37,7 @@ export class RandomQuoteLoadedAction implements Action {
     constructor(public payload?: Quote) { }
 }
 
+// ------------------------------------------------------------------END QUOTE ACTIONS
 
 export type AppActions =
     DefaultSavingsLoadedAction |

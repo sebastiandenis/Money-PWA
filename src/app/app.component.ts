@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { TranslateService } from '@ngx-translate/core';
 import { BudgetService } from '../services/budget.service';
-import { BudgetLine } from '../models/expense.model';
+import { BudgetLine } from '../models/budget-line.model';
 import { Budget } from '../models/budget.model';
 
 
