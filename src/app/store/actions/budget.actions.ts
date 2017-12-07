@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
-import { Budget } from '../../../models/budget.model';
-import { BudgetLine } from '../../../models/budget-line.model';
+import { Budget } from '../../models/budget.model';
+import { BudgetLine } from '../../models/budget-line.model';
 
 
 
@@ -25,6 +25,8 @@ export class DefaultBudgetLinesLoadedAction implements Action {
 
 export class LoadDefaultBudgetAction implements Action {
     readonly type: string = LOAD_DEFAULT_BUDGET_ACTION;
+    constructor(public payload?: string) {
+    }
 }
 
 export class DefaultBudgetLoadedAction implements Action {

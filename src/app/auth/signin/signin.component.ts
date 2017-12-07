@@ -3,7 +3,7 @@ import { NgForm, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
 import * as fromApp from '../../store/app.reducers';
-import * as AuthActions from '../../auth/store/auth.actions';
+import * as AuthActions from '../../store/actions/auth.actions';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
@@ -26,6 +26,7 @@ export class SigninComponent implements OnInit {
   onSignin(form: NgForm) {
     const email = form.value.email;
     const password = form.value.password;
+    console.log('onSignin->email: ', email);
     this.store.dispatch(new AuthActions.TrySignin({ username: email, password: password }));
   }
 

@@ -1,6 +1,6 @@
 export interface UserConfig {
     id: string;
-    defaultLang: string;
+    lang: string;
     currentBudgetId: string;
     currentSavingsId: UserConfig;
 

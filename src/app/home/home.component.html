@@ -7,7 +7,28 @@
 <div>
     <ul>
         <li *ngFor="let bline of budgetLines$ | async">
-          {{ bline.name }}
+            {{ bline.name }}
         </li>
-      </ul>
+    </ul>
 </div>
+<div *ngIf="budget$ | async as currentBudget else loadingTpl2">
+    <div class="progress-wrapper" >
+        <div class="current" text-center [ngStyle]="getOverlayStyle()">
+            <span style="color: #2096ba;font-size: 2.0rem;">{{getRoundedCashLeft(currentBudget.cashLeft)}}</span>
+            <span style="font-size: 1.3rem"> / {{currentBudget.totalCash}}</span>
+            <br>
+
+            <span style="font-size: 1.2rem; color: #36384c;" >
+                {{daysLeft(currentBudget.dateEnd)}} {{ ('daysLeft' | translate)}}
+            </span>
+            <br>
+
+        </div>
+        <round-progress [current]="getRoundedCashLeft(currentBudget.cashLeft)" [max]="currentBudget.totalCash" [responsive]="responsive"
+            [stroke]="stroke" [clockwise]="colckwise" [color]="getColor(currentBudget.cashLeft, currentBudget.totalCash)" [rounded]="rounded"
+            [background]="getBackgroundColor(currentBudget.cashLeft, currentBudget.totalCash)"></round-progress>
+    </div>
+</div>
+<ng-template #loadingTpl2>
+    <span class="loading">{{'loading' | translate}}...</span>
+</ng-template>

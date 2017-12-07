@@ -5,5 +5,6 @@ export interface User {
     email: string;
     name: string;
     config: UserConfig;
+    userId;
 
 }

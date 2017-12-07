@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 import * as storeActions from '../actions';
 import * as _ from 'lodash';
-import { Quote } from '../../../models/quote.model';
+import { Quote } from '../../models/quote.model';
 
 export interface State {
     currentBudgetId: string;

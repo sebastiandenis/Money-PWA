@@ -2,9 +2,13 @@ import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firesto
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { TranslateService } from '@ngx-translate/core';
-import { BudgetService } from '../services/budget.service';
-import { BudgetLine } from '../models/budget-line.model';
-import { Budget } from '../models/budget.model';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { Store } from '@ngrx/store';
+import * as UserActions from './store/actions/user.actions';
+import * as BudgetActions from './store/actions/budget.actions';
+import * as fromRoot from './store/app.reducers';
+import { User } from './models/user.model';
+import { OnInit } from '@angular/core';
 
 
 @Component({
@@ -12,22 +16,36 @@ import { Budget } from '../models/budget.model';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'app';
-  private itemDoc: AngularFirestoreDocument<any>;
-  item: Observable<any>;
-  budget: Observable<Budget>;
-  budgetLines: Observable<BudgetLine[]>;
+  user$: Observable<User>;
 
-  constructor(translate: TranslateService, db: AngularFirestore, budgetService: BudgetService) {
+
+  constructor(private translate: TranslateService,
+    private db: AngularFirestore,
+    private afAuth: AngularFireAuth,
+    private store: Store<fromRoot.AppState>) {
     // this language will be used as a fallback when a translation isn't found in the current language
-    translate.setDefaultLang('en');
+    this.translate.setDefaultLang('en');
     // the lang to use, if the lang isn't available, it will use the current loader to get them
-    translate.use('en');
+    this.translate.use('en');
+    this.afAuth.authState.subscribe(user => {
+      if (user) {
+        // zalogowany
+        this.store.dispatch(new UserActions.LoadUserDataAction(user.uid));
+      } else {
+        // nie jest zalogowany
+      }
+    });
 
-    this.itemDoc = db.doc<any>('test/1');
-    this.item = this.itemDoc.valueChanges();
+    this.user$ = this.store.select(fromRoot.selectUser);
+  }
 
-    this.budget = budgetService.loadDefaultBudget('1');
+  ngOnInit() {
+    this.user$.subscribe(user => {
+      if (user && user.config && user.config.lang !== undefined) {
+        this.translate.use(user.config.lang);
+      }
+    });
   }
 }

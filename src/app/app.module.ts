@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -23,12 +22,15 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { reducers } from './store/app.reducers';
 import { AuthModule } from './auth/auth.module';
-import { AuthEffects } from './auth/store/auth.effects';
+import { AuthEffects } from './store/effects/auth.effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { environment } from '../environments/environment';
 import { HomeComponent } from './home/home.component';
-import { BudgetService } from '../services/budget.service';
+import { BudgetService } from './services/budget.service';
 import { BudgetEffects } from './store/effects/budget.effects';
+import { UserEffects } from './store/effects/user.effects';
+import { UserService } from './services/user.service';
+import { RoundProgressModule } from 'angular-svg-round-progressbar';
 
 
 
@@ -55,8 +57,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatIconModule, MatMenuModule, MatToolbarModule, MatTabsModule, MatButtonModule, MatSidenavModule,
     NoopAnimationsModule, MatListModule, MatInputModule, MatFormFieldModule,
     ReactiveFormsModule,
+    RoundProgressModule,
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([AuthEffects, BudgetEffects]),
+    EffectsModule.forRoot([AuthEffects, BudgetEffects, UserEffects]),
     StoreRouterConnectingModule,
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     TranslateModule.forRoot({
@@ -67,7 +70,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     })
   ],
-  providers: [ BudgetService],
+  providers: [BudgetService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

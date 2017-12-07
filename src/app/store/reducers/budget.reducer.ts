@@ -1,8 +1,8 @@
-import { Budget } from '../../../models/budget.model';
+import { Budget } from '../../models/budget.model';
 import { Action } from '@ngrx/store';
 import * as BudgetActions from '../actions/budget.actions';
 import { BudgetEffects } from '../effects/budget.effects';
-import { BudgetLine } from '../../../models/budget-line.model';
+import { BudgetLine } from '../../models/budget-line.model';
 
 export interface State {
     budget: Budget;

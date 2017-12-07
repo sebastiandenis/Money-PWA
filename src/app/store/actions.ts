@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
-import { Savings } from '../../models/savings.model';
-import { Quote } from '../../models/quote.model';
+import { Savings } from '../models/savings.model';
+import { Quote } from '../models/quote.model';
 
 // STORE-DATA
 export const LOAD_DEFAULT_SAVINGS_ACTION = 'LOAD_DEFAULT_SAVINGS_ACTION';
