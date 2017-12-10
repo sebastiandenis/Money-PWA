@@ -31,6 +31,7 @@ import { BudgetEffects } from './store/effects/budget.effects';
 import { UserEffects } from './store/effects/user.effects';
 import { UserService } from './services/user.service';
 import { RoundProgressModule } from 'angular-svg-round-progressbar';
+import { AuthService } from './services/auth.service';
 
 
 
@@ -70,7 +71,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     })
   ],
-  providers: [BudgetService, UserService],
+  providers: [AuthService, BudgetService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -28,16 +28,20 @@ export function selectBudgetLines(state: AppState) {
     return state.budget.budgetLines;
 }
 
-export function selectAuthAuthenticated(state: AppState) {
-    return state.auth.authenticated;
+export function selectAuthUserData(state: AppState) {
+    return state.auth.userData;
 }
 
-export function selectAuthToken(state: AppState) {
-    return state.auth.token;
+export function selectAuthIsUserLoggedIn(state: AppState) {
+    return state.auth.isLoggedIn;
 }
 
 export function selectUser(state: AppState) {
     return state.user.user;
+}
+
+export function selectAuthError(state: AppState) {
+    return state.auth.error;
 }
 
 

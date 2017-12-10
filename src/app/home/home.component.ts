@@ -9,6 +9,8 @@ import { Store } from '@ngrx/store';
 import * as BudgetActions from '../store/actions/budget.actions';
 import * as fromRoot from '../store/app.reducers';
 import { User } from '../models/user.model';
+import { Subscription } from 'rxjs/Subscription';
+import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 
 
 @Component({
@@ -16,11 +18,12 @@ import { User } from '../models/user.model';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
   budget$: Observable<Budget>;
   budgetLines$: Observable<BudgetLine[]>;
   user$: Observable<User>;
+  userSubscription: Subscription;
 
   stroke = 15;
   radius = 105;
@@ -47,12 +50,18 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user$.subscribe(user => {
+    this.userSubscription = this.user$.subscribe(user => {
       if (user && user.config && user.config.currentBudgetId !== undefined) {
         this.store.dispatch(new BudgetActions.LoadDefaultBudgetAction(user.config.currentBudgetId));
         this.store.dispatch(new BudgetActions.LoadDefaultBudgetLinesAction(user.config.currentBudgetId));
       }
     });
+  }
+
+  ngOnDestroy() {
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe();
+    }
   }
 
   getColor(left: number, total: number): string {

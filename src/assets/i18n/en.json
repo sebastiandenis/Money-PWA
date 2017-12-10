@@ -1,3 +1,10 @@
 {
-    "appname": "PWA Money App"
+    "appname": "PWA Money App",
+    "dayLeft": "day left",
+    "daysLeft": "days left",
+    "email": "E-mail",
+    "loading": "Loading",
+    "password": "Password",
+    "perDay": "per day",
+    "pleaseenteravalidemailaddress": "Please eneter a valid email address"
 }

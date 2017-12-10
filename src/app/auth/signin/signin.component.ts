@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 
 import * as fromApp from '../../store/app.reducers';
 import * as AuthActions from '../../store/actions/auth.actions';
+import { Auth } from '../../models/auth.model';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
@@ -27,7 +28,7 @@ export class SigninComponent implements OnInit {
     const email = form.value.email;
     const password = form.value.password;
     console.log('onSignin->email: ', email);
-    this.store.dispatch(new AuthActions.TrySignin({ username: email, password: password }));
+    this.store.dispatch(new AuthActions.TrySignin({ user: { email, password } }));
   }
 
 }

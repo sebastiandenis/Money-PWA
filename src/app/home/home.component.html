@@ -1,25 +1,22 @@
-<div>
-    Budget ID: {{ (budget$ | async)?.id}}
-</div>
-<div>
-    Budget name: {{ (budget$ | async)?.name}}
-</div>
-<div>
-    <ul>
-        <li *ngFor="let bline of budgetLines$ | async">
-            {{ bline.name }}
-        </li>
-    </ul>
-</div>
+
+<button mat-fab color="accent" style="margin-left: 10px;">
+    <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>
+</button>
 <div *ngIf="budget$ | async as currentBudget else loadingTpl2">
-    <div class="progress-wrapper" >
-        <div class="current" text-center [ngStyle]="getOverlayStyle()">
-            <span style="color: #2096ba;font-size: 2.0rem;">{{getRoundedCashLeft(currentBudget.cashLeft)}}</span>
+    <div class="progress-wrapper">
+        <div class="current"  [ngStyle]="getOverlayStyle()">
+            <span style="color: #2096ba;font-size: 1.8rem;">{{getRoundedCashLeft(currentBudget.cashLeft)}}</span>
             <span style="font-size: 1.3rem"> / {{currentBudget.totalCash}}</span>
             <br>
-
-            <span style="font-size: 1.2rem; color: #36384c;" >
+            <span style="font-size: 1.1rem; color: #36384c;" *ngIf="daysLeft(currentBudget.dateEnd)==1">
                 {{daysLeft(currentBudget.dateEnd)}} {{ ('daysLeft' | translate)}}
+            </span>
+            <span style="font-size: 1.1rem; color: #36384c;" *ngIf="daysLeft(currentBudget.dateEnd)!=1">
+                {{daysLeft(currentBudget.dateEnd)}} {{ ('daysLeft' | translate)}}
+            </span>
+            <br>
+            <span style="font-size: 1.1rem; color: #36384c;" *ngIf="daysLeft(currentBudget.dateEnd)!=0">
+                {{perDay(daysLeft(currentBudget.dateEnd), currentBudget.cashLeft)}} {{ ('perDay' | translate)}}
             </span>
             <br>
 

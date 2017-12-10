@@ -1,3 +1,10 @@
 {
-    "appname": "PWA Money App"
+    "appname": "PWA Money App",
+    "dayLeft": "dzień",
+    "daysLeft": "dni",
+    "email": "E-mail",
+    "loading": "Wczytuję",
+    "password": "Hasło",
+    "perDay": "na dzień",
+    "pleaseenteravalidemailaddress": "Wprowadź prawidłowy adres email"
 }

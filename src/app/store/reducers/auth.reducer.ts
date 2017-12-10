@@ -3,40 +3,59 @@ import * as AuthActions from '../actions/auth.actions';
 
 
 export interface State {
-    token: string;
-    authenticated: boolean;
+    userData: any; // firebase user model
+    isLoggedIn: boolean;
+    error: any;
 }
 
 export const INITIAL_STORE_DATA: State = {
-    token: undefined,
-    authenticated: false
+    userData: null,
+    isLoggedIn: false,
+    error: null
 };
 
 export function reducer(state = INITIAL_STORE_DATA, action: AuthActions.All): State {
     switch (action.type) {
-        case AuthActions.SIGNUP:
-        case AuthActions.SIGNIN:
-            return {
-                ...state,
-                authenticated: true
-            };
+        case AuthActions.SIGNUP_COMPLETED:
+            return handleSignupCompleted(state, <any>action);
+        case AuthActions.SIGNIN_COMPLETED:
+            return handleSigninCompleted(state, <any>action);
         case AuthActions.LOGOUT:
             return {
                 ...state,
-                token: null,
-                authenticated: false
+                userData: null,
+                isLoggedIn: false
             };
-        case AuthActions.SET_TOKEN:
-            return handleSetToken(state, <any>action);
+        case AuthActions.AUTH_ERROR:
+            return handleAuthError(state, <any>action);
         default:
             return state;
     }
 }
 
-function handleSetToken(state: State, action: AuthActions.SetToken): State {
+function handleAuthError(state: State, action: AuthActions.AuthErrorAction): State {
     return {
         ...state,
-        token: action.payload
+        error: action.payload
     };
 }
+
+function handleSigninCompleted(state: State, action: AuthActions.SigninCompleted): State {
+    return {
+        ...state,
+        userData: action.payload.user,
+        isLoggedIn: action.payload.user != null,
+        error: null
+    };
+}
+
+function handleSignupCompleted(state: State, action: AuthActions.SignupCompleted): State {
+    return {
+        ...state,
+        userData: action.payload.user,
+        isLoggedIn: action.payload.user != null,
+        error: null
+    };
+}
+
 

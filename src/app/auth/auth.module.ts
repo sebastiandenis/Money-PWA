@@ -5,7 +5,7 @@ import {TranslateModule} from '@ngx-translate/core';
 import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 import { AuthRoutingModule } from './auth-routing.module';
-import { MatInputModule, MatFormFieldModule } from '@angular/material';
+import { MatInputModule, MatFormFieldModule, MatHint, MatError } from '@angular/material';
 import {MatButtonModule} from '@angular/material';
 
 @NgModule({

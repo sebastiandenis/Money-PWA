@@ -9,6 +9,8 @@ import * as BudgetActions from './store/actions/budget.actions';
 import * as fromRoot from './store/app.reducers';
 import { User } from './models/user.model';
 import { OnInit } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
+import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 
 
 @Component({
@@ -16,9 +18,11 @@ import { OnInit } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'app';
   user$: Observable<User>;
+  userSubscription: Subscription;
+  authSubscription: Subscription;
 
 
   constructor(private translate: TranslateService,
@@ -29,7 +33,7 @@ export class AppComponent implements OnInit {
     this.translate.setDefaultLang('en');
     // the lang to use, if the lang isn't available, it will use the current loader to get them
     this.translate.use('en');
-    this.afAuth.authState.subscribe(user => {
+    this.authSubscription = this.afAuth.authState.subscribe(user => {
       if (user) {
         // zalogowany
         this.store.dispatch(new UserActions.LoadUserDataAction(user.uid));
@@ -42,10 +46,19 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user$.subscribe(user => {
+    this.userSubscription = this.user$.subscribe(user => {
       if (user && user.config && user.config.lang !== undefined) {
         this.translate.use(user.config.lang);
       }
     });
+  }
+
+  ngOnDestroy() {
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe();
+    }
+    if (this.authSubscription) {
+      this.authSubscription.unsubscribe();
+    }
   }
 }

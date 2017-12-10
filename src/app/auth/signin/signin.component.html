@@ -1,11 +1,16 @@
 <form (ngSubmit)="onSignin(f)" #f="ngForm" class="signin-form">
   
     <mat-form-field class="full-width">
-      <input matInput placeholder="Mail" id="email" type="email" name="email" ngModel>
+      <input matInput placeholder="{{'email' | translate}}" id="email" type="email" name="email" ngModel
+      required email #email="ngModel">
+      <mat-error >
+        {{'pleaseenteravalidemailaddress' | translate}}!
+      </mat-error>
     </mat-form-field>
   
     <mat-form-field class="full-width" style="margin-top: 20px;">
-      <input matInput placeholder="Password" id="password" type="password" name="password" ngModel>
+      <input matInput placeholder="{{'password' | translate}}" id="password" type="password" name="password" ngModel
+      password required>
     </mat-form-field>
   
     <button mat-raised-button color="secondary" type="submit" [disabled]="!f.valid">Sign In</button>
