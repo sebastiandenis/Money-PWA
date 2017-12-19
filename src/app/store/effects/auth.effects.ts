@@ -24,10 +24,26 @@ export class AuthEffects {
         .ofType(AuthActions.TRY_SIGNUP)
         .map((action: AuthActions.TrySignup) => action.payload)
         .switchMap((authData: AuthUserPayload) => this.authService.signUp(authData.user)
+            /*
+                .mergeMap((res) => {
+                    console.log('MergeMap.res=', res);
+                    return [
+                        {
+                            type: AuthActions.SIGNUP_COMPLETED,
+                            payload: res
+                        },
+                        {
+                            type: AuthActions.SIGNIN_COMPLETED,
+                            payload: res
+                        }
+                    ];
+                })
+                */
             .map(res => (new AuthActions.SignupCompleted(new AuthActions.AuthUserPayload(res))))
             .do(() => this.router.navigate(['/']))
             .catch((error) => Observable.of(new AuthActions.AuthErrorAction({ error: error })))
         );
+
 
     @Effect()
     authSignin$: Observable<Action> = this.actions$

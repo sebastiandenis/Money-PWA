@@ -1,6 +1,7 @@
 import { Budget } from '../../models/budget.model';
 import { Action } from '@ngrx/store';
 import * as BudgetActions from '../actions/budget.actions';
+import * as AuthActions from '../actions/auth.actions';
 import { BudgetEffects } from '../effects/budget.effects';
 import { BudgetLine } from '../../models/budget-line.model';
 
@@ -24,6 +25,9 @@ export const INITIAL_STORE_DATA: State = {
 
 export function reducer(state = INITIAL_STORE_DATA, action: BudgetActions.All): State {
     switch (action.type) {
+
+        case AuthActions.LOGOUT:
+            return INITIAL_STORE_DATA;
 
         case BudgetActions.LOAD_DEFAULT_BUDGET_ACTION:
             return {

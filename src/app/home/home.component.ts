@@ -4,13 +4,13 @@ import { AngularFirestoreDocument, AngularFirestore } from 'angularfire2/firesto
 import { BudgetLine } from '../models/budget-line.model';
 import { Budget } from '../models/budget.model';
 import { TranslateService } from '@ngx-translate/core';
-import { BudgetService } from '../services/budget.service';
 import { Store } from '@ngrx/store';
 import * as BudgetActions from '../store/actions/budget.actions';
+import * as UiStateActions from '../store/actions/uiState.actions';
 import * as fromRoot from '../store/app.reducers';
 import { User } from '../models/user.model';
 import { Subscription } from 'rxjs/Subscription';
-import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
+import { OnDestroy, AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 
 
 @Component({
@@ -49,11 +49,17 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.budgetLines$ = this.store.select(fromRoot.selectBudgetLines);
   }
 
+
+
   ngOnInit() {
+    this.store.dispatch(new UiStateActions.ChangeTitleAction('budgettitle'));
+    this.store.dispatch(new UiStateActions.ChangeMainMenuBtnVisibleAction(true));
+
     this.userSubscription = this.user$.subscribe(user => {
       if (user && user.config && user.config.currentBudgetId !== undefined) {
-        this.store.dispatch(new BudgetActions.LoadDefaultBudgetAction(user.config.currentBudgetId));
-        this.store.dispatch(new BudgetActions.LoadDefaultBudgetLinesAction(user.config.currentBudgetId));
+        console.log('HomeComponent.ngOnInit.currentBudgetId: ', user.config.currentBudgetId);
+        this.store.dispatch(new BudgetActions.LoadDefaultBudgetAction(user.config.currentBudgetId)); // TODO: powinno iść z góry
+        this.store.dispatch(new BudgetActions.LoadDefaultBudgetLinesAction(user.config.currentBudgetId)); // TODO: powinno iść z góry
       }
     });
   }

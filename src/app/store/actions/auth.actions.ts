@@ -16,7 +16,7 @@ export class AuthUserPayload {
 export class TrySignup implements Action {
     readonly type: string = TRY_SIGNUP;
     constructor(public payload?: AuthUserPayload) {
-
+       // console.log('Action->TrySignup: ', payload);
     }
 }
 
@@ -45,7 +45,7 @@ export class SigninCompleted implements Action {
 export class AuthErrorAction implements Action {
     readonly type: string = AUTH_ERROR;
     constructor(public payload: any) {
-     }
+    }
 }
 
 

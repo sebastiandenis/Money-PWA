@@ -1,0 +1,12 @@
+<mat-toolbar color="primary" layout="row" style="position: fixed;">
+
+  <button mat-icon-button (click)="switchSideMenu.emit()">
+      <mat-icon>menu</mat-icon>
+  </button>
+  <span>{{ (uiTitle$ | async) | translate}}</span>
+  <span fxFlex="1 1 auto"></span>
+  <app-main-menu></app-main-menu>
+
+
+
+</mat-toolbar>

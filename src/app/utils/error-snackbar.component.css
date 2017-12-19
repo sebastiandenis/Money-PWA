@@ -1,0 +1,7 @@
+::ng-deep snack-bar-container.error-class {
+    background: #ef5350;
+  }
+  
+  ::ng-deep .error-class .mat-simple-snackbar {
+    color: white;
+  }

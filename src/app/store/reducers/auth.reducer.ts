@@ -21,11 +21,7 @@ export function reducer(state = INITIAL_STORE_DATA, action: AuthActions.All): St
         case AuthActions.SIGNIN_COMPLETED:
             return handleSigninCompleted(state, <any>action);
         case AuthActions.LOGOUT:
-            return {
-                ...state,
-                userData: null,
-                isLoggedIn: false
-            };
+            return INITIAL_STORE_DATA;
         case AuthActions.AUTH_ERROR:
             return handleAuthError(state, <any>action);
         default:
@@ -50,6 +46,7 @@ function handleSigninCompleted(state: State, action: AuthActions.SigninCompleted
 }
 
 function handleSignupCompleted(state: State, action: AuthActions.SignupCompleted): State {
+    console.log('auth.reducer.handleSignupCompleted.userData: ', action.payload.user);
     return {
         ...state,
         userData: action.payload.user,

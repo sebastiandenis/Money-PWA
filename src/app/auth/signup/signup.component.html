@@ -1,22 +1,48 @@
-<div class="row">
-    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <form (ngSubmit)="onSignup(f)" #f="ngForm">
-        <div class="form-group">
-          <label for="email">Mail</label>
-          <input type="email" id="email" name="email" ngModel class="form-control">
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            ngModel
-            class="form-control">
-        </div>
-        <button class="btn btn-primary" type="submit" [disabled]="!f.valid">Sign Up</button>
-      </form>
-    </div>
+<form [formGroup]="signupForm" class="signup-form" (ngSubmit)="onSignup()">
+  <div formGroupName="userData">
+    <mat-form-field class="full-width">
+      <input matInput placeholder="{{'username' | translate}}" id="username" type="text" name="username" formControlName="username">
+
+      <mat-error>
+        {{'usernameexists' | translate}}!
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="{{'email' | translate}}" id="email" type="email" name="email" formControlName="email">
+      <mat-error>
+        {{'pleaseenteravalidemailaddress' | translate}}!
+      </mat-error>
+    </mat-form-field>
+
   </div>
+  <div formGroupName="passwords">
+    <mat-form-field class="full-width" style="margin-top: 20px;">
+      <input matInput placeholder="{{'password' | translate}}" id="password" type="password" name="password" formControlName="password">
+      <mat-error>
+        {{'atleastxcharsinpassword' | translate:param}}!
+      </mat-error>
+
+    </mat-form-field>
+
+    <mat-form-field class="full-width" style="margin-top: 20px;">
+      <input matInput placeholder="{{'confirmpassword' | translate}}" id="confirmPassword" type="password" name="confirmPassword"
+        formControlName="confirmPassword">
+      <mat-error>
+        {{'atleastxcharsinpassword' | translate:param}}!
+      </mat-error>
+      
+    </mat-form-field>
+    <div class="mat-error" style="font-size: 75%" *ngIf="(signupForm.get('passwords.password').touched 
+    ||  signupForm.get('passwords.confirmPassword').touched )
+    && signupForm.get('passwords').hasError('nomatch')">
+      {{'passwordsdontmatch' | translate:param}}!
+    </div>
   
-  
+  </div>
+
+
+
+  <button mat-raised-button color="secondary" type="submit" [disabled]="!signupForm.valid" class="signup-btn-class">
+    {{'signin' | translate}}
+  </button>
+</form>

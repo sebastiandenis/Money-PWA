@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppComponent } from './app.component';
+import { AppComponent } from './core/containers/app';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -12,8 +12,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import 'hammerjs';
-import { MatToolbarModule, MatIconModule, MatMenuModule, MatTabsModule, MatButtonModule, MatSidenavModule } from '@angular/material';
-import { MatListModule, MatInputModule, MatFormFieldModule } from '@angular/material';
+import { MatToolbarModule, MatIconModule, MatMenuModule, MatTabsModule, MatCardTitle, MatCardModule, } from '@angular/material';
+import { MatListModule, MatInputModule, MatFormFieldModule, MatButtonModule, MatSidenavModule, MatSnackBarModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
@@ -32,6 +32,12 @@ import { UserEffects } from './store/effects/user.effects';
 import { UserService } from './services/user.service';
 import { RoundProgressModule } from 'angular-svg-round-progressbar';
 import { AuthService } from './services/auth.service';
+import { ErrorSnackbarComponent } from './utils/error-snackbar.component';
+import { EqualValidator } from './auth/signup/equal-validator.directive';
+import { CommonModule } from '@angular/common';
+import { MainMenuComponent } from './core/components/main-menu/main-menu.component';
+import { ToolbarComponent } from './core/components/toolbar/toolbar.component';
+import { NotFoundPageComponent } from './core/containers/not-found-page';
 
 
 
@@ -43,7 +49,12 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    EqualValidator,
+    ErrorSnackbarComponent,
+    MainMenuComponent,
+    ToolbarComponent,
+    NotFoundPageComponent
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),
@@ -53,10 +64,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
+    CommonModule,
     FlexLayoutModule,
     HttpClientModule,
     MatIconModule, MatMenuModule, MatToolbarModule, MatTabsModule, MatButtonModule, MatSidenavModule,
-    NoopAnimationsModule, MatListModule, MatInputModule, MatFormFieldModule,
+    NoopAnimationsModule, MatListModule, MatInputModule, MatFormFieldModule, MatSnackBarModule, MatIconModule,
+    MatCardModule,
     ReactiveFormsModule,
     RoundProgressModule,
     StoreModule.forRoot(reducers),

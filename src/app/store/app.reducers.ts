@@ -44,5 +44,18 @@ export function selectAuthError(state: AppState) {
     return state.auth.error;
 }
 
+export function selectUiTitle(state: AppState) {
+    return state.uiState.currentTitle;
+}
+
+export function selectUiMainMenuBtnVisible(state: AppState) {
+    return state.uiState.mainMenuBtnVisible;
+}
+
+export function selectShowSidenav(state: AppState) {
+    return state.uiState.showSidenav;
+}
+
+
 
 

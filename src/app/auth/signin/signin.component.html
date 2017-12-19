@@ -13,6 +13,9 @@
       password required>
     </mat-form-field>
   
-    <button mat-raised-button color="secondary" type="submit" [disabled]="!f.valid">Sign In</button>
+    <button mat-raised-button color="accent" type="submit" class="signin-btn" [disabled]="!f.valid">
+      {{'signin' | translate}}
+    </button>
+  
   
   </form>

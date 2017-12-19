@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import * as UserActions from '../actions/user.actions';
+import * as AuthActions from '../actions/auth.actions';
 import { User } from '../../models/user.model';
 
 export interface State {
@@ -23,6 +24,8 @@ export const INITIAL_STORE_DATA: State = {
 
 export function reducer(state = INITIAL_STORE_DATA, action: UserActions.All): State {
     switch (action.type) {
+        case AuthActions.LOGOUT:
+        return INITIAL_STORE_DATA;
         case UserActions.LOAD_USER_DATA_ACTION:
             return {
                 ...state

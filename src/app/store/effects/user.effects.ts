@@ -20,7 +20,6 @@ export class UserEffects {
         .switchMap(userId => {
             return this.userService.loadUserById(userId);
         })
-        .take(1)
         .map(results => new UserActions.UserDataLoadedAction(results[0]));
 
 }

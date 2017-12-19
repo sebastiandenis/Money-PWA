@@ -1,9 +1,13 @@
 .signin-form {
     margin-top: 5px;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
+.signin-btn {
+    width: 100%;
+    font-size: 110%;
+}
 .full-width {
     width: 100%;
   }
