@@ -1,0 +1,21 @@
+::ng-deep .mat-tab-group{
+    margin-top:-15px !important;
+  }
+
+
+::ng-deep .mat-tab-header{
+    z-index: 999;
+    width:100vw;
+    position: fixed  !important;
+    background-color: #ffffff;
+    text-align: center !important;
+}
+
+::ng-deep .mat-tab-body-wrapper{
+    position: relative !important;
+    margin-top:60px;
+}
+
+::ng-deep .mat-tab-label{
+    width: 100%;
+}

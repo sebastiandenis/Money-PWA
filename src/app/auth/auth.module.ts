@@ -7,8 +7,10 @@ import { SignupComponent } from './signup/signup.component';
 import { AuthRoutingModule } from './auth-routing.module';
 import { MatInputModule, MatFormFieldModule, MatHint, MatError, MatIcon } from '@angular/material';
 import {MatButtonModule} from '@angular/material';
-import { ErrorSnackbarComponent } from '../utils/error-snackbar.component';
+import { ErrorSnackbarComponent } from '../core/components/error-snackbar/error-snackbar.component';
 import { CommonModule } from '@angular/common';
+import { MaterialModule } from '../material/index';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -19,8 +21,7 @@ import { CommonModule } from '@angular/common';
   entryComponents: [ErrorSnackbarComponent],
   imports: [
     FormsModule, ReactiveFormsModule,
-    AuthRoutingModule, MatFormFieldModule, MatInputModule, MatButtonModule,CommonModule,
-    TranslateModule.forRoot()
+    AuthRoutingModule, MaterialModule, CommonModule, SharedModule
   ]
 })
 export class AuthModule {}

@@ -24,6 +24,11 @@ export function reducer(state = INITIAL_STORE_DATA, action: AuthActions.All): St
             return INITIAL_STORE_DATA;
         case AuthActions.AUTH_ERROR:
             return handleAuthError(state, <any>action);
+        case AuthActions.AUTH_ERROR_CLEAR_ACTION:
+            return {
+                ...state,
+                error: null
+            };
         default:
             return state;
     }

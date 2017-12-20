@@ -1,0 +1,31 @@
+
+<button mat-fab color="accent" style="margin-left: 10px;">
+  <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>
+</button>
+<div *ngIf="budget else loadingTpl2">
+  <div class="progress-wrapper">
+      <div class="current"  [ngStyle]="getOverlayStyle()">
+          <span style="color: #2096ba;font-size: 1.8rem;">{{getRoundedCashLeft(budget.cashLeft)}}</span>
+          <span style="font-size: 1.3rem"> / {{budget.totalCash}}</span>
+          <br>
+          <span style="font-size: 1.1rem; color: #36384c;" *ngIf="daysLeft(budget.dateEnd)==1">
+              {{daysLeft(budget.dateEnd)}} {{ ('daysLeft' | translate)}}
+          </span>
+          <span style="font-size: 1.1rem; color: #36384c;" *ngIf="daysLeft(budget.dateEnd)!=1">
+              {{daysLeft(budget.dateEnd)}} {{ ('daysLeft' | translate)}}
+          </span>
+          <br>
+          <span style="font-size: 1.1rem; color: #36384c;" *ngIf="daysLeft(budget.dateEnd)!=0">
+              {{perDay(daysLeft(budget.dateEnd), budget.cashLeft)}} {{ ('perDay' | translate)}}
+          </span>
+          <br>
+
+      </div>
+      <round-progress [current]="getRoundedCashLeft(budget.cashLeft)" [max]="budget.totalCash" [responsive]="responsive"
+          [stroke]="stroke" [clockwise]="colckwise" [color]="getColor(budget.cashLeft, budget.totalCash)" [rounded]="rounded"
+          [background]="getBackgroundColor(budget.cashLeft, budget.totalCash)"></round-progress>
+  </div>
+</div>
+<ng-template #loadingTpl2>
+  <span class="loading">{{'loading' | translate}}...</span>
+</ng-template>

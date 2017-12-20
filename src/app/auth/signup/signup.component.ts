@@ -10,7 +10,7 @@ import { Observable } from 'rxjs/Observable';
 import { passwordMatcher } from '../../utils/password-matcher';
 import { Subscription } from 'rxjs/Subscription';
 import { MatSnackBar } from '@angular/material';
-import { ErrorSnackbarComponent } from '../../utils/error-snackbar.component';
+import { ErrorSnackbarComponent } from '../../core/components/error-snackbar/error-snackbar.component';
 import * as FbAuthErrorCodes from '../../utils/firebase-error-codes';
 
 @Component({
@@ -26,7 +26,7 @@ export class SignupComponent implements OnInit {
 
     signupForm: FormGroup;
     userData: FormGroup;
-    forbiddenUsernames = ['Sebek', 'Kamila'];
+    forbiddenUsernames = ['Test'];
 
     constructor(private store: Store<fromRoot.AppState>, public snackBar: MatSnackBar) {
         this.authError$ = this.store.select(fromRoot.selectAuthError);

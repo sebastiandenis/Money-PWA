@@ -4,10 +4,19 @@
     margin-right: 20px;
 }
 
-.signin-btn {
-    width: 100%;
-    font-size: 110%;
-}
+
 .full-width {
     width: 100%;
   }
+
+  .signin-btn{
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 110%;
+    width: 100%;
+}
+
+.space-between {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

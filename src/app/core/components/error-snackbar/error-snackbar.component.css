@@ -1,5 +1,6 @@
 ::ng-deep snack-bar-container.error-class {
     background: #ef5350;
+    padding: 20px;
   }
   
   ::ng-deep .error-class .mat-simple-snackbar {

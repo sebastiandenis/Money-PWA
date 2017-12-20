@@ -7,6 +7,7 @@ export const SIGNIN_COMPLETED = 'SIGNIN_COMPLETED';
 export const LOGOUT = 'LOGOUT';
 export const LOGOUT_COMPLETED = 'LOGOUT_COMPLETED';
 export const AUTH_ERROR = 'AUTH_ERROR';
+export const AUTH_ERROR_CLEAR_ACTION = 'AUTH_ERROR_CLEAR_ACTION';
 
 
 export class AuthUserPayload {
@@ -16,7 +17,7 @@ export class AuthUserPayload {
 export class TrySignup implements Action {
     readonly type: string = TRY_SIGNUP;
     constructor(public payload?: AuthUserPayload) {
-       // console.log('Action->TrySignup: ', payload);
+        // console.log('Action->TrySignup: ', payload);
     }
 }
 
@@ -48,6 +49,10 @@ export class AuthErrorAction implements Action {
     }
 }
 
+export class AuthErrorClearAction implements Action {
+    readonly type: string = AUTH_ERROR_CLEAR_ACTION;
+}
+
 
 export class Logout implements Action {
     readonly type: string = LOGOUT;
@@ -71,5 +76,6 @@ export class SetToken implements Action {
 */
 
 export type All =
-    SigninCompleted | SignupCompleted | TrySignin | TrySignup | Logout | LogoutCompleted;
+    SigninCompleted | SignupCompleted | TrySignin | TrySignup | Logout | LogoutCompleted |
+    AuthErrorClearAction;
 

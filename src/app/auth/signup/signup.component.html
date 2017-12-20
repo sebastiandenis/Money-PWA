@@ -1,13 +1,13 @@
 <form [formGroup]="signupForm" class="signup-form" (ngSubmit)="onSignup()">
   <div formGroupName="userData">
-    <mat-form-field class="full-width">
+    <mat-form-field class="full-width space-between">
       <input matInput placeholder="{{'username' | translate}}" id="username" type="text" name="username" formControlName="username">
 
       <mat-error>
-        {{'usernameexists' | translate}}!
+        {{'pleaseenterusername' | translate}}!
       </mat-error>
     </mat-form-field>
-    <mat-form-field class="full-width">
+    <mat-form-field class="full-width space-between">
       <input matInput placeholder="{{'email' | translate}}" id="email" type="email" name="email" formControlName="email">
       <mat-error>
         {{'pleaseenteravalidemailaddress' | translate}}!
@@ -15,8 +15,8 @@
     </mat-form-field>
 
   </div>
-  <div formGroupName="passwords">
-    <mat-form-field class="full-width" style="margin-top: 20px;">
+  <div formGroupName="passwords" class="space-between">
+    <mat-form-field class="full-width space-between" >
       <input matInput placeholder="{{'password' | translate}}" id="password" type="password" name="password" formControlName="password">
       <mat-error>
         {{'atleastxcharsinpassword' | translate:param}}!
@@ -24,25 +24,27 @@
 
     </mat-form-field>
 
-    <mat-form-field class="full-width" style="margin-top: 20px;">
+    <mat-form-field class="full-width space-between">
       <input matInput placeholder="{{'confirmpassword' | translate}}" id="confirmPassword" type="password" name="confirmPassword"
         formControlName="confirmPassword">
       <mat-error>
         {{'atleastxcharsinpassword' | translate:param}}!
       </mat-error>
+   
       
     </mat-form-field>
-    <div class="mat-error" style="font-size: 75%" *ngIf="(signupForm.get('passwords.password').touched 
+    <div class="mat-error" style="font-size: 75%;margin-top: -5px;" *ngIf="(signupForm.get('passwords.password').touched 
     ||  signupForm.get('passwords.confirmPassword').touched )
     && signupForm.get('passwords').hasError('nomatch')">
       {{'passwordsdontmatch' | translate:param}}!
     </div>
+
   
   </div>
 
 
 
-  <button mat-raised-button color="secondary" type="submit" [disabled]="!signupForm.valid" class="signup-btn-class">
-    {{'signin' | translate}}
+  <button mat-raised-button color="accent" type="submit" [disabled]="!signupForm.valid" class="signup-btn-class">
+    {{'signup' | translate}}
   </button>
 </form>

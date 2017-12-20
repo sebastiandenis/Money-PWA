@@ -25,19 +25,19 @@ import { AuthModule } from './auth/auth.module';
 import { AuthEffects } from './store/effects/auth.effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { environment } from '../environments/environment';
-import { HomeComponent } from './home/home.component';
 import { BudgetService } from './services/budget.service';
 import { BudgetEffects } from './store/effects/budget.effects';
 import { UserEffects } from './store/effects/user.effects';
 import { UserService } from './services/user.service';
-import { RoundProgressModule } from 'angular-svg-round-progressbar';
 import { AuthService } from './services/auth.service';
-import { ErrorSnackbarComponent } from './utils/error-snackbar.component';
 import { EqualValidator } from './auth/signup/equal-validator.directive';
 import { CommonModule } from '@angular/common';
 import { MainMenuComponent } from './core/components/main-menu/main-menu.component';
 import { ToolbarComponent } from './core/components/toolbar/toolbar.component';
 import { NotFoundPageComponent } from './core/containers/not-found-page';
+import { BudgetModule } from './budget/budget.module';
+import { SharedModule } from './shared/shared.module';
+import { MaterialModule } from './material/index';
 
 
 
@@ -49,9 +49,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     EqualValidator,
-    ErrorSnackbarComponent,
     MainMenuComponent,
     ToolbarComponent,
     NotFoundPageComponent
@@ -64,14 +62,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
+    BudgetModule,
     CommonModule,
     FlexLayoutModule,
     HttpClientModule,
-    MatIconModule, MatMenuModule, MatToolbarModule, MatTabsModule, MatButtonModule, MatSidenavModule,
-    NoopAnimationsModule, MatListModule, MatInputModule, MatFormFieldModule, MatSnackBarModule, MatIconModule,
-    MatCardModule,
+    MaterialModule,
     ReactiveFormsModule,
-    RoundProgressModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([AuthEffects, BudgetEffects, UserEffects]),
     StoreRouterConnectingModule,

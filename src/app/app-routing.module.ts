@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 import { AppComponent } from './core/containers/app';
-import { HomeComponent } from './home/home.component';
+import { BudgetComponent } from './budget/budget.component';
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent }
+  { path: '', component: BudgetComponent }
 ];
 
 @NgModule({

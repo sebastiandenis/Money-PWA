@@ -9,7 +9,7 @@ import { MatSnackBar, MAT_SNACK_BAR_DATA } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import * as fromRoot from '../../store/app.reducers';
 import { Subscription } from 'rxjs/Subscription';
-import { ErrorSnackbarComponent } from '../../utils/error-snackbar.component';
+import { ErrorSnackbarComponent } from '../../core/components/error-snackbar/error-snackbar.component';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import * as FbAuthErrorCodes from '../../utils/firebase-error-codes';
 
