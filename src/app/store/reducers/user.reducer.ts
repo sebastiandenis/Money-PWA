@@ -18,6 +18,11 @@ export const INITIAL_STORE_DATA: State = {
             lang: undefined,
             currentBudgetId: undefined,
             currentSavingsId: undefined
+        },
+        profileMedia: {
+            // tslint:disable-next-line:max-line-length
+            profilePhotoUrl: 'https://firebasestorage.googleapis.com/v0/b/pwa-money-app.appspot.com/o/profile%2Fprofile.png?alt=media&token=8d3d5d72-3c59-48b5-8ebf-f79ce87cb54d',
+            profileThumbnailUrl: 'https://firebasestorage.googleapis.com/v0/b/pwa-money-app.appspot.com/o/profile%2Fprofile.png?alt=media&token=8d3d5d72-3c59-48b5-8ebf-f79ce87cb54d'
         }
     }
 };
@@ -25,7 +30,7 @@ export const INITIAL_STORE_DATA: State = {
 export function reducer(state = INITIAL_STORE_DATA, action: UserActions.All): State {
     switch (action.type) {
         case AuthActions.LOGOUT:
-        return INITIAL_STORE_DATA;
+            return INITIAL_STORE_DATA;
         case UserActions.LOAD_USER_DATA_ACTION:
             return {
                 ...state

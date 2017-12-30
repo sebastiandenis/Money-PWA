@@ -12,9 +12,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import 'hammerjs';
-import { MatToolbarModule, MatIconModule, MatMenuModule, MatTabsModule, MatCardTitle, MatCardModule, } from '@angular/material';
-import { MatListModule, MatInputModule, MatFormFieldModule, MatButtonModule, MatSidenavModule, MatSnackBarModule } from '@angular/material';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -38,6 +35,8 @@ import { NotFoundPageComponent } from './core/containers/not-found-page';
 import { BudgetModule } from './budget/budget.module';
 import { SharedModule } from './shared/shared.module';
 import { MaterialModule } from './material/index';
+import { StorageService } from './services/storage.service';
+import { WindowScrollDirective } from './core/containers/window-scroll.directive';
 
 
 
@@ -52,7 +51,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     EqualValidator,
     MainMenuComponent,
     ToolbarComponent,
-    NotFoundPageComponent
+    NotFoundPageComponent,
+    WindowScrollDirective
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),
@@ -80,7 +80,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     })
   ],
-  providers: [AuthService, BudgetService, UserService],
+  providers: [AuthService, BudgetService, UserService, StorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

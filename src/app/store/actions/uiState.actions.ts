@@ -2,6 +2,7 @@ import { Action } from '@ngrx/store';
 
 export const CHANGE_TITLE_ACTION = 'CHANGE_TITLE_ACTION';
 export const CHANGE_MAIN_MENU_BTN_VISIBLE_ACTION = 'CHANGE_MAIN_MENU_BTN_VISIBLE_ACTION';
+export const CHANGE_MAIN_TOOLBAR_FIXED_ACTION = 'CHANGE_MAIN_TOOLBAR_FIXED_ACTION';
 
 export const OPEN_SIDENAV_ACTION = 'OPEN_SIDENAV_ACTION';
 export const CLOSE_SIDENAV_ACTION = 'CLOSE_SIDENAV_ACTION';
@@ -33,7 +34,13 @@ export class ChangeMainMenuBtnVisibleAction implements Action {
     }
 }
 
+export class ChangeMainToolbarFixedAction implements Action {
+    readonly type: string = CHANGE_MAIN_TOOLBAR_FIXED_ACTION;
+    constructor(public payload?: boolean) {
+    }
+}
+
 export type All =
     OpenSidenavAction | CloseSidenavAction | SwitchSidenavAction |
-    ChangeTitleAction | ChangeMainMenuBtnVisibleAction;
+    ChangeTitleAction | ChangeMainMenuBtnVisibleAction | ChangeMainToolbarFixedAction;
 

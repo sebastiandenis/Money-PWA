@@ -1,29 +1,42 @@
-html, body {
-  margin: 0;
-  width: 100%;
-  height: 100%;
+.app-container {
+  position: absolute;
+  top: 0px;
+  bottom: 60px;
+  left: 0;
+  right: 0;
+  z-index: -1;
 }
 
-mat-sidenav-container, .my-content {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-  }
-
-mat-sidenav-layout {
-    background: rgba(0, 0, 0, .03);
-  }
-
-.sidenav {
-    width: 250px;
-
-  }
+.app-sidenav {
+  display: flex;
+  align-items: left;
+  justify-content: left;
+  width: 300px;
+}
 
 
- .mat-toolbar.mat-primary{
+
+
+.app-header {
   position: fixed;
-  top: 0;
-  right: 0;
+  top: 0px;
   left: 0;
-  z-index: 9;
+  right: 0;
+
+}
+
+.app-header-hidden {
+  position: fixed;
+  top: -60px;
+  left: 0;
+  right: 0;
+}
+
+
+
+.app-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }

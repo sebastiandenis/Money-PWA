@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Budget } from '../models/budget.model';
 import { BudgetLine } from '../models/budget-line.model';
@@ -10,6 +10,9 @@ import * as fromRoot from '../store/app.reducers';
 import { OnDestroy } from '@angular/core';
 import * as BudgetActions from '../store/actions/budget.actions';
 import * as UiStateActions from '../store/actions/uiState.actions';
+
+
+
 
 @Component({
   selector: 'app-budget',
@@ -24,6 +27,9 @@ export class BudgetComponent implements OnInit, OnDestroy {
   userSubscription: Subscription;
 
 
+
+
+
   constructor(translate: TranslateService,
     private store: Store<fromRoot.AppState>) {
     this.user$ = this.store.select(fromRoot.selectUser);
@@ -32,6 +38,7 @@ export class BudgetComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
     this.store.dispatch(new UiStateActions.ChangeTitleAction('budgettitle'));
     this.store.dispatch(new UiStateActions.ChangeMainMenuBtnVisibleAction(true));
 
@@ -42,6 +49,8 @@ export class BudgetComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+
 
   ngOnDestroy() {
     if (this.userSubscription) {

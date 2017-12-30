@@ -5,13 +5,15 @@ export interface State {
     currentTitle: string;
     mainMenuBtnVisible: boolean;
     showSidenav: boolean;
+    mainToolbarFixed: boolean;
 
 }
 
 export const INITIAL_UI_STATE: State = {
     currentTitle: 'appname',
     mainMenuBtnVisible: false,
-    showSidenav: false
+    showSidenav: false,
+    mainToolbarFixed: true
 
 };
 
@@ -33,6 +35,8 @@ export function uiState(state: State = INITIAL_UI_STATE, action: Action): State 
             return handleChangeTitleAction(state, <any>action);
         case (UiStateActions.CHANGE_MAIN_MENU_BTN_VISIBLE_ACTION):
             return handleChangeMainMenuBtnVisibleAction(state, <any>action);
+        case (UiStateActions.CHANGE_MAIN_TOOLBAR_FIXED_ACTION):
+            return handleChangeMainToolbarFixedAction(state, <any>action);
         default:
             return state;
     }
@@ -59,5 +63,12 @@ function handleChangeMainMenuBtnVisibleAction(state: State, action: UiStateActio
     return {
         ...state,
         mainMenuBtnVisible: action.payload
+    };
+}
+
+function handleChangeMainToolbarFixedAction(state: State, action: UiStateActions.ChangeMainToolbarFixedAction): State {
+    return {
+        ...state,
+        mainToolbarFixed: action.payload
     };
 }

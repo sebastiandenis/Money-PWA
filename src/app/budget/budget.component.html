@@ -1,26 +1,35 @@
-<mat-tab-group  >
-    <mat-tab >
-        <ng-template mat-tab-label fxFlex fxFlexFill>
-            <mat-icon style="color: #5E35B1;">account_balance_wallet</mat-icon>
-        </ng-template>
-        <app-budget-dashboard [budget]="budget$ | async" [budgetLines]="budgetLines$ | async">
-        </app-budget-dashboard>
-    </mat-tab>
-    <mat-tab >
-        <ng-template mat-tab-label fxFlex fxFlexFill>
-            <mat-icon  style="color: #5E35B1;">view_list</mat-icon>
-        </ng-template>
-        <div fxFlex style="align-content: flex-end;">
-            <h1>Terrible sushi restaurants</h1>
+<app-budget-tabs></app-budget-tabs>
+
+<!--
+    <mat-tab-group dynamicHeight="true">
+        <mat-tab>
+            <ng-template mat-tab-label fxFlex fxFlexFill>
+                <mat-icon style="color: #5E35B1;">account_balance_wallet</mat-icon>
+            </ng-template>
+            <app-budget-dashboard [budget]="budget$ | async" [budgetLines]="budgetLines$ | async" style="top: 60px;">
+            </app-budget-dashboard>
+        </mat-tab>
+        <mat-tab>
+            <ng-template mat-tab-label fxFlex fxFlexFill>
+                <mat-icon style="color: #5E35B1;">view_list</mat-icon>
+            </ng-template>
+            <div fxFlex style="align-content: flex-end;">
+                <h1>Terrible sushi restaurants</h1>
+                <p>...</p>
+            </div>
+
+        </mat-tab>
+        <mat-tab>
+            <ng-template mat-tab-label fxFlex fxFlexFill>
+                <mat-icon style="color: #5E35B1;">settings</mat-icon>
+            </ng-template>
+            <h1>Settings</h1>
             <p>...</p>
-        </div>
-       
-    </mat-tab>
-    <mat-tab >
-        <ng-template mat-tab-label fxFlex fxFlexFill>
-            <mat-icon  style="color: #5E35B1;">settings</mat-icon>
-        </ng-template>
-        <h1>Settings</h1>
-        <p>...</p>
-    </mat-tab>
-</mat-tab-group>
+           
+                
+        </mat-tab>
+    </mat-tab-group>
+-->
+<div class="budget-content">
+    <router-outlet></router-outlet>
+</div>

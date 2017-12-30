@@ -56,6 +56,10 @@ export function selectShowSidenav(state: AppState) {
     return state.uiState.showSidenav;
 }
 
+export function selectMainToolbarFixed(state: AppState) {
+    return state.uiState.mainToolbarFixed;
+}
+
 
 
 

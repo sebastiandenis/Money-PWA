@@ -3,9 +3,10 @@ import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 import { AppComponent } from './core/containers/app';
 import { BudgetComponent } from './budget/budget.component';
+import { SigninComponent } from './auth/signin/signin.component';
 
 const appRoutes: Routes = [
-  { path: '', component: BudgetComponent }
+
 ];
 
 @NgModule({

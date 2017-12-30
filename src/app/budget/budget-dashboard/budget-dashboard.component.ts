@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostListener, Inject } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs/Observable';
 import { Budget } from '../../models/budget.model';
@@ -10,16 +10,15 @@ import { OnDestroy } from '@angular/core';
 import * as BudgetActions from '../../store/actions/budget.actions';
 import * as UiStateActions from '../../store/actions/uiState.actions';
 import * as fromRoot from '../../store/app.reducers';
+import { DOCUMENT } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-budget-dashboard',
   templateUrl: './budget-dashboard.component.html',
   styleUrls: ['./budget-dashboard.component.css']
 })
-export class BudgetDashboardComponent implements OnInit {
+export class BudgetDashboardComponent implements OnInit, OnDestroy {
 
-  @Input() budget: Budget;
-  @Input() budgetLines: BudgetLine[];
 
   stroke = 15;
   radius = 105;
@@ -37,16 +36,35 @@ export class BudgetDashboardComponent implements OnInit {
   realCurrent = 0;
 
 
+  lastOffset: number;
+  budget$: Observable<Budget>;
+  budgetLines$: Observable<BudgetLine[]>;
+  user$: Observable<User>;
+  userSubscription: Subscription;
 
   constructor(translate: TranslateService,
     private store: Store<fromRoot.AppState>) {
+      this.user$ = this.store.select(fromRoot.selectUser);
+      this.budget$ = this.store.select(fromRoot.selectBudget);
+
   }
 
   ngOnInit() {
     this.store.dispatch(new UiStateActions.ChangeTitleAction('budgettitle'));
     this.store.dispatch(new UiStateActions.ChangeMainMenuBtnVisibleAction(true));
+    this.lastOffset = 0;
+
+
 
   }
+
+  ngOnDestroy() {
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe();
+    }
+  }
+
+
 
 
   getColor(left: number, total: number): string {

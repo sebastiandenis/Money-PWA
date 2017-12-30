@@ -1,0 +1,30 @@
+<!--
+<nav mat-tab-nav-bar style="color: #5E35B1;"  style="top: 100px;" >
+    <a mat-tab-link style="min-width: 32.3%;"
+      routerLink="/signin"
+      >
+      <mat-icon  style="color: #5E35B1;">account_balance_wallet</mat-icon>
+    </a>
+  
+    <a mat-tab-link  style="min-width: 32.3%;"
+    routerLink="/signup"
+    >
+          <mat-icon  style="color: #5E35B1;">account_balance_wallet</mat-icon>
+  </a>
+  <a mat-tab-link   style="min-width: 32.3%;"
+  routerLink="/signup"
+  >
+        <mat-icon  style="color: #5E35B1;">account_balance_wallet</mat-icon>
+</a>
+  </nav>
+-->
+
+<nav mat-tab-nav-bar style="background-color: yellow !important;" style="top: 55px;" >
+  <a mat-tab-link *ngFor="let routeLink of routeLinks; let i = index;" 
+  [routerLink]="routeLink.link"
+    routerLinkActive="mat-tab-link-active" #rla="routerLinkActive" [active]="activeLinkIndex === i" 
+    (click)="onClick(i)"
+    [routerLinkActiveOptions]="{exact: true}">
+    <mat-icon style="color: #5E35B1;">{{routeLink.icon}}</mat-icon>
+  </a>
+</nav>
