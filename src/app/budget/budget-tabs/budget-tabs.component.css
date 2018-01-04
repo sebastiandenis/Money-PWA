@@ -1,3 +1,17 @@
+.nav-tab-fixed{
+  position: fixed;
+  top: 55px;
+  width: 100vw;
+  background-color: #ffffff;
+  z-index: 5;
+}
+
+.nav-tab-fixed-hidden{
+  position: fixed;
+  top: -55px;
+  width: 100vw;
+}
+
 .mat-tab-links {
   text-align: center;
 

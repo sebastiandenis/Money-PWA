@@ -29,14 +29,14 @@ export const INITIAL_STORE_DATA: State = {
 
 export function reducer(state = INITIAL_STORE_DATA, action: UserActions.All): State {
     switch (action.type) {
-        case AuthActions.LOGOUT:
+        case AuthActions.AuthActionTypes.Logout:
             return INITIAL_STORE_DATA;
-        case UserActions.LOAD_USER_DATA_ACTION:
+        case UserActions.UserActionTypes.LoadUserData:
             return {
                 ...state
             };
 
-        case UserActions.USER_DATA_LOADED_ACTION:
+        case UserActions.UserActionTypes.UserDataLoaded:
             return handleUserDataLoadedAction(state, <any>action);
         default:
             return state;

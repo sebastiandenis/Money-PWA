@@ -135,11 +135,11 @@ export class AppComponent implements OnInit, OnDestroy {
         // console.log('offset: ', scrollTop);
         // console.log('lastOffset: ', this.lastOffset);
         if (this.lastOffset > scrollTop) {
-            this.store.dispatch(new UiStateActions.ChangeMainToolbarFixedAction(true));
+            this.store.dispatch(new UiStateActions.ChangeMainToolbarVisibleAction(true));
         } else if (scrollTop < 10) {
-            this.store.dispatch(new UiStateActions.ChangeMainToolbarFixedAction(true));
+            this.store.dispatch(new UiStateActions.ChangeMainToolbarVisibleAction(true));
         } else if (scrollTop > 100) {
-            this.store.dispatch(new UiStateActions.ChangeMainToolbarFixedAction(false));
+            this.store.dispatch(new UiStateActions.ChangeMainToolbarVisibleAction(false));
         }
 
         this.lastOffset = scrollTop;

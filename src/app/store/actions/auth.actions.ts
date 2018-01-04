@@ -1,13 +1,16 @@
 import { Action } from '@ngrx/store';
 
-export const TRY_SIGNUP = 'TRY_SIGNUP';
-export const SIGNUP_COMPLETED = 'SIGNUP_COMPLETED';
-export const TRY_SIGNIN = 'TRY_SIGNIN';
-export const SIGNIN_COMPLETED = 'SIGNIN_COMPLETED';
-export const LOGOUT = 'LOGOUT';
-export const LOGOUT_COMPLETED = 'LOGOUT_COMPLETED';
-export const AUTH_ERROR = 'AUTH_ERROR';
-export const AUTH_ERROR_CLEAR_ACTION = 'AUTH_ERROR_CLEAR_ACTION';
+export enum AuthActionTypes {
+    TrySignup = '[Auth] Try Signup',
+    SignupCompleted = '[Auth] Signup Completed',
+    TrySignin = '[Auth] Try Signin',
+    SigninCompleted = '[Auth] Signin Completed',
+    Logout = '[Auth] Logout',
+    LogoutCompleted = '[Auth] Logout Completed',
+    AuthError = '[Auth] Error',
+    AuthErrorClear = '[Auth] Error Clear'
+}
+
 
 
 export class AuthUserPayload {
@@ -15,14 +18,14 @@ export class AuthUserPayload {
 }
 
 export class TrySignup implements Action {
-    readonly type: string = TRY_SIGNUP;
+    readonly type: string = AuthActionTypes.TrySignup;
     constructor(public payload?: AuthUserPayload) {
         // console.log('Action->TrySignup: ', payload);
     }
 }
 
 export class SignupCompleted implements Action {
-    readonly type: string = SIGNUP_COMPLETED;
+    readonly type: string = AuthActionTypes.SignupCompleted;
     constructor(public payload?: AuthUserPayload) {
 
     }
@@ -30,39 +33,39 @@ export class SignupCompleted implements Action {
 
 
 export class TrySignin implements Action {
-    readonly type: string = TRY_SIGNIN;
+    readonly type: string = AuthActionTypes.TrySignin;
     constructor(public payload?: AuthUserPayload) {
 
     }
 }
 
 export class SigninCompleted implements Action {
-    readonly type: string = SIGNIN_COMPLETED;
+    readonly type: string = AuthActionTypes.SigninCompleted;
     constructor(public payload?: AuthUserPayload) {
 
     }
 }
 
 export class AuthErrorAction implements Action {
-    readonly type: string = AUTH_ERROR;
+    readonly type: string = AuthActionTypes.AuthError;
     constructor(public payload: any) {
     }
 }
 
 export class AuthErrorClearAction implements Action {
-    readonly type: string = AUTH_ERROR_CLEAR_ACTION;
+    readonly type: string = AuthActionTypes.AuthErrorClear;
 }
 
 
 export class Logout implements Action {
-    readonly type: string = LOGOUT;
+    readonly type: string = AuthActionTypes.Logout;
     constructor(public payload = null) {
     }
 
 }
 
 export class LogoutCompleted implements Action {
-    readonly type: string = LOGOUT_COMPLETED;
+    readonly type: string = AuthActionTypes.LogoutCompleted;
     constructor(public payload = null) {
     }
 }

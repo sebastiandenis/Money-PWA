@@ -18,7 +18,7 @@ export class BudgetEffects {
 
     @Effect()
     budgetFetch = this.actions$
-        .ofType(BudgetActions.LOAD_DEFAULT_BUDGET_ACTION)
+        .ofType(BudgetActions.BudgetActionTypes.LoadDefaultBudget)
         .map((action: BudgetActions.LoadDefaultBudgetAction) => action.payload)
         .switchMap(budgetId => {
             return this.budgetService.loadDefaultBudget(budgetId);
@@ -28,7 +28,7 @@ export class BudgetEffects {
 
     @Effect()
     budgetLinesFetch = this.actions$
-        .ofType(BudgetActions.LOAD_DEFAULT_BUDGETLINES_ACTION)
+        .ofType(BudgetActions.BudgetActionTypes.LoadDefaultBudgetLines)
         .map((action: BudgetActions.LoadDefaultBudgetLinesAction) => action.payload)
         .switchMap(budgetId => {
             return this.budgetService.loadBudgetLines(budgetId);

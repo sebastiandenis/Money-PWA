@@ -37,6 +37,7 @@ import { SharedModule } from './shared/shared.module';
 import { MaterialModule } from './material/index';
 import { StorageService } from './services/storage.service';
 import { WindowScrollDirective } from './core/containers/window-scroll.directive';
+import { CoreModule } from './core/core.module';
 
 
 
@@ -47,12 +48,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 @NgModule({
   declarations: [
-    AppComponent,
-    EqualValidator,
-    MainMenuComponent,
-    ToolbarComponent,
-    NotFoundPageComponent,
-    WindowScrollDirective
+    AppComponent
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),
@@ -64,10 +60,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserAnimationsModule,
     BudgetModule,
     CommonModule,
-    FlexLayoutModule,
+    CoreModule,
     HttpClientModule,
-    MaterialModule,
     ReactiveFormsModule,
+    SharedModule,
+    MaterialModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([AuthEffects, BudgetEffects, UserEffects]),
     StoreRouterConnectingModule,
@@ -80,7 +77,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     })
   ],
-  providers: [AuthService, BudgetService, UserService, StorageService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

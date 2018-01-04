@@ -1,4 +1,5 @@
 {
+    "addexpenese": "Add expense",
     "appname": "PWA Money App",
     "atleastxcharsinpassword": "At least {{value}} characters in password",
     "budget": "Budget",

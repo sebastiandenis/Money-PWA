@@ -15,7 +15,13 @@ import { BudgetRoutingModule } from './budget-routing.module';
 
 
 @NgModule({
-  declarations: [BudgetComponent, BudgetDashboardComponent, BudgetLinesComponent, BudgetSettingsComponent, BudgetTabsComponent],
+  declarations: [
+    BudgetComponent,
+    BudgetDashboardComponent,
+    BudgetLinesComponent,
+    BudgetSettingsComponent,
+    BudgetTabsComponent
+  ],
   imports: [
     CommonModule,
     MaterialModule,

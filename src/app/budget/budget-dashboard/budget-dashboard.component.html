@@ -1,8 +1,9 @@
+<div style="width: 100%; text-align: right">
+    <button mat-fab color="accent" style="margin-right: 25px;">
+        <mat-icon aria-label="Add expense">add</mat-icon>
+      </button>
+</div>
 
-<button mat-fab color="accent" style="margin-left: 10px;">
-  <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>
-</button>
-<h2>{{(budget$ | async)?.name}}</h2>
 <div *ngIf="(budget$ | async) as budget else loadingTpl2">
   <div class="progress-wrapper">
       <div class="current"  [ngStyle]="getOverlayStyle()">
@@ -27,18 +28,7 @@
           [background]="getBackgroundColor(budget.cashLeft, budget.totalCash)"></round-progress>
   </div>
    
-  <div style="display: flex;background-color: yellow;"  fxLayout="row" >
-      <div style="height: 30px;width: 100%; background-color: red;" >
-           a
-      </div>
-      <div style="height: 30px;width: 100%; background-color: blue;" >
-          b
-      </div>
-      <div style="height: 30px;width: 100%; background-color: green;" >
-           c
-      </div>
-    
-  </div>
+ 
 
   adfadfa <br>adfadfa <br>adfadfa <br>adfadfa <br>adfadfa <br>adfadfa <br>adfadfa <br>adfadfa <br>adfadfa <br>adfadfa <br>adfadfa <br>adfadfa <br>adfadfa <br>adfadfa <br>adfadfa <br>adfadfa <br>
 </div>

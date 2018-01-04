@@ -15,7 +15,7 @@ export class UserEffects {
 
     @Effect()
     userFetch = this.actions$
-        .ofType(UserActions.LOAD_USER_DATA_ACTION)
+        .ofType(UserActions.UserActionTypes.LoadUserData)
         .map((action: UserActions.LoadUserDataAction) => action.payload)
         .switchMap(userId => {
             return this.userService.loadUserById(userId);

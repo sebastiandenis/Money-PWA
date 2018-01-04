@@ -16,15 +16,15 @@ export const INITIAL_STORE_DATA: State = {
 
 export function reducer(state = INITIAL_STORE_DATA, action: AuthActions.All): State {
     switch (action.type) {
-        case AuthActions.SIGNUP_COMPLETED:
+        case AuthActions.AuthActionTypes.SignupCompleted:
             return handleSignupCompleted(state, <any>action);
-        case AuthActions.SIGNIN_COMPLETED:
+        case AuthActions.AuthActionTypes.SigninCompleted:
             return handleSigninCompleted(state, <any>action);
-        case AuthActions.LOGOUT:
+        case AuthActions.AuthActionTypes.Logout:
             return INITIAL_STORE_DATA;
-        case AuthActions.AUTH_ERROR:
+        case AuthActions.AuthActionTypes.AuthError:
             return handleAuthError(state, <any>action);
-        case AuthActions.AUTH_ERROR_CLEAR_ACTION:
+        case AuthActions.AuthActionTypes.AuthErrorClear:
             return {
                 ...state,
                 error: null

@@ -1,46 +1,49 @@
 import { Action } from '@ngrx/store';
 
-export const CHANGE_TITLE_ACTION = 'CHANGE_TITLE_ACTION';
-export const CHANGE_MAIN_MENU_BTN_VISIBLE_ACTION = 'CHANGE_MAIN_MENU_BTN_VISIBLE_ACTION';
-export const CHANGE_MAIN_TOOLBAR_FIXED_ACTION = 'CHANGE_MAIN_TOOLBAR_FIXED_ACTION';
+export enum UiStateActionTypes {
+    ChangeTitle = '[UiState] Change Title',
+    MainMenuBtnVisible = '[UiState] Main Menu Button Visible',
+    MainToolbarVisible = '[UiState] Main Toolbar Visible',
+    OpenSidenav = '[UiState] Open Sidenav (on)',
+    CloseSidenav = '[UiState] Close Sidenav (off)',
+    SwitchSidenav = '[UiState] Switch Sidenav (on/off)'
+}
 
-export const OPEN_SIDENAV_ACTION = 'OPEN_SIDENAV_ACTION';
-export const CLOSE_SIDENAV_ACTION = 'CLOSE_SIDENAV_ACTION';
-export const SWITCH_SIDENAV_ACTION = 'SWITCH_SIDENAV_ACTION';
+
 
 
 export class SwitchSidenavAction implements Action {
-    readonly type: string = SWITCH_SIDENAV_ACTION;
+    readonly type: string = UiStateActionTypes.SwitchSidenav;
 }
 
 export class OpenSidenavAction implements Action {
-    readonly type: string = OPEN_SIDENAV_ACTION;
+    readonly type: string = UiStateActionTypes.OpenSidenav;
 }
 
 export class CloseSidenavAction implements Action {
-    readonly type: string = CLOSE_SIDENAV_ACTION;
+    readonly type: string = UiStateActionTypes.CloseSidenav;
 }
 
 
 export class ChangeTitleAction implements Action {
-    readonly type: string = CHANGE_TITLE_ACTION;
+    readonly type: string = UiStateActionTypes.ChangeTitle;
     constructor(public payload?: string) {
     }
 }
 
 export class ChangeMainMenuBtnVisibleAction implements Action {
-    readonly type: string = CHANGE_MAIN_MENU_BTN_VISIBLE_ACTION;
+    readonly type: string = UiStateActionTypes.MainMenuBtnVisible;
     constructor(public payload?: boolean) {
     }
 }
 
-export class ChangeMainToolbarFixedAction implements Action {
-    readonly type: string = CHANGE_MAIN_TOOLBAR_FIXED_ACTION;
+export class ChangeMainToolbarVisibleAction implements Action {
+    readonly type: string = UiStateActionTypes.MainToolbarVisible;
     constructor(public payload?: boolean) {
     }
 }
 
 export type All =
     OpenSidenavAction | CloseSidenavAction | SwitchSidenavAction |
-    ChangeTitleAction | ChangeMainMenuBtnVisibleAction | ChangeMainToolbarFixedAction;
+    ChangeTitleAction | ChangeMainMenuBtnVisibleAction | ChangeMainToolbarVisibleAction;
 

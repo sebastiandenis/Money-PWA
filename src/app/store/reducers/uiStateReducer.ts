@@ -19,23 +19,23 @@ export const INITIAL_UI_STATE: State = {
 
 export function uiState(state: State = INITIAL_UI_STATE, action: Action): State {
     switch (action.type) {
-        case UiStateActions.SWITCH_SIDENAV_ACTION:
+        case UiStateActions.UiStateActionTypes.SwitchSidenav:
             return handleSwitchSidenavAction(state, <any>action);
-        case UiStateActions.OPEN_SIDENAV_ACTION:
+        case UiStateActions.UiStateActionTypes.OpenSidenav:
             return {
                 ...state,
                 showSidenav: true
             };
-        case UiStateActions.CLOSE_SIDENAV_ACTION:
+        case UiStateActions.UiStateActionTypes.CloseSidenav:
             return {
                 ...state,
                 showSidenav: false
             };
-        case (UiStateActions.CHANGE_TITLE_ACTION):
+        case (UiStateActions.UiStateActionTypes.ChangeTitle):
             return handleChangeTitleAction(state, <any>action);
-        case (UiStateActions.CHANGE_MAIN_MENU_BTN_VISIBLE_ACTION):
+        case (UiStateActions.UiStateActionTypes.MainMenuBtnVisible):
             return handleChangeMainMenuBtnVisibleAction(state, <any>action);
-        case (UiStateActions.CHANGE_MAIN_TOOLBAR_FIXED_ACTION):
+        case (UiStateActions.UiStateActionTypes.MainToolbarVisible):
             return handleChangeMainToolbarFixedAction(state, <any>action);
         default:
             return state;
@@ -66,7 +66,7 @@ function handleChangeMainMenuBtnVisibleAction(state: State, action: UiStateActio
     };
 }
 
-function handleChangeMainToolbarFixedAction(state: State, action: UiStateActions.ChangeMainToolbarFixedAction): State {
+function handleChangeMainToolbarFixedAction(state: State, action: UiStateActions.ChangeMainToolbarVisibleAction): State {
     return {
         ...state,
         mainToolbarFixed: action.payload

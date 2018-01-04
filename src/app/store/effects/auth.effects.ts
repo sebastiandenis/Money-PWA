@@ -21,7 +21,7 @@ import { toPayload } from '@ngrx/effects/src/util';
 export class AuthEffects {
     @Effect()
     authSignup$ = this.actions$
-        .ofType(AuthActions.TRY_SIGNUP)
+        .ofType(AuthActions.AuthActionTypes.TrySignup)
         .map((action: AuthActions.TrySignup) => action.payload)
         .switchMap((authData: AuthUserPayload) => this.authService.signUp(authData.user)
             /*
@@ -47,7 +47,7 @@ export class AuthEffects {
 
     @Effect()
     authSignin$: Observable<Action> = this.actions$
-        .ofType(AuthActions.TRY_SIGNIN)
+        .ofType(AuthActions.AuthActionTypes.TrySignin)
         .map((action: AuthActions.TrySignin) => action.payload)
         .switchMap((authData: AuthUserPayload) => this.authService.signIn(authData.user)
             .map(res => (new AuthActions.SigninCompleted(new AuthActions.AuthUserPayload(res))))
@@ -62,7 +62,7 @@ export class AuthEffects {
 
     @Effect({ dispatch: false })
     authLogout = this.actions$
-        .ofType(AuthActions.LOGOUT)
+        .ofType(AuthActions.AuthActionTypes.Logout)
         .map((action: AuthActions.Logout) => action.payload)
         .switchMap(payload => this.authService.signOut()
             .map(res => (new AuthActions.LogoutCompleted()))

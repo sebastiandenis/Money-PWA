@@ -26,22 +26,22 @@ export const INITIAL_STORE_DATA: State = {
 export function reducer(state = INITIAL_STORE_DATA, action: BudgetActions.All): State {
     switch (action.type) {
 
-        case AuthActions.LOGOUT:
+        case AuthActions.AuthActionTypes.Logout:
             return INITIAL_STORE_DATA;
 
-        case BudgetActions.LOAD_DEFAULT_BUDGET_ACTION:
+        case BudgetActions.BudgetActionTypes.LoadDefaultBudget:
             return {
                 ...state
             };
 
-        case BudgetActions.DEFAULT_BUDGET_LOADED_ACTION:
+        case BudgetActions.BudgetActionTypes.DefaultBudgetLoaded:
             return handleDefaultBudgetLoadedAction(state, <any>action);
-        case BudgetActions.LOAD_DEFAULT_BUDGETLINES_ACTION:
+        case BudgetActions.BudgetActionTypes.LoadDefaultBudgetLines:
             return {
                 ...state
             };
 
-        case BudgetActions.DEFAULT_BUDGETLINES_LOADED_ACTION:
+        case BudgetActions.BudgetActionTypes.DefaultBudgetLinesLoaded:
             return handleDefaultBudgetLinesLoadedAction(state, <any>action);
 
 

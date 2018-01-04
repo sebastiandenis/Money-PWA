@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { Store } from '@ngrx/store';
+
+import * as fromRoot from '../../store/app.reducers';
+
 
 @Component({
   selector: 'app-budget-tabs',
@@ -10,8 +15,10 @@ export class BudgetTabsComponent implements OnInit {
 
   routeLinks: any[];
   activeLinkIndex = -1;
+  mainToolbarFixed$: Observable<boolean>;
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+    private store: Store<fromRoot.AppState>) {
     this.routeLinks = [
       {
         icon: 'account_balance_wallet',
@@ -29,6 +36,8 @@ export class BudgetTabsComponent implements OnInit {
         index: 2
       }
     ];
+
+    this.mainToolbarFixed$ = this.store.select(fromRoot.selectMainToolbarFixed);
   }
 
   onClick(i: number) {
