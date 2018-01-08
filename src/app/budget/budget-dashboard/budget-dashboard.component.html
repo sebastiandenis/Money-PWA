@@ -1,37 +1,86 @@
 <div style="width: 100%; text-align: right">
     <button mat-fab color="accent" style="margin-right: 25px;">
         <mat-icon aria-label="Add expense">add</mat-icon>
-      </button>
+    </button>
 </div>
 
 <div *ngIf="(budget$ | async) as budget else loadingTpl2">
-  <div class="progress-wrapper">
-      <div class="current"  [ngStyle]="getOverlayStyle()">
-          <span style="color: #2096ba;font-size: 1.8rem;">{{getRoundedCashLeft(budget.cashLeft)}}</span>
-          <span style="font-size: 1.3rem"> / {{budget.totalCash}}</span>
-          <br>
-          <span style="font-size: 1.1rem; color: #36384c;" *ngIf="daysLeft(budget.dateEnd)==1">
-              {{daysLeft(budget.dateEnd)}} {{ ('daysLeft' | translate)}}
-          </span>
-          <span style="font-size: 1.1rem; color: #36384c;" *ngIf="daysLeft(budget.dateEnd)!=1">
-              {{daysLeft(budget.dateEnd)}} {{ ('daysLeft' | translate)}}
-          </span>
-          <br>
-          <span style="font-size: 1.1rem; color: #36384c;" *ngIf="daysLeft(budget.dateEnd)!=0">
-              {{perDay(daysLeft(budget.dateEnd), budget.cashLeft)}} {{ ('perDay' | translate)}}
-          </span>
-          <br>
+    <div class="progress-wrapper">
+        <div class="current" [ngStyle]="getOverlayStyle()">
+            <span style="color: #2096ba;font-size: 1.8rem;">{{getRoundedCashLeft(budget.cashLeft)}}</span>
+            <span style="font-size: 1.3rem"> / {{budget.totalCash}}</span>
+            <br>
+            <span style="font-size: 1.1rem; color: #36384c;" *ngIf="daysLeft(budget.dateEnd)==1">
+                {{daysLeft(budget.dateEnd)}} {{ ('daysLeft' | translate)}}
+            </span>
+            <span style="font-size: 1.1rem; color: #36384c;" *ngIf="daysLeft(budget.dateEnd)!=1">
+                {{daysLeft(budget.dateEnd)}} {{ ('daysLeft' | translate)}}
+            </span>
+            <br>
+            <span style="font-size: 1.1rem; color: #36384c;" *ngIf="daysLeft(budget.dateEnd)!=0">
+                {{perDay(daysLeft(budget.dateEnd), budget.cashLeft)}} {{ ('perDay' | translate)}}
+            </span>
+            <br>
 
-      </div>
-      <round-progress [current]="getRoundedCashLeft(budget.cashLeft)" [max]="budget.totalCash" [responsive]="responsive"
-          [stroke]="stroke" [clockwise]="colckwise" [color]="getColor(budget.cashLeft, budget.totalCash)" [rounded]="rounded"
-          [background]="getBackgroundColor(budget.cashLeft, budget.totalCash)"></round-progress>
-  </div>
-   
- 
+        </div>
+        <round-progress [current]="getRoundedCashLeft(budget.cashLeft)" [max]="budget.totalCash" [responsive]="responsive" [stroke]="stroke"
+            [clockwise]="colckwise" [color]="getColor(budget.cashLeft, budget.totalCash)" [rounded]="rounded" [background]="getBackgroundColor(budget.cashLeft, budget.totalCash)"></round-progress>
+    </div>
 
-  adfadfa <br>adfadfa <br>adfadfa <br>adfadfa <br>adfadfa <br>adfadfa <br>adfadfa <br>adfadfa <br>adfadfa <br>adfadfa <br>adfadfa <br>adfadfa <br>adfadfa <br>adfadfa <br>adfadfa <br>adfadfa <br>
+
+    <p>Please scroll!</p>
+    <br>
+    <br>
+    <p>Please scroll!</p>
+    <br>
+    <br>
+    <p>Please scroll!</p>
+    <br>
+    <br>
+    <p>Please scroll!</p>
+    <br>
+    <br>
+    <p>Please scroll!</p>
+    <br>
+    <br>
+    <p>Please scroll!</p>
+    <br>
+    <br>
+    <p>Please scroll!</p>
+    <br>
+    <br>
+    <p>Please scroll!</p>
+    <br>
+    <br>
+    <p>Please scroll!</p>
+    <br>
+    <br>
+    <p>Please scroll!</p>
+    <br>
+    <br>
+    <p>Please scroll!</p>
+    <br>
+    <br>
+    <p>Please scroll!</p>
+    <br>
+    <br>
+    <p>Please scroll!</p>
+    <br>
+    <br>
+    <p>Please scroll!</p>
+    <br>
+    <br>
+    <p>Please scroll!</p>
+    <br>
+    <br>
+    <p>Please scroll!</p>
+    <br>
+    <br>
+    <p>Please scroll!</p>
+    <br>
+    <br>
+
 </div>
 <ng-template #loadingTpl2>
-  <span class="loading">{{'loading' | translate}}...</span>
+    <span class="loading">{{'loading' | translate}}...</span>
 </ng-template>

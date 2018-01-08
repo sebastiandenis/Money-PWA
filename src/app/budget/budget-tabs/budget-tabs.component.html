@@ -20,13 +20,11 @@
 -->
 
 
-<nav mat-tab-nav-bar  [ngClass]="{'nav-tab-fixed': (mainToolbarFixed$ | async),
-'nav-tab-fixed-hidden': !(mainToolbarFixed$ | async)}" >
-  <a mat-tab-link *ngFor="let routeLink of routeLinks; let i = index;" 
-  [routerLink]="routeLink.link"
-    routerLinkActive="mat-tab-link-active" #rla="routerLinkActive" [active]="activeLinkIndex === i" 
-    (click)="onClick(i)"
-    [routerLinkActiveOptions]="{exact: true}">
+<div [@tabsState]="tabsState" class="my-nav-tab">
+  <nav mat-tab-nav-bar >
+  <a mat-tab-link *ngFor="let routeLink of routeLinks; let i = index;" [routerLink]="routeLink.link" routerLinkActive="mat-tab-link-active"
+    #rla="routerLinkActive" [active]="activeLinkIndex === i" (click)="onClick(i)" [routerLinkActiveOptions]="{exact: true}">
     <mat-icon style="color: #5E35B1;">{{routeLink.icon}}</mat-icon>
   </a>
 </nav>
+</div>

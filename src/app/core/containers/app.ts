@@ -18,7 +18,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { StorageService } from '../../services/storage.service';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/map';
-
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { ChangeDetectorRef } from '@angular/core';
 
 
 
@@ -26,6 +27,20 @@ import 'rxjs/add/operator/map';
     selector: 'app-root',
     templateUrl: './app.html',
     styleUrls: ['./app.css'],
+    animations: [
+        trigger('toolbarState', [
+            state('normal', style({
+                opacity: 1,
+                transform: 'translateY(0px)'
+            })),
+            state('hidden', style({
+                opacity: 0.5,
+                transform: 'translateY(-100px)'
+            })),
+            transition('normal => hidden', animate(600)),
+            transition('hidden => normal', animate(300))
+        ])
+    ],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit, OnDestroy {
@@ -36,11 +51,13 @@ export class AppComponent implements OnInit, OnDestroy {
     userSubscription: Subscription;
     authSubscription: Subscription;
     scrollSubscription: Subscription;
+    mainToolbarSubscription: Subscription;
     showSidenav$: Observable<boolean>;
     mainToolbarFixed$: Observable<boolean>;
     storageRef: any;
     photoUrl: string;
     toolbarClassName = 'app-header';
+    toolbarState = 'normal';
 
     @Input() open = false;
     lastOffset: number;
@@ -49,7 +66,8 @@ export class AppComponent implements OnInit, OnDestroy {
     constructor(private translate: TranslateService,
         private afAuth: AngularFireAuth,
         private store: Store<fromRoot.AppState>,
-        private storageService: StorageService) {
+        private storageService: StorageService,
+        public cd: ChangeDetectorRef) {
         // this language will be used as a fallback when a translation isn't found in the current language
         this.translate.setDefaultLang('en');
         // the lang to use, if the lang isn't available, it will use the current loader to get them
@@ -77,6 +95,18 @@ export class AppComponent implements OnInit, OnDestroy {
         this.mainToolbarFixed$ = this.store.select(fromRoot.selectMainToolbarFixed);
         this.auth$ = this.store.select(fromRoot.selectAuthUserData);
         this.user$ = this.store.select(fromRoot.selectUser);
+
+        this.mainToolbarSubscription = this.mainToolbarFixed$.subscribe(
+            isFixed => {
+                if (isFixed && this.toolbarState !== 'normal') {
+                    this.toolbarState = 'normal';
+                    this.cd.detectChanges();
+                } else if (!isFixed && this.toolbarState !== 'hidden') {
+                    this.toolbarState = 'hidden';
+                    this.cd.detectChanges();
+                }
+            }
+        );
 
 
     }
@@ -120,7 +150,7 @@ export class AppComponent implements OnInit, OnDestroy {
         });
 
         this.mainToolbarFixed$.subscribe((isFixed: boolean) => {
-            console.log('mainToolbarFixed$:', isFixed);
+            // console.log('mainToolbarFixed$:', isFixed);
             if (isFixed) {
                 this.toolbarClassName = 'app-header';
             } else {
@@ -164,6 +194,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
         if (this.scrollSubscription) {
             this.scrollSubscription.unsubscribe();
+        }
+
+        if (this.mainToolbarSubscription) {
+            this.mainToolbarSubscription.unsubscribe();
         }
     }
 }

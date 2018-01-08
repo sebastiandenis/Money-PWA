@@ -1,7 +1,10 @@
 
-
+<!--
     <app-toolbar (switchSideMenu)="switchSidenav()"   [ngClass]="{'app-header': (mainToolbarFixed$ | async),
-    'app-header-hidden': !(mainToolbarFixed$ | async)}"  ></app-toolbar>
+    'app-header-hidden': !(mainToolbarFixed$ | async)}" [@toolbarState]="state" ></app-toolbar>
+-->
+<app-toolbar (switchSideMenu)="switchSidenav()" class="app-header"  [@toolbarState]="toolbarState" 
+></app-toolbar>
   
     <mat-sidenav-container class="app-container" (backdropClick)="backdrop()">
       <mat-sidenav #sidenav mode="over" [opened]="showSidenav$ | async" class="app-sidenav"
@@ -27,8 +30,7 @@
                         <span mat-line>{{'signout' | translate}}</span>
                         <span mat-line class="secondary">{{'signout' | translate}}</span>
                     </a>
-                    <p>Test</p><p>Test</p><p>Test</p><p>Test</p><p>Test</p><p>Test</p><p>Test</p><p>Test</p>
-                    <p>Test</p><p>Test</p><p>Test</p><p>Test</p><p>Test</p><p>Test</p><p>Test</p><p>Test</p>
+    
                 </mat-nav-list>
       </mat-sidenav>
   
