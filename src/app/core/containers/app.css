@@ -1,9 +1,19 @@
-.app-container {
-  position: absolute;
+
+.myapp {
   top: 0px;
   left: 0;
   right: 0;
-  z-index: -1;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+.app-container {
+
+  top: 0px;
+  left: 0;
+  right: 0;
+
 }
 
 .app-sidenav {
@@ -11,6 +21,7 @@
   align-items: left;
   justify-content: left;
   width: 300px;
+  z-index: 100;
 }
 
 
@@ -21,6 +32,7 @@
   top: 0px;
   left: 0;
   right: 0;
+  z-index: 50;
 
 }
 

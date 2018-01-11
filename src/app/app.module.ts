@@ -38,6 +38,7 @@ import { MaterialModule } from './material/index';
 import { StorageService } from './services/storage.service';
 import { WindowScrollDirective } from './core/containers/window-scroll.directive';
 import { CoreModule } from './core/core.module';
+import { WINDOW_PROVIDERS } from './services/window.service';
 
 
 
@@ -77,7 +78,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     })
   ],
-  providers: [],
+  providers: [WINDOW_PROVIDERS],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

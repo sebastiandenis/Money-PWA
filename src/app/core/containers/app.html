@@ -1,47 +1,44 @@
+<div id="myapp" class="myapp">
 
-<!--
-    <app-toolbar (switchSideMenu)="switchSidenav()"   [ngClass]="{'app-header': (mainToolbarFixed$ | async),
-    'app-header-hidden': !(mainToolbarFixed$ | async)}" [@toolbarState]="state" ></app-toolbar>
--->
-<app-toolbar (switchSideMenu)="switchSidenav()" class="app-header"  [@toolbarState]="toolbarState" 
-></app-toolbar>
-  
+
+
     <mat-sidenav-container class="app-container" (backdropClick)="backdrop()">
-      <mat-sidenav #sidenav mode="over" [opened]="showSidenav$ | async" class="app-sidenav"
-                   [fixedInViewport]="true" >
-                   <mat-nav-list style="margin-top: 60px; width: 100%;">
-                    <a mat-list-item (click)="closeSidenav()" [routerLink]="['/budget/dashboard']">
-                        <mat-icon mat-list-icon>list</mat-icon>
-                        <span mat-line>Budget</span>
-                        <span mat-line class="secondary">Budget</span>
-                    </a>
-                    <a mat-list-item (click)="closeSidenav()" [routerLink]="['/signin']">
-                        <mat-icon mat-list-icon>list</mat-icon>
-                        <span mat-line>{{'signin' | translate}}</span>
-                        <span mat-line class="secondary">{{'signin' | translate}}</span>
-                    </a>
-                    <a mat-list-item (click)="closeSidenav()" [routerLink]="['/signup']">
-                        <mat-icon mat-list-icon>bookmark</mat-icon>
-                        <span mat-line>{{'signup' | translate}}</span>
-                        <span mat-line class="secondary">{{'signup' | translate}}</span>
-                    </a>
-                    <a mat-list-item (click)="signOut()" [routerLink]="['/']">
-                        <mat-icon mat-list-icon>question_answer</mat-icon>
-                        <span mat-line>{{'signout' | translate}}</span>
-                        <span mat-line class="secondary">{{'signout' | translate}}</span>
-                    </a>
-    
-                </mat-nav-list>
-      </mat-sidenav>
-  
-      <mat-sidenav-content  >
-           
+
+        <mat-sidenav #sidenav mode="over" [opened]="showSidenav$ | async" class="app-sidenav" [fixedInViewport]="true">
+            <mat-nav-list style="margin-top: 60px; width: 100%;">
+                <a mat-list-item (click)="closeSidenav()" [routerLink]="['/budget/dashboard']">
+                    <mat-icon mat-list-icon>list</mat-icon>
+                    <span mat-line>Budget</span>
+                    <span mat-line class="secondary">Budget</span>
+                </a>
+                <a mat-list-item (click)="closeSidenav()" [routerLink]="['/signin']">
+                    <mat-icon mat-list-icon>list</mat-icon>
+                    <span mat-line>{{'signin' | translate}}</span>
+                    <span mat-line class="secondary">{{'signin' | translate}}</span>
+                </a>
+                <a mat-list-item (click)="closeSidenav()" [routerLink]="['/signup']">
+                    <mat-icon mat-list-icon>bookmark</mat-icon>
+                    <span mat-line>{{'signup' | translate}}</span>
+                    <span mat-line class="secondary">{{'signup' | translate}}</span>
+                </a>
+                <a mat-list-item (click)="signOut()" [routerLink]="['/']">
+                    <mat-icon mat-list-icon>question_answer</mat-icon>
+                    <span mat-line>{{'signout' | translate}}</span>
+                    <span mat-line class="secondary">{{'signout' | translate}}</span>
+                </a>
+
+            </mat-nav-list>
+        </mat-sidenav>
+
+        <mat-sidenav-content>
+            <app-toolbar (switchSideMenu)="switchSidenav()" class="app-header" [@toolbarState]="toolbarState"></app-toolbar>
+            <div id="mycontent">
+                    <router-outlet></router-outlet>
+            </div>
+
           
 
-                <router-outlet></router-outlet>
-
-      </mat-sidenav-content>
+        </mat-sidenav-content>
     </mat-sidenav-container>
-  
-    
-    
+
+</div>

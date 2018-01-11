@@ -20,6 +20,8 @@ import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/map';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { ChangeDetectorRef } from '@angular/core';
+import { DOCUMENT } from '@angular/platform-browser';
+import { WINDOW } from '../../services/window.service';
 
 
 
@@ -50,7 +52,6 @@ export class AppComponent implements OnInit, OnDestroy {
     isLoggedIn$: Observable<boolean>;
     userSubscription: Subscription;
     authSubscription: Subscription;
-    scrollSubscription: Subscription;
     mainToolbarSubscription: Subscription;
     showSidenav$: Observable<boolean>;
     mainToolbarFixed$: Observable<boolean>;
@@ -67,7 +68,9 @@ export class AppComponent implements OnInit, OnDestroy {
         private afAuth: AngularFireAuth,
         private store: Store<fromRoot.AppState>,
         private storageService: StorageService,
-        public cd: ChangeDetectorRef) {
+        public cd: ChangeDetectorRef,
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(WINDOW) private window: Window) {
         // this language will be used as a fallback when a translation isn't found in the current language
         this.translate.setDefaultLang('en');
         // the lang to use, if the lang isn't available, it will use the current loader to get them
@@ -130,15 +133,24 @@ export class AppComponent implements OnInit, OnDestroy {
 
     }
 
+    @HostListener('window:scroll', [])
+    onWScroll() {
+        console.log('window scrolling...');
+        const scrollTop = this.window.pageYOffset || this.document.documentElement.scrollTop || this.document.body.scrollTop || 0;
+        if (this.lastOffset > scrollTop) {
+            this.store.dispatch(new UiStateActions.ChangeMainToolbarVisibleAction(true));
+        } else if (scrollTop < 10) {
+            this.store.dispatch(new UiStateActions.ChangeMainToolbarVisibleAction(true));
+        } else if (scrollTop > 100) {
+            this.store.dispatch(new UiStateActions.ChangeMainToolbarVisibleAction(false));
+        }
+
+        this.lastOffset = scrollTop;
+    }
+
 
     ngOnInit() {
         this.lastOffset = 0;
-        const content = document.querySelector('.mat-sidenav-content');
-        this.scrollSubscription = Observable.fromEvent(content, 'scroll')
-            .map(() => content.scrollTop)
-            .subscribe(x => this.onContentScroll(x));
-
-
         this.authSubscription = this.auth$.subscribe(
             auth => {
             }
@@ -160,24 +172,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
     }
 
-    private onContentScroll(scrollTop: number) {
-
-        // console.log('offset: ', scrollTop);
-        // console.log('lastOffset: ', this.lastOffset);
-        if (this.lastOffset > scrollTop) {
-            this.store.dispatch(new UiStateActions.ChangeMainToolbarVisibleAction(true));
-        } else if (scrollTop < 10) {
-            this.store.dispatch(new UiStateActions.ChangeMainToolbarVisibleAction(true));
-        } else if (scrollTop > 100) {
-            this.store.dispatch(new UiStateActions.ChangeMainToolbarVisibleAction(false));
-        }
-
-        this.lastOffset = scrollTop;
-
-    }
-
-
-
 
     signOut() {
         this.closeSidenav();
@@ -192,9 +186,6 @@ export class AppComponent implements OnInit, OnDestroy {
             this.authSubscription.unsubscribe();
         }
 
-        if (this.scrollSubscription) {
-            this.scrollSubscription.unsubscribe();
-        }
 
         if (this.mainToolbarSubscription) {
             this.mainToolbarSubscription.unsubscribe();
