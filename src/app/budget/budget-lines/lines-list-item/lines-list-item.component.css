@@ -1,0 +1,17 @@
+.mat-chip:not(.mat-basic-chip) {
+    padding: 4px 10px;
+    border-radius: 15px;
+    margin-right: 1px !important;
+    margin-left: 1px !important;
+}
+
+
+.my-mat-chip-cash-left {
+    font-size: 0.75rem;
+    background-color: #FF5252;
+    color: #fff;
+}
+
+.my-mat-chip-total-cash {
+    font-size: 0.65rem;
+}

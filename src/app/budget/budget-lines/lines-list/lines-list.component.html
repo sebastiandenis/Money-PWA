@@ -1,0 +1,5 @@
+<mat-list #linesList>
+  <mat-list-item *ngFor="let line of lines" style="margin-bottom: 2px;">
+    <app-lines-list-item [line]="line" style="width: 100%;height: 100%;"></app-lines-list-item>
+  </mat-list-item>
+</mat-list>

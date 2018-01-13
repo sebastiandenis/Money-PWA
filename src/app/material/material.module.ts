@@ -12,6 +12,7 @@ import {
   MatMenuModule,
   MatSnackBarModule,
   MatTabsModule,
+  MatChipsModule,
 } from '@angular/material';
 
 @NgModule({
@@ -19,6 +20,7 @@ import {
     CommonModule,
     MatInputModule,
     MatCardModule,
+    MatChipsModule,
     MatButtonModule,
     MatSidenavModule,
     MatListModule,
@@ -32,6 +34,7 @@ import {
   exports: [
     MatInputModule,
     MatCardModule,
+    MatChipsModule,
     MatButtonModule,
     MatSidenavModule,
     MatListModule,

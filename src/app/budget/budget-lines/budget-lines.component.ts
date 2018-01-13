@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { BudgetLine } from '../../models/budget-line.model';
+import { Observable } from 'rxjs/Observable';
+import { Store } from '@ngrx/store';
+import * as fromRoot from '../../store/app.reducers';
 
 @Component({
   selector: 'app-budget-lines',
@@ -7,9 +11,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BudgetLinesComponent implements OnInit {
 
-  constructor() { }
+  constructor(private store: Store<fromRoot.AppState>) {
+    this.budgetLines$ = this.store.select(fromRoot.selectBudgetLines);
+  }
+
+  budgetLines$: Observable<BudgetLine[]>;
+
+ // myLines = [{name: 'linia1', wartosc: 10}, {name: 'linia2', wartosc: 99} ];
+
 
   ngOnInit() {
+
   }
 
 }

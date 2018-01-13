@@ -10,6 +10,8 @@ import { BudgetDashboardComponent } from './budget-dashboard/budget-dashboard.co
 import { BudgetLinesComponent } from './budget-lines/budget-lines.component';
 import { BudgetSettingsComponent } from './budget-settings/budget-settings.component';
 import { BudgetRoutingModule } from './budget-routing.module';
+import { LinesListComponent } from './budget-lines/lines-list/lines-list.component';
+import { LinesListItemComponent } from './budget-lines/lines-list-item/lines-list-item.component';
 
 
 
@@ -20,7 +22,9 @@ import { BudgetRoutingModule } from './budget-routing.module';
     BudgetDashboardComponent,
     BudgetLinesComponent,
     BudgetSettingsComponent,
-    BudgetTabsComponent
+    BudgetTabsComponent,
+    LinesListComponent,
+    LinesListItemComponent
   ],
   imports: [
     CommonModule,

@@ -1,7 +1,6 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Budget } from '../models/budget.model';
-import { BudgetLine } from '../models/budget-line.model';
 import { User } from '../models/user.model';
 import { Subscription } from 'rxjs/Subscription';
 import { TranslateService } from '@ngx-translate/core';
@@ -22,7 +21,7 @@ import * as UiStateActions from '../store/actions/uiState.actions';
 export class BudgetComponent implements OnInit, OnDestroy {
 
   budget$: Observable<Budget>;
-  budgetLines$: Observable<BudgetLine[]>;
+
   user$: Observable<User>;
   userSubscription: Subscription;
 
@@ -34,7 +33,6 @@ export class BudgetComponent implements OnInit, OnDestroy {
     private store: Store<fromRoot.AppState>) {
     this.user$ = this.store.select(fromRoot.selectUser);
     this.budget$ = this.store.select(fromRoot.selectBudget);
-    this.budgetLines$ = this.store.select(fromRoot.selectBudgetLines);
   }
 
   ngOnInit() {

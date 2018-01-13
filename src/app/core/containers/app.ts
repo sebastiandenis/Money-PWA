@@ -36,7 +36,7 @@ import { WINDOW } from '../../services/window.service';
                 transform: 'translateY(0px)'
             })),
             state('hidden', style({
-                opacity: 0.5,
+                opacity: 1,
                 transform: 'translateY(-100px)'
             })),
             transition('normal => hidden', animate(600)),
@@ -80,7 +80,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.storageService.getUserPhotoUrl('kvMEwjiF6sRV2D0Zy5euiOLNuNt2')
             .subscribe((url) => {
                 this.photoUrl = url;
-                console.log('URL: ', url);
+                // console.log('URL: ', url);
             });
 
 
@@ -135,7 +135,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     @HostListener('window:scroll', [])
     onWScroll() {
-        console.log('window scrolling...');
+        // console.log('window scrolling...');
         const scrollTop = this.window.pageYOffset || this.document.documentElement.scrollTop || this.document.body.scrollTop || 0;
         if (this.lastOffset > scrollTop) {
             this.store.dispatch(new UiStateActions.ChangeMainToolbarVisibleAction(true));
