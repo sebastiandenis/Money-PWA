@@ -13,6 +13,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { EqualValidator } from '../auth/signup/equal-validator.directive';
 import { NotFoundPageComponent } from './containers/not-found-page';
 import { WindowScrollDirective } from './containers/window-scroll.directive';
+import { LinesActionsOverlayService } from '../budget/budget-lines/lines-actions/lines-actions-overlay.service';
 
 @NgModule({
     declarations: [
@@ -36,6 +37,6 @@ import { WindowScrollDirective } from './containers/window-scroll.directive';
         NotFoundPageComponent,
         WindowScrollDirective
     ],
-    providers: [AuthService, BudgetService, UserService, StorageService],
+    providers: [AuthService, BudgetService, UserService, StorageService, LinesActionsOverlayService],
 })
 export class CoreModule {}

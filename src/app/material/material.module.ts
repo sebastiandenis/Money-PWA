@@ -13,7 +13,9 @@ import {
   MatSnackBarModule,
   MatTabsModule,
   MatChipsModule,
+  MatDialogModule,
 } from '@angular/material';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 @NgModule({
   imports: [
@@ -21,6 +23,7 @@ import {
     MatInputModule,
     MatCardModule,
     MatChipsModule,
+    MatDialogModule,
     MatButtonModule,
     MatSidenavModule,
     MatListModule,
@@ -29,13 +32,15 @@ import {
     MatProgressSpinnerModule,
     MatMenuModule,
     MatSnackBarModule,
-    MatTabsModule
+    MatTabsModule,
+    OverlayModule
   ],
   exports: [
     MatInputModule,
     MatCardModule,
     MatChipsModule,
     MatButtonModule,
+    MatDialogModule,
     MatSidenavModule,
     MatListModule,
     MatIconModule,
@@ -43,7 +48,8 @@ import {
     MatProgressSpinnerModule,
     MatMenuModule,
     MatSnackBarModule,
-    MatTabsModule
+    MatTabsModule,
+    OverlayModule
   ],
   declarations: []
 })

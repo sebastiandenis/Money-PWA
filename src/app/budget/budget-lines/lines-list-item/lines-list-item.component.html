@@ -1,11 +1,11 @@
 
-<div fxLayout="row" fxLayoutAlign="space-between center" style="height: 100%;padding-top: 5px;padding-bottom: 5px;border-bottom: 1px solid #EEEEEE;">
-    <span style="font-size: 0.9rem;">
+<div fxLayout="row" fxLayoutAlign="space-between center" style="height: 100%;padding-top: 5px;padding-bottom: 5px;border-bottom: 1px solid #EEEEEE;" (click)="selectLine(line.id)">
+    <span style="font-size: 0.9rem;" >
       {{line.name}}
     </span>
     <span>
       <mat-chip-list>
-          <mat-chip [selectable]="false" class="my-mat-chip-cash-left" >{{line.cashLeft}}</mat-chip> 
+          <mat-chip [selectable]="false" [ngStyle]="getBadgeColor(line.cashLeft, line.cashToSpend)" class="my-mat-chip-cash-left" >{{line.cashLeft}}</mat-chip> 
           <mat-chip  [selectable]="false" class="my-mat-chip-total-cash" >{{line.cashToSpend}}</mat-chip>
       </mat-chip-list>
 

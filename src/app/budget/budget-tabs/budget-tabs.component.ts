@@ -12,7 +12,7 @@ import { ChangeDetectorRef } from '@angular/core';
 @Component({
   selector: 'app-budget-tabs',
   templateUrl: './budget-tabs.component.html',
-  styleUrls: ['./budget-tabs.component.css'],
+  styleUrls: ['./budget-tabs.component.scss'],
   animations: [
     trigger('tabsState', [
       state('normal1', style({

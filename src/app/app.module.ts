@@ -39,6 +39,7 @@ import { StorageService } from './services/storage.service';
 import { WindowScrollDirective } from './core/containers/window-scroll.directive';
 import { CoreModule } from './core/core.module';
 import { WINDOW_PROVIDERS } from './services/window.service';
+import { LinesActionsOverlayService } from './budget/budget-lines/lines-actions/lines-actions-overlay.service';
 
 
 

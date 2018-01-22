@@ -1,5 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { BudgetLine } from '../../../models/budget-line.model';
+import { MatDialogRef, MatDialog } from '@angular/material';
+import { LinesActionsComponent } from '../lines-actions/lines-actions.component';
+import { LinesActionsOverlayRef } from '../lines-actions/lines-actions-overlay-ref';
+import { LinesActionsOverlayService } from '../lines-actions/lines-actions-overlay.service';
 
 @Component({
   selector: 'app-lines-list',
@@ -10,12 +14,24 @@ export class LinesListComponent implements OnInit {
 
   @Input()
   lines: BudgetLine[];
- // lines: any[];
+  actionsDlgRef: MatDialogRef<LinesActionsComponent>;
 
-  constructor() { }
+
+  constructor(private dialog: MatDialog,
+    private actionsDialogService: LinesActionsOverlayService) { }
 
   ngOnInit() {
-    console.log('BudgetLines: ', this.lines);
+  }
+
+  onSelectLine(lineId: string) {
+    this.openActionsDialog();
+  }
+
+  private openActionsDialog() {
+    //   this.actionsDlgRef = this.dialog.open(LinesActionsComponent);
+    const dialogRef: LinesActionsOverlayRef = this.actionsDialogService.open({
+      dane: 'Tu był Sebek'
+    });
   }
 
 }

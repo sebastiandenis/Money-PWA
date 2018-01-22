@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../store/app.reducers';
 import { MatMenuTrigger } from '@angular/material';
 
+
 @Component({
   selector: 'app-main-menu',
   templateUrl: './main-menu.component.html',
