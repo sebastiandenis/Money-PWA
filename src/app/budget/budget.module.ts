@@ -15,6 +15,7 @@ import { LinesListItemComponent } from './budget-lines/lines-list-item/lines-lis
 import { LinesActionsComponent } from './budget-lines/lines-actions/lines-actions.component';
 import { LineDetailsComponent } from './budget-lines/line-details/line-details.component';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 

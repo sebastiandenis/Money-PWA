@@ -1,4 +1,5 @@
 {
+    "addcash": "Add cash",
     "addexpenese": "Add expense",
     "appname": "PWA Money App",
     "atleastxcharsinpassword": "At least {{value}} characters in password",
@@ -14,6 +15,7 @@
     "perDay": "per day",
     "pleaseenteravalidemailaddress": "Please eneter a valid email address",
     "pleaseenterusername": "Please enter a username",
+    "seedetails": "See details",
     "signin": "Sign In",
     "signintitle": "Sign In",
     "signup": "Sign Up",

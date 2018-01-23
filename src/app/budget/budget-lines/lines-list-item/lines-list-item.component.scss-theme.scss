@@ -1,0 +1,43 @@
+@import '~@angular/material/theming';
+
+@mixin app-lines-list-item-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+ 
+
+  .my-mat-chip-cash-left {
+    font-size: 0.75rem;
+}
+
+.my-mat-chip-total-cash {
+    font-size: 0.65rem;
+    background-color: mat-color($mat-blue-grey, 100);
+}
+
+.my-chip{
+    padding: 4px 10px;
+    border-radius: 15px;
+    margin-right: 1px !important;
+    margin-left: 1px !important;
+}
+
+.my-chip-orange{
+    background-color: mat-color($mat-amber, 700);
+    color: #ffff;
+}
+
+.my-chip-green{
+    background-color: mat-color($mat-light-green, 600);
+    color: #ffff;
+}
+
+.my-chip-red{
+    background-color: mat-color($mat-red, 400);
+    color: #ffff;
+}
+
+
+}

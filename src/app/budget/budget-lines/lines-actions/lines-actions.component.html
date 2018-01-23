@@ -1,13 +1,19 @@
 <mat-nav-list #actionsList>
   <mat-list-item>
-    Add outgo
+      <mat-icon matListIcon>add_circle</mat-icon>
+      <p matLine>
+          {{ 'addexpenese' | translate}}
+      </p>
+    
   </mat-list-item>
   <mat-list-item>
-    Move cash
+      <mat-icon matListIcon>attach_money</mat-icon>
+    <p matLine> {{ 'addcash' | translate}}</p>
   </mat-list-item>
   <mat-list-item>
-    See details
+      <mat-icon matListIcon>more_horiz</mat-icon>
+    <p matLine>{{ 'seedetails' | translate}}</p>
+   
   </mat-list-item>
 
 </mat-nav-list>
-Przesłane dane: {{ dane }}

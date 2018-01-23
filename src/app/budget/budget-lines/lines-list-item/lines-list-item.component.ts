@@ -23,14 +23,14 @@ export class LinesListItemComponent implements OnInit {
   getBadgeColor(cashLeft: number, totalCash: number) {
     if (cashLeft && totalCash) {
       if (cashLeft <= 0) {
-        return { 'background-color': 'orange' };
+        return { 'my-chip-red': true };
       } else if (Math.round((cashLeft / totalCash) * 100) < 25) {
-        return { 'background-color': 'yellow' };
+        return { 'my-chip-orange': true };
       } else {
-        return { 'background-color': 'green' };
+        return { 'my-chip-green': true };
       }
     } else {
-      return { 'background-color': 'red' };
+      return { 'my-chip-red': true  };
     }
   }
 

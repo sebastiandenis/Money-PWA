@@ -1,4 +1,5 @@
 {
+    "addcash": "Dodaj środki",
     "addexpenese": "Dodaj wydatek",
     "appname": "PWA Money App",
     "atleastxcharsinpassword": "Przynajmniej {{value}} znaków w haśle",
@@ -14,6 +15,7 @@
     "perDay": "na dzień",
     "pleaseenteravalidemailaddress": "Wprowadź prawidłowy adres email",
     "pleaseenterusername": "Wprowadź nazwę użytkownika",
+    "seedetails": "Zobacz szczegóły",
     "signin": "Zaloguj",
     "signintitle": "Logowanie",
     "signup": "Zarejestruj",
