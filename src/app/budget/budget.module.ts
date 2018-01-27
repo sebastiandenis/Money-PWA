@@ -16,6 +16,7 @@ import { LinesActionsComponent } from './budget-lines/lines-actions/lines-action
 import { LineDetailsComponent } from './budget-lines/line-details/line-details.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { TranslateModule } from '@ngx-translate/core';
+import { AddExpenseDlgComponent } from './budget-lines/add-expense-dlg.component';
 
 
 
@@ -30,7 +31,8 @@ import { TranslateModule } from '@ngx-translate/core';
     LinesListComponent,
     LinesListItemComponent,
     LinesActionsComponent,
-    LineDetailsComponent
+    LineDetailsComponent,
+    AddExpenseDlgComponent
   ],
   imports: [
     CommonModule,
@@ -41,7 +43,7 @@ import { TranslateModule } from '@ngx-translate/core';
     OverlayModule
   ],
   entryComponents: [
-    LinesActionsComponent
+    LinesActionsComponent, AddExpenseDlgComponent
   ]
 
 })

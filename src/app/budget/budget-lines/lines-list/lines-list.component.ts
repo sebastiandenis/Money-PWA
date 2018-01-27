@@ -4,6 +4,7 @@ import { MatDialogRef, MatDialog } from '@angular/material';
 import { LinesActionsComponent } from '../lines-actions/lines-actions.component';
 import { LinesActionsOverlayRef } from '../lines-actions/lines-actions-overlay-ref';
 import { LinesActionsOverlayService } from '../lines-actions/lines-actions-overlay.service';
+import { AddExpenseDlgComponent } from '../add-expense-dlg.component';
 
 @Component({
   selector: 'app-lines-list',
@@ -16,6 +17,7 @@ export class LinesListComponent implements OnInit {
   lines: BudgetLine[];
   actionsDlgRef: MatDialogRef<LinesActionsComponent>;
 
+  
 
   constructor(private dialog: MatDialog,
     private actionsDialogService: LinesActionsOverlayService) { }
@@ -24,13 +26,15 @@ export class LinesListComponent implements OnInit {
   }
 
   onSelectLine(lineId: string) {
-    this.openActionsDialog();
+    this.openActionsDialog(lineId);
   }
 
-  private openActionsDialog() {
+
+
+  private openActionsDialog(lineId: string) {
     //   this.actionsDlgRef = this.dialog.open(LinesActionsComponent);
     const dialogRef: LinesActionsOverlayRef = this.actionsDialogService.open({
-      dane: 'Tu był Sebek'
+      dane: lineId
     });
   }
 

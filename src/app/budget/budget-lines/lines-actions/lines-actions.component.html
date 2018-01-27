@@ -1,5 +1,5 @@
 <mat-nav-list #actionsList>
-  <mat-list-item>
+  <mat-list-item (click)="onAddExpense()">
       <mat-icon matListIcon>add_circle</mat-icon>
       <p matLine>
           {{ 'addexpenese' | translate}}
