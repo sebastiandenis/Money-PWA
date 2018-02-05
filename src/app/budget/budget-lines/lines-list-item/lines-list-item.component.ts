@@ -1,10 +1,14 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { BudgetLine } from '../../../models/budget-line.model';
+import { Store } from '@ngrx/store';
+import * as fromRoot from '../../../store/app.reducers';
+import { SelectBudgetLineAction } from '../../../store/actions/budget-lines.actions';
 
 @Component({
   selector: 'app-lines-list-item',
   templateUrl: './lines-list-item.component.html',
-  styleUrls: ['./lines-list-item.component.scss']
+  styleUrls: ['./lines-list-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LinesListItemComponent implements OnInit {
 
@@ -12,9 +16,9 @@ export class LinesListItemComponent implements OnInit {
   line: BudgetLine;
 
   @Output()
-  onSelectLine = new EventEmitter<string>();
+  onSelectLine = new EventEmitter<null>();
 
-  constructor() { }
+  constructor(private store: Store<fromRoot.AppState>) { }
 
   ngOnInit() {
   }
@@ -30,13 +34,14 @@ export class LinesListItemComponent implements OnInit {
         return { 'my-chip-green': true };
       }
     } else {
-      return { 'my-chip-red': true  };
+      return { 'my-chip-red': true };
     }
   }
 
   selectLine(lineId: string) {
+    this.store.dispatch(new SelectBudgetLineAction({ budgetLineId: lineId }));
     console.log('clicked: ', lineId);
-    this.onSelectLine.emit(lineId);
+    this.onSelectLine.emit();
   }
 
 

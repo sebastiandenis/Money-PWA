@@ -5,10 +5,13 @@ import * as AuthActions from '../actions/auth.actions';
 import { BudgetEffects } from '../effects/budget.effects';
 import { BudgetLine } from '../../models/budget-line.model';
 
+
 export interface State {
     budget: Budget;
     budgetLines: BudgetLine[];
 }
+
+
 
 
 export const INITIAL_STORE_DATA: State = {
@@ -36,15 +39,6 @@ export function reducer(state = INITIAL_STORE_DATA, action: BudgetActions.All): 
 
         case BudgetActions.BudgetActionTypes.DefaultBudgetLoaded:
             return handleDefaultBudgetLoadedAction(state, <any>action);
-        case BudgetActions.BudgetActionTypes.LoadDefaultBudgetLines:
-            return {
-                ...state
-            };
-
-        case BudgetActions.BudgetActionTypes.DefaultBudgetLinesLoaded:
-            return handleDefaultBudgetLinesLoadedAction(state, <any>action);
-
-
 
         default:
             return state;
@@ -58,9 +52,4 @@ function handleDefaultBudgetLoadedAction(state: State, action: BudgetActions.Def
     };
 }
 
-function handleDefaultBudgetLinesLoadedAction(state: State, action: BudgetActions.DefaultBudgetLinesLoadedAction): State {
-    return {
-        ...state,
-        budgetLines: action.payload
-    };
-}
+

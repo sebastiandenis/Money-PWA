@@ -1,4 +1,5 @@
-<form [formGroup]="signupForm" class="signup-form" (ngSubmit)="onSignup()">
+<form [formGroup]="signupForm" class="signup-form" (ngSubmit)="onSignup()"  fxLayout="column" fxLayoutAlign="center center" 
+fxLayoutGap="10px">
   <div formGroupName="userData">
     <mat-form-field class="full-width space-between">
       <input matInput placeholder="{{'username' | translate}}" id="username" type="text" name="username" formControlName="username">
@@ -48,16 +49,4 @@
     {{'signup' | translate}}
   </button>
 
-  <p>Scroll</p><br><br>
-  <p>Scroll</p><br><br>
-  <p>Scroll</p><br><br>
-  <p>Scroll</p><br><br>
-  <p>Scroll</p><br><br>
-  <p>Scroll</p><br><br>
-  <p>Scroll</p><br><br>
-  <p>Scroll</p><br><br>
-  <p>Scroll</p><br><br>
-  <p>Scroll</p><br><br>
-  <p>Scroll</p><br><br>
-  <p>Scroll</p><br><br>
 </form>

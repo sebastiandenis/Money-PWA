@@ -1,6 +1,8 @@
 {
+    "add": "Add",
     "addcash": "Add cash",
     "addexpenese": "Add expense",
+    "amount": "Amount",
     "appname": "PWA Money App",
     "atleastxcharsinpassword": "At least {{value}} characters in password",
     "budget": "Budget",
@@ -26,6 +28,7 @@
     "singuperrorinvalidemail": "Invalid email address",
     "singuperroroperationnotallowed": "Creating new accouts is curently off",
     "singuperrorweakpassword": "Password is too weak, use stronger password",
+    "typeanumber": "Type a number",
     "username": "Username",
     "usernameexists": "Username exists",
     "wrongemailorpassword": "Wrong user email or password"

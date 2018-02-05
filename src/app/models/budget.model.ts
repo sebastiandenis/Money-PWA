@@ -5,5 +5,4 @@ export interface Budget {
     dateEnd: Date;
     totalCash: number;
     cashLeft: number;
-
 }

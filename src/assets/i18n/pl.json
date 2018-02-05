@@ -1,6 +1,8 @@
 {
+    "add": "Dodaj",
     "addcash": "Dodaj środki",
     "addexpenese": "Dodaj wydatek",
+    "amount": "Wartość",
     "appname": "PWA Money App",
     "atleastxcharsinpassword": "Przynajmniej {{value}} znaków w haśle",
     "budget": "Budżet",
@@ -26,6 +28,7 @@
     "singuperrorinvalidemail": "Nieprawidłowy adres email",
     "singuperroroperationnotallowed": "Tworzenie nowych kont jest obecnie wyłączone",
     "singuperrorweakpassword": "Hasło zbyt słabe, użyj silniejszego",
+    "typeanumber": "Wprowadź liczbę",
     "username": "Nazwa użytkownika",
     "usernameexists": "Nazwa użytkownika już istnieje",
     "wrongemailorpassword": "Nieprawidłowy login lub hasło"

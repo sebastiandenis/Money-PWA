@@ -1,4 +1,5 @@
-<form (ngSubmit)="onSignin(f)" #f="ngForm" class="signin-form">
+<form (ngSubmit)="onSignin(f)" #f="ngForm" class="signin-form" fxLayout="column" fxLayoutAlign="center center" 
+  fxLayoutGap="10px">
   
     <mat-form-field class="full-width space-between">
       <input matInput placeholder="{{'email' | translate}}" id="email" type="email" name="email" ngModel

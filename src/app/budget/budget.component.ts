@@ -9,6 +9,7 @@ import * as fromRoot from '../store/app.reducers';
 import { OnDestroy } from '@angular/core';
 import * as BudgetActions from '../store/actions/budget.actions';
 import * as UiStateActions from '../store/actions/uiState.actions';
+import * as budgetLinesActions from '../store/actions/budget-lines.actions';
 
 
 
@@ -43,7 +44,8 @@ export class BudgetComponent implements OnInit, OnDestroy {
     this.userSubscription = this.user$.subscribe(user => {
       if (user && user.config && user.config.currentBudgetId !== undefined) {
         this.store.dispatch(new BudgetActions.LoadDefaultBudgetAction(user.config.currentBudgetId)); // TODO: powinno iść z góry
-        this.store.dispatch(new BudgetActions.LoadDefaultBudgetLinesAction(user.config.currentBudgetId)); // TODO: powinno iść z góry
+        this.store.dispatch(
+          new budgetLinesActions.LoadDefaultBudgetLinesAction({ budgetId: user.config.currentBudgetId })); // TODO: powinno iść z góry
       }
     });
   }

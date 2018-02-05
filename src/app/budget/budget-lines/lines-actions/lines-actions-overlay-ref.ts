@@ -6,4 +6,5 @@ export class LinesActionsOverlayRef {
     close(): void {
         this.overlayRef.dispose();
     }
+
 }

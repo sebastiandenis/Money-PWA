@@ -40,6 +40,7 @@ import { WindowScrollDirective } from './core/containers/window-scroll.directive
 import { CoreModule } from './core/core.module';
 import { WINDOW_PROVIDERS } from './services/window.service';
 import { LinesActionsOverlayService } from './budget/budget-lines/lines-actions/lines-actions-overlay.service';
+import { BudgetLinesEffects } from './store/effects/budget-lines.effects';
 
 
 
@@ -69,7 +70,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     SharedModule,
     MaterialModule,
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([AuthEffects, BudgetEffects, UserEffects]),
+    EffectsModule.forRoot([AuthEffects, BudgetEffects, UserEffects, BudgetLinesEffects]),
     StoreRouterConnectingModule,
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     TranslateModule.forRoot({

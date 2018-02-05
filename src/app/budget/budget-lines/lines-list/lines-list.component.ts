@@ -5,36 +5,64 @@ import { LinesActionsComponent } from '../lines-actions/lines-actions.component'
 import { LinesActionsOverlayRef } from '../lines-actions/lines-actions-overlay-ref';
 import { LinesActionsOverlayService } from '../lines-actions/lines-actions-overlay.service';
 import { AddExpenseDlgComponent } from '../add-expense-dlg.component';
+import { Observable } from 'rxjs/Observable';
+import { Store } from '@ngrx/store';
+import * as fromRoot from '../../../store/app.reducers';
+import * as BudgetLinesActions from '../../../store/actions/budget-lines.actions';
+import { Budget } from '../../../models/budget.model';
+import { OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-lines-list',
   templateUrl: './lines-list.component.html',
   styleUrls: ['./lines-list.component.css']
 })
-export class LinesListComponent implements OnInit {
+export class LinesListComponent implements OnInit, OnDestroy {
 
-  @Input()
-  lines: BudgetLine[];
+
+
+
+  lines$: Observable<any>;
+  budget$: Observable<Budget>;
+  budgetSubscription: Subscription;
   actionsDlgRef: MatDialogRef<LinesActionsComponent>;
+  budgetId: string;
 
-  
 
   constructor(private dialog: MatDialog,
-    private actionsDialogService: LinesActionsOverlayService) { }
+    private actionsDialogService: LinesActionsOverlayService,
+    private store: Store<fromRoot.AppState>) {
+    this.budget$ = this.store.select(fromRoot.selectBudget);
+  }
 
   ngOnInit() {
+    this.lines$ = this.store.select(fromRoot.selectAllBudgetLines);
+
+    this.budgetSubscription = this.budget$.subscribe(
+      (budget) => {
+        this.budgetId = budget.id;
+        this.store.dispatch(new BudgetLinesActions.Query({ budgetId: budget.id }));
+      }
+    );
   }
 
-  onSelectLine(lineId: string) {
-    this.openActionsDialog(lineId);
+  ngOnDestroy() {
+    if (this.budgetSubscription) {
+      this.budgetSubscription.unsubscribe();
+    }
+  }
+
+  onSelectLine() {
+    this.openActionsDialog();
   }
 
 
 
-  private openActionsDialog(lineId: string) {
+  private openActionsDialog() {
     //   this.actionsDlgRef = this.dialog.open(LinesActionsComponent);
     const dialogRef: LinesActionsOverlayRef = this.actionsDialogService.open({
-      dane: lineId
+      dane: this.budgetId
     });
   }
 
