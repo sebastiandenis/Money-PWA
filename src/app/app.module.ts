@@ -23,7 +23,7 @@ import { AuthEffects } from './store/effects/auth.effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { environment } from '../environments/environment';
 import { BudgetService } from './services/budget.service';
-import { BudgetEffects } from './store/effects/budget.effects';
+import { BudgetEffects } from './budget/store/effects/budget.effects';
 import { UserEffects } from './store/effects/user.effects';
 import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
@@ -40,7 +40,7 @@ import { WindowScrollDirective } from './core/containers/window-scroll.directive
 import { CoreModule } from './core/core.module';
 import { WINDOW_PROVIDERS } from './services/window.service';
 import { LinesActionsOverlayService } from './budget/budget-lines/lines-actions/lines-actions-overlay.service';
-import { BudgetLinesEffects } from './store/effects/budget-lines.effects';
+import { BudgetLinesEffects } from './budget/store/effects/budget-lines.effects';
 
 
 
@@ -70,7 +70,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     SharedModule,
     MaterialModule,
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([AuthEffects, BudgetEffects, UserEffects, BudgetLinesEffects]),
+    EffectsModule.forRoot([AuthEffects, UserEffects ]),
     StoreRouterConnectingModule,
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     TranslateModule.forRoot({

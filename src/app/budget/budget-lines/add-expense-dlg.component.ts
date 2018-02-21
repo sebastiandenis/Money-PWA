@@ -3,8 +3,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { NgForm } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../store/app.reducers';
-import * as fromBudgetLines from '../../store/reducers/budget-lines.reducer';
-import * as BudgetLinesActions from '../../store/actions/budget-lines.actions';
+import * as fromBudget from '../store/reducers/index';
+import * as BudgetLinesActions from '../store/actions/budget-lines.actions';
 import { BudgetLine } from '../../models/budget-line.model';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
@@ -14,9 +14,9 @@ import { OnDestroy } from '@angular/core';
 @Component({
   selector: 'app-add-expense-dlg',
   template: `
+  <h5 matDialogTitle>{{selectedBudgetLine?.name}}</h5>
   <form fxLayout="column" fxLayoutAlign="center center" #f="ngForm" (ngSubmit)="onSubmit(f)" fxLayoutGap="5px">
   <mat-dialog-content>
-  <h5>Cash left: {{selectedBudgetLine?.cashLeft}}</h5>
     <mat-form-field>
       <input type="number" matInput placeholder="{{'amount' | translate}}" 
       ngModel name="expenseAmount" id="expenseAmount" required #amountInput="ngModel">
@@ -41,8 +41,7 @@ export class AddExpenseDlgComponent implements OnInit, OnDestroy {
   constructor(private dialogRef: MatDialogRef<AddExpenseDlgComponent>,
     @Inject(MAT_DIALOG_DATA) public data: string,
     private store: Store<fromRoot.AppState>) {
-    console.log('Inside AddExpenseDlg');
-    this.selectedBudgetLine$ = this.store.select(fromRoot.selectCurrentBudgetLine);
+    this.selectedBudgetLine$ = this.store.select(fromBudget.selectCurrentBudgetLine);
 
   }
 

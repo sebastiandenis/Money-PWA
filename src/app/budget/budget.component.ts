@@ -6,10 +6,11 @@ import { Subscription } from 'rxjs/Subscription';
 import { TranslateService } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../store/app.reducers';
+import * as fromBudgetApp from './store/reducers/index';
 import { OnDestroy } from '@angular/core';
-import * as BudgetActions from '../store/actions/budget.actions';
+import * as BudgetActions from './store/actions/budget.actions';
 import * as UiStateActions from '../store/actions/uiState.actions';
-import * as budgetLinesActions from '../store/actions/budget-lines.actions';
+import * as budgetLinesActions from './store/actions/budget-lines.actions';
 
 
 
@@ -33,7 +34,7 @@ export class BudgetComponent implements OnInit, OnDestroy {
   constructor(translate: TranslateService,
     private store: Store<fromRoot.AppState>) {
     this.user$ = this.store.select(fromRoot.selectUser);
-    this.budget$ = this.store.select(fromRoot.selectBudget);
+    this.budget$ = this.store.select(fromBudgetApp.selectBudget);
   }
 
   ngOnInit() {

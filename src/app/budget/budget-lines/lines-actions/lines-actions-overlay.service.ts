@@ -5,7 +5,7 @@ import { OverlayRef } from '@angular/cdk/overlay/typings/overlay-ref';
 import { ComponentPortal, PortalInjector } from '@angular/cdk/portal';
 import { LinesActionsComponent } from './lines-actions.component';
 import { ComponentRef } from '@angular/core/src/linker/component_factory';
-import { LINES_ACTIONS_DIALOG_DATA } from './lines-actions-overlay.tokens';
+// import { LINES_ACTIONS_DIALOG_DATA } from './lines-actions-overlay.tokens';
 import { BudgetLine } from '../../../models/budget-line.model';
 
 
@@ -64,7 +64,7 @@ export class LinesActionsOverlayService {
         const injectionTokens = new WeakMap();
 
         injectionTokens.set(LinesActionsOverlayRef, dialogRef);
-        injectionTokens.set(LINES_ACTIONS_DIALOG_DATA, config.dane);
+     //    injectionTokens.set(LINES_ACTIONS_DIALOG_DATA, config.dane);
 
         return new PortalInjector(this.injector, injectionTokens);
     }

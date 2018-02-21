@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import * as fromRoot from '../app.reducers';
-import { BudgetService } from '../../services/budget.service';
+import * as fromRoot from '../../../store/app.reducers';
+import { BudgetService } from '../../../services/budget.service';
 import { Store, Action } from '@ngrx/store';
 import {
     BudgetLinesActionTypes, AddExpenseToBudgetLineAction,
@@ -13,8 +13,8 @@ import {
 import { switchMap, mergeMap, map } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { BudgetLine } from '../../models/budget-line.model';
-import { Budget } from '../../models/budget.model';
+import { BudgetLine } from '../../../models/budget-line.model';
+import { Budget } from '../../../models/budget.model';
 import { BudgetActionTypes } from '../actions/budget.actions';
 
 
@@ -33,7 +33,6 @@ export class BudgetLinesEffects {
         .ofType(BudgetLinesActionTypes.QUERY)
         .pipe(
         switchMap((action: Query) => {
-            console.log(action);
             return this.budgetService.queryAllBudgetLines(action.payload.budgetId);
         }),
         mergeMap(actions => actions),
@@ -44,7 +43,7 @@ export class BudgetLinesEffects {
                     ...action.payload.doc.data(),
                     id: action.payload.doc.id
                 }
-            }
+            };
         })
         );
 
@@ -55,7 +54,6 @@ export class BudgetLinesEffects {
         .pipe(
         map((action: UpdateBudgetLineAction) => action.payload),
         switchMap(data => {
-            console.log('budget-lines.effects->update$: ', data.budgetId);
             const ref = this.afs.doc<Budget>(`budgets/${data.budgetId}/budgetLines/${data.id}`);
             return Observable.fromPromise(ref.update(data.changes));
         }),
@@ -76,7 +74,6 @@ export class BudgetLinesEffects {
         .ofType(BudgetLinesActionTypes.LoadDefaultBudgetLines)
         .map((action: LoadDefaultBudgetLinesAction) => action.payload)
         .switchMap(budgetId => {
-            console.log('W effect: ', budgetId);
             return this.budgetService.loadBudgetLines(budgetId.budgetId);
         })
         .map(results => new DefaultBudgetLinesLoadedAction(results));

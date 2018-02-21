@@ -15,7 +15,7 @@ import { Observable } from 'rxjs/Observable';
 import { AuthUserPayload } from '../actions/auth.actions';
 import { AuthService } from '../../services/auth.service';
 import { Action } from '@ngrx/store';
-import { toPayload } from '@ngrx/effects/src/util';
+
 
 @Injectable()
 export class AuthEffects {

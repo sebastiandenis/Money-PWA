@@ -13,7 +13,7 @@ import {
   MatSnackBarModule,
   MatTabsModule,
   MatChipsModule,
-  MatDialogModule,
+  MatDialogModule
 } from '@angular/material';
 import { OverlayModule } from '@angular/cdk/overlay';
 

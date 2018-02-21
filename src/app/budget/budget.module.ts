@@ -17,6 +17,13 @@ import { LineDetailsComponent } from './budget-lines/line-details/line-details.c
 import { OverlayModule } from '@angular/cdk/overlay';
 import { TranslateModule } from '@ngx-translate/core';
 import { AddExpenseDlgComponent } from './budget-lines/add-expense-dlg.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { BudgetEffects } from './store/effects/budget.effects';
+import { BudgetLinesEffects } from './store/effects/budget-lines.effects';
+import { reducers } from './store/reducers/index';
+import { LinesActionsOverlayService } from './budget-lines/lines-actions/lines-actions-overlay.service';
+
 
 
 
@@ -36,6 +43,8 @@ import { AddExpenseDlgComponent } from './budget-lines/add-expense-dlg.component
   ],
   imports: [
     CommonModule,
+    StoreModule.forFeature('currentBudget', reducers ),
+    EffectsModule.forFeature([BudgetLinesEffects, BudgetEffects]),
     MaterialModule,
     SharedModule,
     RoundProgressModule,
@@ -44,7 +53,8 @@ import { AddExpenseDlgComponent } from './budget-lines/add-expense-dlg.component
   ],
   entryComponents: [
     LinesActionsComponent, AddExpenseDlgComponent
-  ]
+  ],
+  providers: []
 
 })
 export class BudgetModule { }

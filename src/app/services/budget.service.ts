@@ -26,6 +26,7 @@ export class BudgetService {
     return budget.collection<BudgetLine>('budgetLines').stateChanges();
   }
 
+
   addExpense(budgetLineId: string,
     budgetId: string,
     amount: number,

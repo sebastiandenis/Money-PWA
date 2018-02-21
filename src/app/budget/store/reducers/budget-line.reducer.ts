@@ -1,9 +1,13 @@
 import { Action } from '@ngrx/store';
-import { BudgetLine } from '../../models/budget-line.model';
+import { BudgetLine } from '../../../models/budget-line.model';
 import { BudgetLinesActions, BudgetLinesActionTypes } from '../actions/budget-lines.actions';
 import { EntityState, createEntityAdapter } from '@ngrx/entity';
 import { createFeatureSelector } from '@ngrx/store';
+import * as fromApp from '../../../store/app.reducers';
 
+export interface FeatureState extends fromApp.AppState {
+    budgetLines: State;
+}
 
 export const adapter = createEntityAdapter<BudgetLine>();
 
@@ -16,7 +20,7 @@ export const initialState: State = adapter.getInitialState({
     selectedBudgetLineId: null
 });
 
-export function reducer(state = initialState, action: BudgetLinesActions): State {
+export function budgetLineReducer(state = initialState, action: BudgetLinesActions): State {
     switch (action.type) {
         case BudgetLinesActionTypes.ADDED:
             return adapter.addOne(action.payload, state);
@@ -43,7 +47,6 @@ export function reducer(state = initialState, action: BudgetLinesActions): State
 
         case BudgetLinesActionTypes.DefaultBudgetLinesLoaded:
             //    return handleDefaultBudgetLinesLoadedAction(state, <any>action);
-            console.log('Action-> defaultBudgetLinesLoaded: ', action.payload);
             adapter.removeAll(state);
             return adapter.addMany(action.payload, state);
 
@@ -64,9 +67,8 @@ export function reducer(state = initialState, action: BudgetLinesActions): State
 }
 
 export const getSelectedBudgetLineId = (state: State) => {
-    console.log('getSelectedBudgetLineId: ', state.selectedBudgetLineId);
     return state.selectedBudgetLineId;
-}
+};
 
 export const {
     // select the array of budget line ids

@@ -1,12 +1,13 @@
 import { Action } from '@ngrx/store';
-import { Budget } from '../../models/budget.model';
-import { BudgetLine } from '../../models/budget-line.model';
+import { Budget } from '../../../models/budget.model';
 
 
 export enum BudgetActionTypes {
     LoadDefaultBudget = '[Budget] Load Default Budget',
     DefaultBudgetLoaded = '[Budget] Default Budget Loaded',
 }
+
+
 
 // ------------------------------------------------------------- BUDGET ACTIONS
 
@@ -24,6 +25,10 @@ export class DefaultBudgetLoadedAction implements Action {
     }
 }
 
-export type All =
+
+
+
+export type BudgetActions =
     DefaultBudgetLoadedAction |
     LoadDefaultBudgetAction;
+

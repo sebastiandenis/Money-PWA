@@ -7,9 +7,10 @@ import { User } from '../../models/user.model';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 import { OnDestroy } from '@angular/core';
-import * as BudgetActions from '../../store/actions/budget.actions';
+import * as BudgetActions from '../store/actions/budget.actions';
 import * as UiStateActions from '../../store/actions/uiState.actions';
 import * as fromRoot from '../../store/app.reducers';
+import * as fromBudgetApp from '../store/reducers/index';
 import { DOCUMENT } from '@angular/platform-browser';
 
 @Component({
@@ -44,8 +45,9 @@ export class BudgetDashboardComponent implements OnInit, OnDestroy {
 
   constructor(translate: TranslateService,
     private store: Store<fromRoot.AppState>) {
-      this.user$ = this.store.select(fromRoot.selectUser);
-      this.budget$ = this.store.select(fromRoot.selectBudget);
+    this.user$ = this.store.select(fromRoot.selectUser);
+    this.budget$ = this.store.select(fromBudgetApp.selectBudgetHeader);
+
 
   }
 

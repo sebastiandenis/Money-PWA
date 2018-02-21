@@ -8,7 +8,9 @@ import { AddExpenseDlgComponent } from '../add-expense-dlg.component';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../store/app.reducers';
-import * as BudgetLinesActions from '../../../store/actions/budget-lines.actions';
+import * as fromBudgetApp from '../../store/reducers/index';
+import * as BudgetLinesActions from '../../store/actions/budget-lines.actions';
+import * as BudgetActions from '../../store/actions/budget.actions';
 import { Budget } from '../../../models/budget.model';
 import { OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
@@ -33,18 +35,25 @@ export class LinesListComponent implements OnInit, OnDestroy {
   constructor(private dialog: MatDialog,
     private actionsDialogService: LinesActionsOverlayService,
     private store: Store<fromRoot.AppState>) {
-    this.budget$ = this.store.select(fromRoot.selectBudget);
+    this.budget$ = this.store.select(fromBudgetApp.selectBudget);
+    this.lines$ = this.store.select(fromBudgetApp.selectAllBudgetLines);
+
   }
 
   ngOnInit() {
-    this.lines$ = this.store.select(fromRoot.selectAllBudgetLines);
 
     this.budgetSubscription = this.budget$.subscribe(
       (budget) => {
-        this.budgetId = budget.id;
-        this.store.dispatch(new BudgetLinesActions.Query({ budgetId: budget.id }));
+        if (budget) {
+          this.budgetId = budget.id;
+          this.store.dispatch(new BudgetLinesActions.Query({ budgetId: budget.id }));
+        }
+
       }
     );
+
+
+
   }
 
   ngOnDestroy() {

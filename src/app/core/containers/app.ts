@@ -6,7 +6,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Store } from '@ngrx/store';
 import * as AuthActions from '../../store/actions/auth.actions';
 import * as UserActions from '../../store/actions/user.actions';
-import * as BudgetActions from '../../store/actions/budget.actions';
+import * as BudgetActions from '../../budget/store/actions/budget.actions';
 import * as UiStateActions from '../../store/actions/uiState.actions';
 import * as fromRoot from '../../store/app.reducers';
 import { User } from '../../models/user.model';
