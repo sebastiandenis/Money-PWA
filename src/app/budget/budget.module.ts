@@ -21,6 +21,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { BudgetEffects } from './store/effects/budget.effects';
 import { BudgetLinesEffects } from './store/effects/budget-lines.effects';
+import { ExpenseEffects } from './store/effects/expense.effects';
 import { reducers } from './store/reducers/index';
 import { LinesActionsOverlayService } from './budget-lines/lines-actions/lines-actions-overlay.service';
 
@@ -44,7 +45,7 @@ import { LinesActionsOverlayService } from './budget-lines/lines-actions/lines-a
   imports: [
     CommonModule,
     StoreModule.forFeature('currentBudget', reducers ),
-    EffectsModule.forFeature([BudgetLinesEffects, BudgetEffects]),
+    EffectsModule.forFeature([BudgetLinesEffects, BudgetEffects, ExpenseEffects]),
     MaterialModule,
     SharedModule,
     RoundProgressModule,

@@ -1,6 +1,6 @@
 import { Budget } from '../../../models/budget.model';
 import { Action, createSelector, createFeatureSelector } from '@ngrx/store';
-import { BudgetActions, DefaultBudgetLoadedAction, BudgetActionTypes } from '../actions/budget.actions';
+import { BudgetActions, DefaultBudgetLoadedAction, BudgetActionTypes, ExpenseAdded } from '../actions/budget.actions';
 import { BudgetEffects } from '../effects/budget.effects';
 import { EntityState, createEntityAdapter } from '@ngrx/entity';
 import * as fromApp from '../../../store/app.reducers';
@@ -36,6 +36,8 @@ export function budgetReducer(state = INITIAL_STORE_DATA, action: BudgetActions)
             };
         case BudgetActionTypes.DefaultBudgetLoaded:
             return handleDefaultBudgetLoadedAction(state, <any>action);
+        case BudgetActionTypes.ExpenseAdded:
+            return handleExpenseAdded(state, <any>action);
         default:
             return state;
     }
@@ -46,6 +48,13 @@ export function budgetReducer(state = INITIAL_STORE_DATA, action: BudgetActions)
 function handleDefaultBudgetLoadedAction(state: State, action: DefaultBudgetLoadedAction): State {
     return {
         ...action.payload
+    };
+}
+
+function handleExpenseAdded(state: State, action: ExpenseAdded): State {
+    return {
+        ...state,
+        cashLeft: action.payload.newCashLeft
     };
 }
 

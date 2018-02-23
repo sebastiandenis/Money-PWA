@@ -8,7 +8,8 @@ import {
     LoadDefaultBudgetLinesAction, Query,
     DefaultBudgetLinesLoadedAction,
     UpdateBudgetLineAction,
-    BudgetLineUpdatedAction
+    BudgetLineUpdatedAction,
+    ExpenseAdded
 } from '../actions/budget-lines.actions';
 import { switchMap, mergeMap, map } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
@@ -47,6 +48,19 @@ export class BudgetLinesEffects {
         })
         );
 
+    @Effect()
+    expenseAdded$: Observable<Action> = this.actions$
+        .ofType(BudgetLinesActionTypes.ExpenseAdded)
+        .pipe(
+        map((action: ExpenseAdded) => action.payload),
+        mergeMap((data) => {
+            return [new UpdateBudgetLineAction({
+                budgetId: data.budgetId,
+                id: data.budgetLineId,
+                changes: { cashLeft: data.newCashLeft }
+            })];
+        })
+        );
 
     @Effect()
     update$: Observable<Action> = this.actions$
@@ -54,20 +68,22 @@ export class BudgetLinesEffects {
         .pipe(
         map((action: UpdateBudgetLineAction) => action.payload),
         switchMap(data => {
+            console.log('Effect.updateBudgetLine.budgetId: ', data.budgetId);
             const ref = this.afs.doc<Budget>(`budgets/${data.budgetId}/budgetLines/${data.id}`);
             return Observable.fromPromise(ref.update(data.changes));
         }),
         map(() => new BudgetLineUpdatedAction)
         );
 
-
-    @Effect({ dispatch: false })
-    addExpense$ = this.actions$
-        .ofType(BudgetLinesActionTypes.AddExpenseToBudgetLine)
-        .map((action: AddExpenseToBudgetLineAction) => action.payload)
-        .switchMap(payload => {
-            return this.budgetService.addExpense(payload.id, payload.budgetId, payload.amount, payload.changes);
-        });
+    /*
+        @Effect({ dispatch: false })
+        addExpense$ = this.actions$
+            .ofType(BudgetLinesActionTypes.AddExpenseToBudgetLine)
+            .map((action: AddExpenseToBudgetLineAction) => action.payload)
+            .switchMap(payload => {
+                return this.budgetService.addExpense(payload.id, payload.budgetId, payload.amount, payload.changes);
+            });
+            */
 
     @Effect()
     budgetLinesFetch$ = this.actions$

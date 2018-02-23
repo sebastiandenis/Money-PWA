@@ -5,6 +5,7 @@ import { Budget } from '../../../models/budget.model';
 export enum BudgetActionTypes {
     LoadDefaultBudget = '[Budget] Load Default Budget',
     DefaultBudgetLoaded = '[Budget] Default Budget Loaded',
+    ExpenseAdded = '[Budget] Added Expense'
 }
 
 
@@ -25,10 +26,17 @@ export class DefaultBudgetLoadedAction implements Action {
     }
 }
 
+export class ExpenseAdded implements Action {
+    readonly type = BudgetActionTypes.ExpenseAdded;
+    constructor(public payload?: { budgetId: string, newCashLeft: number }) {
+    }
+}
+
 
 
 
 export type BudgetActions =
-    DefaultBudgetLoadedAction |
-    LoadDefaultBudgetAction;
+    | DefaultBudgetLoadedAction
+    | LoadDefaultBudgetAction
+    | ExpenseAdded;
 

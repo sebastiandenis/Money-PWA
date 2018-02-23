@@ -34,7 +34,7 @@ export class BudgetComponent implements OnInit, OnDestroy {
   constructor(translate: TranslateService,
     private store: Store<fromRoot.AppState>) {
     this.user$ = this.store.select(fromRoot.selectUser);
-    this.budget$ = this.store.select(fromBudgetApp.selectBudget);
+    this.budget$ = this.store.select(fromBudgetApp.selectBudgetHeader);
   }
 
   ngOnInit() {

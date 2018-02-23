@@ -3,13 +3,15 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { NgForm } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../store/app.reducers';
-import * as fromBudget from '../store/reducers/index';
+import * as fromBudgetApp from '../store/reducers/index';
 import * as BudgetLinesActions from '../store/actions/budget-lines.actions';
+import * as ExpenseActions from '../store/actions/expense.actions';
 import { BudgetLine } from '../../models/budget-line.model';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { OnDestroy } from '@angular/core';
+import { Budget } from '../../models/budget.model';
 
 @Component({
   selector: 'app-add-expense-dlg',
@@ -18,7 +20,7 @@ import { OnDestroy } from '@angular/core';
   <form fxLayout="column" fxLayoutAlign="center center" #f="ngForm" (ngSubmit)="onSubmit(f)" fxLayoutGap="5px">
   <mat-dialog-content>
     <mat-form-field>
-      <input type="number" matInput placeholder="{{'amount' | translate}}" 
+      <input type="number" matInput placeholder="{{'amount' | translate}}"
       ngModel name="expenseAmount" id="expenseAmount" required #amountInput="ngModel">
       <mat-error>{{ 'typeanumber' | translate }}</mat-error>
     </mat-form-field>
@@ -36,16 +38,25 @@ export class AddExpenseDlgComponent implements OnInit, OnDestroy {
 
   selectedBudgetLine$: Observable<BudgetLine>;
   selectedBudgetLineSubscription: Subscription;
+  currentBudgetSubscription: Subscription;
   selectedBudgetLine: BudgetLine;
+  currentBudgetId: string;
+  currentBudget: Budget;
 
   constructor(private dialogRef: MatDialogRef<AddExpenseDlgComponent>,
     @Inject(MAT_DIALOG_DATA) public data: string,
     private store: Store<fromRoot.AppState>) {
-    this.selectedBudgetLine$ = this.store.select(fromBudget.selectCurrentBudgetLine);
+    this.selectedBudgetLine$ = this.store.select(fromBudgetApp.selectCurrentBudgetLine);
+
 
   }
 
   ngOnInit() {
+    this.currentBudgetSubscription = this.store.select(fromBudgetApp.selectBudgetHeader).subscribe((budget: Budget) => {
+      // console.log('addExpenseDlgComp.constructor.budget: ', budget);
+      this.currentBudgetId = budget.id;
+      this.currentBudget = budget;
+    });
     this.selectedBudgetLineSubscription = this.selectedBudgetLine$.subscribe((selectedBudgetLine) => {
       this.selectedBudgetLine = selectedBudgetLine;
     });
@@ -55,14 +66,26 @@ export class AddExpenseDlgComponent implements OnInit, OnDestroy {
     if (this.selectedBudgetLineSubscription) {
       this.selectedBudgetLineSubscription.unsubscribe();
     }
+    if (this.currentBudgetSubscription) {
+      this.currentBudgetSubscription.unsubscribe();
+    }
   }
 
   onSubmit(form: NgForm) {
     const amount = form.value.expenseAmount;
     if (amount && amount !== 0) {
-      this.selectedBudgetLine.cashLeft -= amount;
-      this.store.dispatch(new BudgetLinesActions.UpdateBudgetLineAction({
-        budgetId: this.data, id: this.selectedBudgetLine.id, changes: { cashLeft: this.selectedBudgetLine.cashLeft }
+      const newBudgetLineCashLeft = this.selectedBudgetLine.cashLeft - amount;
+      const newBudgetCashLeft = this.currentBudget.cashLeft - amount;
+      this.store.dispatch(new ExpenseActions.AddExpense({
+        expense: {
+          id: null,
+          amount: amount,
+          when: null
+        },
+        budgetId: this.currentBudgetId,
+        budgetLineId: this.selectedBudgetLine.id,
+        newBudgetLineCashLeft: newBudgetLineCashLeft,
+        newBudgetCashLeft: newBudgetCashLeft
       }));
     }
 

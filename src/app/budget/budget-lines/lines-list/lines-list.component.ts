@@ -35,7 +35,7 @@ export class LinesListComponent implements OnInit, OnDestroy {
   constructor(private dialog: MatDialog,
     private actionsDialogService: LinesActionsOverlayService,
     private store: Store<fromRoot.AppState>) {
-    this.budget$ = this.store.select(fromBudgetApp.selectBudget);
+    this.budget$ = this.store.select(fromBudgetApp.selectBudgetHeader);
     this.lines$ = this.store.select(fromBudgetApp.selectAllBudgetLines);
 
   }
@@ -44,6 +44,7 @@ export class LinesListComponent implements OnInit, OnDestroy {
 
     this.budgetSubscription = this.budget$.subscribe(
       (budget) => {
+        console.log('LinesListComp.ngOnInit.budget: ', budget);
         if (budget) {
           this.budgetId = budget.id;
           this.store.dispatch(new BudgetLinesActions.Query({ budgetId: budget.id }));
