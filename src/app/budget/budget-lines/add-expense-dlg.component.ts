@@ -17,13 +17,31 @@ import { Budget } from '../../models/budget.model';
   selector: 'app-add-expense-dlg',
   template: `
   <h5 matDialogTitle>{{selectedBudgetLine?.name}}</h5>
-  <form fxLayout="column" fxLayoutAlign="center center" #f="ngForm" (ngSubmit)="onSubmit(f)" fxLayoutGap="5px">
-  <mat-dialog-content>
+  <form fxLayout="column" fxLayoutAlign="center center" #f="ngForm" (ngSubmit)="onSubmit(f)">
+  <mat-dialog-content fxLayoutGap="5px">
     <mat-form-field>
       <input type="number" matInput placeholder="{{'amount' | translate}}"
       ngModel name="expenseAmount" id="expenseAmount" required #amountInput="ngModel">
       <mat-error>{{ 'typeanumber' | translate }}</mat-error>
     </mat-form-field>
+    <mat-accordion >
+    <mat-expansion-panel  style="margin-top: 10px;">
+      <mat-expansion-panel-header>
+      <mat-panel-title>
+       {{'more' | translate}}
+      </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-form-field>
+      <input matInput placeholder="{{'desc' | translate}}">
+      </mat-form-field>
+      <mat-form-field>
+      <input matInput placeholder="{{'date' | translate}}" [matDatepicker]="picker" ngModel name="birthdate" required>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    </mat-expansion-panel>
+    </mat-accordion>
     </mat-dialog-content>
     <mat-dialog-actions>
     <button type="submit" mat-button color="primary">{{'add' | translate}}</button>
@@ -79,8 +97,7 @@ export class AddExpenseDlgComponent implements OnInit, OnDestroy {
       this.store.dispatch(new ExpenseActions.AddExpense({
         expense: {
           id: null,
-          amount: amount,
-          when: null
+          amount: amount
         },
         budgetId: this.currentBudgetId,
         budgetLineId: this.selectedBudgetLine.id,

@@ -13,7 +13,10 @@ import {
   MatSnackBarModule,
   MatTabsModule,
   MatChipsModule,
-  MatDialogModule
+  MatDialogModule,
+  MatExpansionModule,
+  MatDatepickerModule,
+  MatNativeDateModule
 } from '@angular/material';
 import { OverlayModule } from '@angular/cdk/overlay';
 
@@ -33,7 +36,10 @@ import { OverlayModule } from '@angular/cdk/overlay';
     MatMenuModule,
     MatSnackBarModule,
     MatTabsModule,
-    OverlayModule
+    OverlayModule,
+    MatExpansionModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   exports: [
     MatInputModule,
@@ -49,7 +55,10 @@ import { OverlayModule } from '@angular/cdk/overlay';
     MatMenuModule,
     MatSnackBarModule,
     MatTabsModule,
-    OverlayModule
+    OverlayModule,
+    MatExpansionModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   declarations: []
 })

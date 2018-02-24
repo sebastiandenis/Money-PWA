@@ -5,7 +5,7 @@ import { Expense } from '../../../models/expense.model';
 import { ExpenseActions, ExpenseActionTypes } from '../actions/expense.actions';
 
 export interface FeatureState extends fromApp.AppState {
-    budgetLines: State;
+    expenses: State;
 }
 
 export const adapter = createEntityAdapter<Expense>();
@@ -21,6 +21,8 @@ export const initialState: State = adapter.getInitialState({
 
 export function expenseReducer(state = initialState, action: ExpenseActions): State {
     switch (action.type) {
+        case ExpenseActionTypes.AddExpense:
+            return { ...state };
         case ExpenseActionTypes.ADDED:
             return adapter.addOne(action.payload, state);
         case ExpenseActionTypes.MODIFIED:

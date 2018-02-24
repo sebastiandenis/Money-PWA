@@ -37,13 +37,16 @@ export class BudgetService {
   addExpense(expense: Expense,
     budgetId: string,
     budgetLineId: string): Observable<DocumentReference> {
+    const budgetLineRef: AngularFirestoreDocument<BudgetLine> =
+      this.afs.doc<BudgetLine>(`budgets/${budgetId}/budgetLines/${budgetLineId}`);
     const expensesCollectionRef: AngularFirestoreCollection<Expense> =
-      this.afs.collection<Expense>(`budgets/${budgetId}/budgetLines/${budgetLineId}/expenses`);
+      budgetLineRef.collection<Expense>(`expenses`);
+    // this.afs.collection<Expense>(`budgets/${budgetId}/budgetLines/${budgetLineId}/expenses`);
+
     const id = this.afs.createId();
     expense.id = id;
     return Observable.fromPromise(expensesCollectionRef.add(expense));
-    //  const expenseRef: AngularFirestoreDocument<Expense> = expensesCollectionRef.doc<Expense>(`${expense.id}`);
-    //  return expenseRef.valueChanges();
+
   }
 
   updateBudget(budgetId: string, changes: Partial<Budget>): Observable<void> {
