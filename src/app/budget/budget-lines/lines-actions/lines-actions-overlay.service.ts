@@ -40,8 +40,9 @@ export class LinesActionsOverlayService {
 
         const overlayComponent = this.attachDialogContainer(overlayRef, dialogConfig, dialogRef);
 
-        overlayRef.backdropClick().subscribe(_ => dialogRef.close());
+        dialogRef.componentInstance = overlayComponent;
 
+        overlayRef.backdropClick().subscribe(_ => dialogRef.close2());
 
         return dialogRef;
     }
@@ -74,6 +75,7 @@ export class LinesActionsOverlayService {
             .global()
             .centerHorizontally()
             .bottom();
+
 
         const overlayConfig = new OverlayConfig({
             hasBackdrop: config.hasBackdrop,

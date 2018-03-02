@@ -1,4 +1,6 @@
-<mat-nav-list #actionsList >
+<mat-nav-list #actionsList [@slideContent]="animationState"
+(@slideContent.start)="onAnimationStart($event)"
+(@slideContent.done)="onAnimationDone($event)">
   <mat-list-item (click)="onAddExpense()">
       <mat-icon matListIcon>add_circle</mat-icon>
       <p matLine>

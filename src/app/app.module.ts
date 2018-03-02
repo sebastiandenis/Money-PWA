@@ -41,14 +41,16 @@ import { CoreModule } from './core/core.module';
 import { WINDOW_PROVIDERS } from './services/window.service';
 import { LinesActionsOverlayService } from './budget/budget-lines/lines-actions/lines-actions-overlay.service';
 import { BudgetLinesEffects } from './budget/store/effects/budget-lines.effects';
-
-
+import { LinesActionsComponent } from './budget/budget-lines/lines-actions/lines-actions.component';
+import { MAT_DATE_LOCALE } from '@angular/material';
 
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
+
+
 
 @NgModule({
   declarations: [
@@ -70,7 +72,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     SharedModule,
     MaterialModule,
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([AuthEffects, UserEffects ]),
+    EffectsModule.forRoot([AuthEffects, UserEffects]),
     StoreRouterConnectingModule,
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     TranslateModule.forRoot({
@@ -81,7 +83,10 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     })
   ],
-  providers: [WINDOW_PROVIDERS],
-  bootstrap: [AppComponent]
+  providers: [WINDOW_PROVIDERS,
+    { provide: MAT_DATE_LOCALE, useValue: 'pl-PL' }
+  ],
+  bootstrap: [AppComponent],
+  entryComponents: []
 })
 export class AppModule { }

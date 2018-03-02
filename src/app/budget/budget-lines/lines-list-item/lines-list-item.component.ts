@@ -40,7 +40,7 @@ export class LinesListItemComponent implements OnInit {
 
   selectLine(lineId: string) {
     this.store.dispatch(new SelectBudgetLineAction({ budgetLineId: lineId }));
-    console.log('clicked: ', lineId);
+   // console.log('clicked: ', lineId);
     this.onSelectLine.emit();
   }
 

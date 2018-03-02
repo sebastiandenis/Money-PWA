@@ -71,9 +71,7 @@ export class LinesListComponent implements OnInit, OnDestroy {
 
   private openActionsDialog() {
     //   this.actionsDlgRef = this.dialog.open(LinesActionsComponent);
-    const dialogRef: LinesActionsOverlayRef = this.actionsDialogService.open({
-      dane: this.budgetId
-    });
+    const dialogRef: LinesActionsOverlayRef = this.actionsDialogService.open();
   }
 
 }

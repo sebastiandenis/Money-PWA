@@ -19,6 +19,7 @@
   .tm-lines-actions-dialog-panel{
     background-color: mat-color($background, dialog);
     width: 100vw;
+    position: fixed !important;
   }
 
   .cdk-overlay-backdrop.cdk-overlay-backdrop-showing {

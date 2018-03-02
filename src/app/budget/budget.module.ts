@@ -53,7 +53,7 @@ import { LinesActionsOverlayService } from './budget-lines/lines-actions/lines-a
     OverlayModule
   ],
   entryComponents: [
-    LinesActionsComponent, AddExpenseDlgComponent
+     AddExpenseDlgComponent, LinesActionsComponent
   ],
   providers: []
 

@@ -6,6 +6,7 @@ export interface State {
     mainMenuBtnVisible: boolean;
     showSidenav: boolean;
     mainToolbarFixed: boolean;
+    locale: string;
 
 }
 
@@ -13,7 +14,8 @@ export const INITIAL_UI_STATE: State = {
     currentTitle: 'appname',
     mainMenuBtnVisible: false,
     showSidenav: false,
-    mainToolbarFixed: true
+    mainToolbarFixed: true,
+    locale: 'pl-PL'
 
 };
 

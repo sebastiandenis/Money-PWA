@@ -47,7 +47,7 @@ export class ExpenseEffects {
         map((action: AddExpense) => action.payload),
         switchMap(payload => {
             return this.budgetService.addExpense(payload.expense, payload.budgetId, payload.budgetLineId)
-            .mergeMap((expenseDocRef: DocumentReference) => {
+            .mergeMap(() => {
                // console.log('Expense added: ', expenseDocRef);
               //  const budgetId = expenseDocRef.parent.parent.parent.parent.id;
               //  const budgetLineId = expenseDocRef.parent.parent.id;
