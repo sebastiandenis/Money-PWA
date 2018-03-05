@@ -4,7 +4,7 @@ import * as fromRoot from '../../../store/app.reducers';
 import { BudgetService } from '../../../services/budget.service';
 import { Store, Action } from '@ngrx/store';
 import {
-    BudgetLinesActionTypes, AddExpenseToBudgetLineAction,
+    BudgetLinesActionTypes,
     LoadDefaultBudgetLinesAction, Query,
     DefaultBudgetLinesLoadedAction,
     UpdateBudgetLineAction,
@@ -75,15 +75,6 @@ export class BudgetLinesEffects {
         map(() => new BudgetLineUpdatedAction)
         );
 
-    /*
-        @Effect({ dispatch: false })
-        addExpense$ = this.actions$
-            .ofType(BudgetLinesActionTypes.AddExpenseToBudgetLine)
-            .map((action: AddExpenseToBudgetLineAction) => action.payload)
-            .switchMap(payload => {
-                return this.budgetService.addExpense(payload.id, payload.budgetId, payload.amount, payload.changes);
-            });
-            */
 
     @Effect()
     budgetLinesFetch$ = this.actions$

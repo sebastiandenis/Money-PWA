@@ -16,7 +16,6 @@ export enum BudgetLinesActionTypes {
     UpdateBudgetLine = '[BudgetLine] Update Budget Line',
     BudgetLineUpdated = '[BudgetLine] Budget Line Updated',
     DeleteBudgetLine = '[BudgetLine] Delete Budget Line',
-    AddExpenseToBudgetLine = '[BudgetLine] Add Expense To Budget Line',
     ExpenseAdded = '[BudgetLine] added Expense',
     SelectBudgetLine = '[BudgetLine] Select Budget Line',
 
@@ -71,10 +70,7 @@ export class ExpenseAdded implements Action {
     }
 }
 
-export class AddExpenseToBudgetLineAction implements Action {
-    readonly type = BudgetLinesActionTypes.AddExpenseToBudgetLine;
-    constructor(public payload?: { id: string, budgetId: string, amount: number, changes: Partial<BudgetLine> }) { }
-}
+
 
 export class CreateBudgetLineAction implements Action {
     readonly type = BudgetLinesActionTypes.CreateBudgetLine;
@@ -119,6 +115,5 @@ export type BudgetLinesActions =
     UpdateBudgetLineAction |
     BudgetLineUpdatedAction |
     DeleteBudgetLineAction |
-    AddExpenseToBudgetLineAction |
     ExpenseAdded |
     SelectBudgetLineAction;

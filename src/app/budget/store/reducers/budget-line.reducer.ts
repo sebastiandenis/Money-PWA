@@ -44,13 +44,6 @@ export function budgetLineReducer(state = initialState, action: BudgetLinesActio
                         changes: {cashLeft: action.payload.newCashLeft}
                     }, state
                 );
-        case BudgetLinesActionTypes.AddExpenseToBudgetLine:
-            return adapter.updateOne(
-                {
-                    id: action.payload.id,
-                    changes: action.payload.changes
-                }, state
-            );
 
         case BudgetLinesActionTypes.DefaultBudgetLinesLoaded:
             //    return handleDefaultBudgetLinesLoadedAction(state, <any>action);

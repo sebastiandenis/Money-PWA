@@ -17,7 +17,7 @@ export interface State extends Budget {
 
 
 
-export const INITIAL_STORE_DATA: State = {
+export const initialState: State = {
     //   budgetHeader2: {
     id: undefined,
     name: undefined,
@@ -28,7 +28,7 @@ export const INITIAL_STORE_DATA: State = {
     //   }
 };
 
-export function budgetReducer(state = INITIAL_STORE_DATA, action: BudgetActions): State {
+export function budgetReducer(state = initialState, action: BudgetActions): State {
     switch (action.type) {
         case BudgetActionTypes.LoadDefaultBudget:
             return {

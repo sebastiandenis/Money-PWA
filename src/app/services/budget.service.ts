@@ -5,6 +5,8 @@ import { Budget } from '../models/budget.model';
 import { BudgetLine } from '../models/budget-line.model';
 import { Expense } from '../models/expense.model';
 import { DocumentReference } from '@firebase/firestore-types';
+import 'rxjs/add/observable/fromPromise';
+import { switchMap } from 'rxjs/operators';
 
 @Injectable()
 export class BudgetService {

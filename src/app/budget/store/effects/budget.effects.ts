@@ -12,7 +12,6 @@ import { BudgetActionTypes, ExpenseAdded } from '../actions/budget.actions';
 import { switchMap, mergeMap, map } from 'rxjs/operators';
 
 
-
 @Injectable()
 export class BudgetEffects {
 
@@ -24,11 +23,13 @@ export class BudgetEffects {
     @Effect()
     budgetFetch = this.actions$
         .ofType(BudgetActions.BudgetActionTypes.LoadDefaultBudget)
-        .map((action: BudgetActions.LoadDefaultBudgetAction) => action.payload)
-        .switchMap(budgetId => {
+        .pipe(
+        map((action: BudgetActions.LoadDefaultBudgetAction) => action.payload),
+        switchMap(budgetId => {
             return this.budgetService.loadDefaultBudget(budgetId);
-        })
-        .map(results => new BudgetActions.DefaultBudgetLoadedAction(results));
+        }),
+        map(results => new BudgetActions.DefaultBudgetLoadedAction(results))
+        );
 
     @Effect({ dispatch: false })
     expenseAdded$: Observable<void> = this.actions$
