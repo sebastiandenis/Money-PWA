@@ -1,11 +1,11 @@
-import { Component, OnInit, Inject, EventEmitter, Output, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, EventEmitter, Output } from '@angular/core';
 import { LinesActionsOverlayRef } from './lines-actions-overlay-ref';
 // import { LINES_ACTIONS_DIALOG_DATA } from './lines-actions-overlay.tokens';
 import { TranslateService } from '@ngx-translate/core';
 import { AddExpenseDlgComponent } from '../add-expense-dlg.component';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { trigger, state, transition, animate, style, AnimationEvent } from '@angular/animations';
-import { Subscription } from 'rxjs/Subscription';
+// import { Subscription } from 'rxjs/Subscription';
 import { BudgetLine } from '../../../models/budget-line.model';
 import { ChangeDetectionStrategy } from '@angular/core';
 
@@ -26,22 +26,20 @@ const ANIMATION_TIMINGS = '400ms cubic-bezier(0.25, 0.8, 0.25, 1)';
     ])
   ]
 })
-export class LinesActionsComponent implements OnInit, OnDestroy {
+export class LinesActionsComponent implements OnInit {
 
-  addExpenseDlgRef: MatDialogRef<AddExpenseDlgComponent>;
-  beforeAddDlgCloseSubscription: Subscription;
+  // addExpenseDlgRef: MatDialogRef<AddExpenseDlgComponent>;
+  // beforeAddDlgCloseSubscription: Subscription;
   animationState: 'void' | 'enter' | 'leave' = 'enter';
   animationStateChanged = new EventEmitter<AnimationEvent>();
 
+  @Output()
+  addExpenseEmitter = new EventEmitter<any>();
 
 
-  constructor(public actionsDialogRef: LinesActionsOverlayRef,
-    private dialog: MatDialog
-    ) {
-  }
+  constructor(public actionsDialogRef: LinesActionsOverlayRef) {}
 
   ngOnInit() {
-
   }
 
   onAnimationStart(event: AnimationEvent) {
@@ -57,21 +55,23 @@ export class LinesActionsComponent implements OnInit, OnDestroy {
   }
 
   onAddExpense() {
-    this.openAddExpenseDlg();
-    this.beforeAddDlgCloseSubscription = this.addExpenseDlgRef.beforeClose().subscribe(_ => {
-    //  this.actionsDialogRef.close();
-    });
-  }
-
-  openAddExpenseDlg() {
-    this.addExpenseDlgRef = this.dialog.open(AddExpenseDlgComponent, {});
+    this.addExpenseEmitter.emit({ action: 'addExpense' });
     this.actionsDialogRef.close();
+    // this.openAddExpenseDlg();
+    // this.beforeAddDlgCloseSubscription = this.addExpenseDlgRef.beforeClose().subscribe(_ => {
+    //   //  this.actionsDialogRef.close();
+    // });
   }
 
-  ngOnDestroy() {
-    if (this.beforeAddDlgCloseSubscription) {
-      this.beforeAddDlgCloseSubscription.unsubscribe();
-    }
-  }
+  // openAddExpenseDlg() {
+  //   this.addExpenseDlgRef = this.dialog.open(AddExpenseDlgComponent, { data: 'bl001' });
+  //   this.actionsDialogRef.close();
+  // }
+
+  // ngOnDestroy() {
+  //   if (this.beforeAddDlgCloseSubscription) {
+  //     this.beforeAddDlgCloseSubscription.unsubscribe();
+  //   }
+  // }
 
 }

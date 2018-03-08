@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { NgForm } from '@angular/forms';
 import { Store } from '@ngrx/store';
@@ -12,6 +12,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { OnDestroy } from '@angular/core';
 import { Budget } from '../../models/budget.model';
+
 
 @Component({
   selector: 'app-add-expense-dlg',
@@ -64,12 +65,13 @@ export class AddExpenseDlgComponent implements OnInit, OnDestroy {
   currentBudgetId: string;
   currentBudget: Budget;
 
+  @Output()
+  emitAddExpense = new EventEmitter<any>();
+
   constructor(private dialogRef: MatDialogRef<AddExpenseDlgComponent>,
     @Inject(MAT_DIALOG_DATA) public data: string,
     private store: Store<fromRoot.AppState>) {
     this.selectedBudgetLine$ = this.store.select(fromBudgetApp.selectCurrentBudgetLine);
-
-
   }
 
   ngOnInit() {
@@ -114,16 +116,12 @@ export class AddExpenseDlgComponent implements OnInit, OnDestroy {
       }
 
 
-      this.store.dispatch(new ExpenseActions.AddExpense({
-        expense: expense,
-        budgetId: this.currentBudgetId,
-        budgetLineId: this.selectedBudgetLine.id,
-        newBudgetLineCashLeft: newBudgetLineCashLeft,
-        newBudgetCashLeft: newBudgetCashLeft
-      }));
+      this.dialogRef.close({ expense: expense, budgetLineId: this.data });
+    } else {
+      this.dialogRef.close();
     }
 
-    this.dialogRef.close();
+
   }
 
 

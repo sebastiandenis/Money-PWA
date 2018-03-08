@@ -7,7 +7,7 @@ import * as BudgetLinesActions from '../store/actions/budget-lines.actions';
 import * as fromBudgetApp from '../store/reducers/index';
 import { Observable } from 'rxjs/Observable';
 import { Budget } from '../../models/budget.model';
-
+import * as ExpenseActions from '../store/actions/expense.actions';
 
 @Component({
   selector: 'app-budget-lines',
@@ -20,6 +20,7 @@ export class BudgetLinesComponent implements OnInit, OnDestroy {
   budget$: Observable<Budget>;
   budgetSubscription: Subscription;
   budgetId: string;
+  budgetCashLeft = 0;
 
   constructor(private store: Store<fromRoot.AppState>) {
     this.budget$ = this.store.select(fromBudgetApp.selectBudgetHeader);
@@ -30,9 +31,10 @@ export class BudgetLinesComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.budgetSubscription = this.budget$.subscribe(
       (budget) => {
-        console.log('LinesListComp.ngOnInit.budget: ', budget);
+       // console.log('LinesListComp.ngOnInit.budget: ', budget);
         if (budget) {
           this.budgetId = budget.id;
+          this.budgetCashLeft = budget.cashLeft;
           this.store.dispatch(new BudgetLinesActions.Query({ budgetId: budget.id }));
         }
 
@@ -44,6 +46,16 @@ export class BudgetLinesComponent implements OnInit, OnDestroy {
     if (this.budgetSubscription) {
       this.budgetSubscription.unsubscribe();
     }
+  }
+
+  onAddExpense(data: any) {
+      this.store.dispatch(new ExpenseActions.AddExpense({
+        expense: data.expense,
+        budgetId: this.budgetId,
+        budgetLineId: data.budgetLineId,
+        newBudgetLineCashLeft: data.newBudgetLineCashLeft,
+        newBudgetCashLeft: this.budgetCashLeft - data.expense.amount
+      }));
   }
 
 
