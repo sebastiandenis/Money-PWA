@@ -1,3 +1,3 @@
 ## 0.21.0
 
-* Moved ngrx from "dumb" components to containers
+* Moved ngrx from "dumb" budget-lines components to containers
