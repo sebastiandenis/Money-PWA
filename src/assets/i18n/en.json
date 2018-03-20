@@ -13,6 +13,7 @@
     "daysLeft": "days left",
     "desc": "Description",
     "email": "E-mail",
+    "expenseadded": "Expense added",
     "loading": "Loading",
     "more": "More",
     "password": "Password",
@@ -32,6 +33,7 @@
     "singuperroroperationnotallowed": "Creating new accouts is curently off",
     "singuperrorweakpassword": "Password is too weak, use stronger password",
     "typeanumber": "Type a number",
+    "undo": "Undo",
     "username": "Username",
     "usernameexists": "Username exists",
     "wrongemailorpassword": "Wrong user email or password"

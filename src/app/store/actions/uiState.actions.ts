@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import { UndoPayload } from '../../core/components/undo-snackbar/undo-snackbar.component';
 
 export enum UiStateActionTypes {
     ChangeTitle = '[UiState] Change Title',
@@ -6,9 +7,26 @@ export enum UiStateActionTypes {
     MainToolbarVisible = '[UiState] Main Toolbar Visible',
     OpenSidenav = '[UiState] Open Sidenav (on)',
     CloseSidenav = '[UiState] Close Sidenav (off)',
-    SwitchSidenav = '[UiState] Switch Sidenav (on/off)'
+    SwitchSidenav = '[UiState] Switch Sidenav (on/off)',
+    ShowUndoSnackbar = '[UiState] Show Undo Snackbar',
+    DoUndo = '[UiState] Do Undo',
+    CloseUndoSnackbar = '[UiState] Close Undo Snackbar',
 }
 
+
+export class ShowUndoSnackbar implements Action {
+    readonly type: string = UiStateActionTypes.ShowUndoSnackbar;
+    constructor(public payload?: UndoPayload) {
+    }
+}
+
+export class DoUndo implements Action {
+    readonly type: string = UiStateActionTypes.DoUndo;
+}
+
+export class CloseUndoSnackbar implements Action {
+    readonly type: string = UiStateActionTypes.CloseUndoSnackbar;
+}
 
 
 
@@ -43,7 +61,8 @@ export class ChangeMainToolbarVisibleAction implements Action {
     }
 }
 
-export type All =
+export type UiStateActions =
     OpenSidenavAction | CloseSidenavAction | SwitchSidenavAction |
-    ChangeTitleAction | ChangeMainMenuBtnVisibleAction | ChangeMainToolbarVisibleAction;
+    ChangeTitleAction | ChangeMainMenuBtnVisibleAction | ChangeMainToolbarVisibleAction |
+    ShowUndoSnackbar | DoUndo | CloseUndoSnackbar;
 

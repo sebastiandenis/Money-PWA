@@ -56,6 +56,7 @@ export class BudgetLinesComponent implements OnInit, OnDestroy {
         newBudgetLineCashLeft: data.newBudgetLineCashLeft,
         newBudgetCashLeft: this.budgetCashLeft - data.expense.amount
       }));
+
   }
 
 

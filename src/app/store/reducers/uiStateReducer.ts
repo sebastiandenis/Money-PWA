@@ -7,20 +7,36 @@ export interface State {
     showSidenav: boolean;
     mainToolbarFixed: boolean;
     locale: string;
+    lastUndo: any;
+    showUndoSnackbar: boolean;
 
 }
 
-export const INITIAL_UI_STATE: State = {
+export const initialState: State = {
     currentTitle: 'appname',
     mainMenuBtnVisible: false,
     showSidenav: false,
     mainToolbarFixed: true,
-    locale: 'pl-PL'
+    locale: 'pl-PL',
+    lastUndo: null,
+    showUndoSnackbar: false
 
 };
 
-export function uiState(state: State = INITIAL_UI_STATE, action: Action): State {
+export function uiState(state: State = initialState, action: Action): State {
     switch (action.type) {
+        case UiStateActions.UiStateActionTypes.ShowUndoSnackbar:
+            return handleShowUndoSnackbarAction(state, <any>action);
+        case UiStateActions.UiStateActionTypes.DoUndo:
+            return {
+                ...state
+            };
+        case UiStateActions.UiStateActionTypes.CloseUndoSnackbar:
+            return {
+                ...state,
+                lastUndo: null,
+                showUndoSnackbar: false
+            };
         case UiStateActions.UiStateActionTypes.SwitchSidenav:
             return handleSwitchSidenavAction(state, <any>action);
         case UiStateActions.UiStateActionTypes.OpenSidenav:
@@ -45,6 +61,13 @@ export function uiState(state: State = INITIAL_UI_STATE, action: Action): State 
 
 }
 
+function handleShowUndoSnackbarAction(state: State, action: UiStateActions.ShowUndoSnackbar): State {
+    return {
+        ...state,
+        lastUndo: action.payload,
+        showUndoSnackbar: true
+    };
+}
 
 function handleSwitchSidenavAction(state: State, action: UiStateActions.SwitchSidenavAction): State {
     return {

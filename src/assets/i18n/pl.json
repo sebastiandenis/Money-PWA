@@ -13,6 +13,7 @@
     "daysLeft": "dni",
     "desc": "Opis",
     "email": "E-mail",
+    "expenseadded": "Wydatek dodany",
     "loading": "Wczytuję",
     "more": "Więcej",
     "password": "Hasło",
@@ -32,6 +33,7 @@
     "singuperroroperationnotallowed": "Tworzenie nowych kont jest obecnie wyłączone",
     "singuperrorweakpassword": "Hasło zbyt słabe, użyj silniejszego",
     "typeanumber": "Wprowadź liczbę",
+    "undo": "Cofnij",
     "username": "Nazwa użytkownika",
     "usernameexists": "Nazwa użytkownika już istnieje",
     "wrongemailorpassword": "Nieprawidłowy login lub hasło"

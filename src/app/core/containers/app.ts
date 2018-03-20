@@ -23,6 +23,9 @@ import { ChangeDetectorRef } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 import { WINDOW } from '../../services/window.service';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { MatSnackBar } from '@angular/material';
+import { UndoSnackbarComponent } from '../components/undo-snackbar/undo-snackbar.component';
+import { CloseUndoSnackbar } from '../../store/actions/uiState.actions';
 
 
 
@@ -55,6 +58,8 @@ export class AppComponent implements OnInit, OnDestroy {
     authSubscription: Subscription;
     mainToolbarSubscription: Subscription;
     showSidenav$: Observable<boolean>;
+    showUndoSnackbar$: Observable<boolean>;
+    showUndoSnackbarSub: Subscription;
     mainToolbarFixed$: Observable<boolean>;
     storageRef: any;
     photoUrl: string;
@@ -72,7 +77,8 @@ export class AppComponent implements OnInit, OnDestroy {
         public cd: ChangeDetectorRef,
         @Inject(DOCUMENT) private document: Document,
         @Inject(WINDOW) private window: Window,
-        private overlayContainer: OverlayContainer) {
+        private overlayContainer: OverlayContainer,
+        public snackBar: MatSnackBar) {
         // this language will be used as a fallback when a translation isn't found in the current language
         this.translate.setDefaultLang('en');
         // the lang to use, if the lang isn't available, it will use the current loader to get them
@@ -100,6 +106,8 @@ export class AppComponent implements OnInit, OnDestroy {
         this.mainToolbarFixed$ = this.store.select(fromRoot.selectMainToolbarFixed);
         this.auth$ = this.store.select(fromRoot.selectAuthUserData);
         this.user$ = this.store.select(fromRoot.selectUser);
+        this.showUndoSnackbar$ = this.store.select(fromRoot.selectUiShowUndoSnackbar);
+
 
         this.mainToolbarSubscription = this.mainToolbarFixed$.subscribe(
             isFixed => {
@@ -109,6 +117,28 @@ export class AppComponent implements OnInit, OnDestroy {
                 } else if (!isFixed && this.toolbarState !== 'hidden') {
                     this.toolbarState = 'hidden';
                     this.cd.detectChanges();
+                }
+            }
+        );
+
+        this.showUndoSnackbarSub = this.showUndoSnackbar$.subscribe(
+            isVisible => {
+                if (isVisible) {
+                    // widoczny
+                    // console.log('UndoSnackbar widoczny');
+                    this.snackBar.openFromComponent(UndoSnackbarComponent, {
+                        data: 'not used',
+                        duration: 3500,
+                        extraClasses: ['error-class']
+                    });
+                    this.snackBar._openedSnackBarRef.afterDismissed().subscribe(() => {
+                        // console.log('Undo snackbar zamknięty!');
+                        this.store.dispatch(new CloseUndoSnackbar());
+                    });
+
+                    this.snackBar._openedSnackBarRef.onAction().subscribe(() => {
+                        // kliknięty przycisk cofnij
+                    });
                 }
             }
         );
@@ -188,10 +218,11 @@ export class AppComponent implements OnInit, OnDestroy {
         if (this.authSubscription) {
             this.authSubscription.unsubscribe();
         }
-
-
         if (this.mainToolbarSubscription) {
             this.mainToolbarSubscription.unsubscribe();
+        }
+        if (this.showUndoSnackbarSub) {
+            this.showUndoSnackbarSub.unsubscribe();
         }
     }
 }

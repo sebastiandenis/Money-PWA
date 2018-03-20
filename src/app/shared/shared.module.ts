@@ -4,6 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ErrorSnackbarComponent } from '../core/components/error-snackbar/error-snackbar.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
+import { UndoSnackbarComponent } from '../core/components/undo-snackbar/undo-snackbar.component';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { FormsModule } from '@angular/forms';
     FormsModule
   ],
   declarations: [
-    ErrorSnackbarComponent
-  ]
+    ErrorSnackbarComponent, UndoSnackbarComponent
+  ],
+  entryComponents: [UndoSnackbarComponent]
 })
 export class SharedModule { }

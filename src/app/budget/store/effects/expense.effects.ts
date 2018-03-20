@@ -5,12 +5,14 @@ import { BudgetService } from '../../../services/budget.service';
 import { Store, Action } from '@ngrx/store';
 import * as fromRoot from '../../../store/app.reducers';
 import { Observable } from 'rxjs/Observable';
-import { ExpenseActionTypes, Query, AddExpense } from '../actions/expense.actions';
+import { ExpenseActionTypes, Query, AddExpense, DeleteExpense } from '../actions/expense.actions';
 import { switchMap, mergeMap, map } from 'rxjs/operators';
 import { DocumentReference } from '@firebase/firestore-types';
 // import { BudgetLinesActionTypes, UpdateBudgetLineAction, ExpenseAdded } from '../actions/budget-lines.actions';
 import * as fromBudgetLinesActions from '../actions/budget-lines.actions';
 import * as fromBudgetActions from '../actions/budget.actions';
+import * as fromUiStateActions from '../../../store/actions/uiState.actions';
+import { UndoPayloadMessages } from '../../../core/components/undo-snackbar/undo-snackbar.component';
 
 @Injectable()
 export class ExpenseEffects {
@@ -62,6 +64,12 @@ export class ExpenseEffects {
                 new fromBudgetActions.ExpenseAdded({
                     budgetId: payload.budgetId,
                     newCashLeft: payload.newBudgetCashLeft
+                }),
+                new fromUiStateActions.ShowUndoSnackbar({
+                    message: UndoPayloadMessages.ExpenseAdded,
+                    action: new DeleteExpense({
+                        id: payload.expense.id
+                    })
                 })
             ];
             });

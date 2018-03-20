@@ -21,7 +21,13 @@ export const reducers: ActionReducerMap<AppState> = {
 };
 
 
+export function selectUiShowUndoSnackbar(state: AppState){
+    return state.uiState.showUndoSnackbar;
+}
 
+export function selectUiLastUndo(state: AppState){
+    return state.uiState.lastUndo;
+}
 
 export function selectAuthUserData(state: AppState) {
     return state.auth.userData;
