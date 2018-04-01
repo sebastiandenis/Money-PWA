@@ -8,9 +8,11 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import * as fromRoot from '../../../store/app.reducers';
+import { CloseUndoSnackbar } from '../../../store/actions/uiState.actions';
 
 export enum UndoPayloadMessages {
-    ExpenseAdded = 'expenseadded'
+    ExpenseAdded = 'expenseadded',
+    ExpenseRemoved = 'expenseremoved'
 }
 
 export interface UndoPayload {
@@ -37,7 +39,7 @@ export class UndoSnackbarComponent implements OnInit, OnDestroy {
 
 
 
-    constructor( public snackBarRef: MatSnackBarRef<UndoSnackbarComponent>,
+    constructor(public snackBarRef: MatSnackBarRef<UndoSnackbarComponent>,
         @Inject(MAT_SNACK_BAR_DATA) public data: string,
         private store: Store<fromApp.AppState>) {
         this.lastUndo$ = this.store.select(fromRoot.selectUiLastUndo);
@@ -52,8 +54,10 @@ export class UndoSnackbarComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.lastUndoSubscription = this.lastUndo$.subscribe((lastUndo: UndoPayload) => {
-            this.data = lastUndo.message;
-            this.lastUndoAction = lastUndo.action;
+            if (lastUndo) {
+                this.data = lastUndo.message;
+                this.lastUndoAction = lastUndo.action;
+            }
         });
     }
 

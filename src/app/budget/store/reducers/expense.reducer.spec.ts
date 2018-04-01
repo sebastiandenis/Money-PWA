@@ -1,7 +1,7 @@
 import * as fromExpenseReducer from './expense.reducer';
 import { Expense } from '../../../models/expense.model';
 import { State } from './expense.reducer';
-import { ExpenseActions, AddExpense, Added, Modified, Removed } from '../actions/expense.actions';
+import { ExpenseActions, AddExpense, Added, Modified, Removed, DeleteExpense } from '../actions/expense.actions';
 
 
 const expense01: Expense = {
@@ -123,6 +123,28 @@ describe('ExpenseReducer', () => {
             expect(state.selectedExpenseId).toEqual(null);
             expect(state.ids.length).toEqual(1);
             expect(state.entities[expense01.id]).toBeUndefined();
+            expect(state.entities[expense02.id].id).toEqual(expense02.id);
+            expect(state.entities[expense02.id].amount).toEqual(expense02.amount);
+            expect(state.entities[expense02.id].description).toEqual(expense02.description);
+            expect(state.entities[expense02.id].when).toEqual(expense02.when);
+        });
+    });
+
+    describe('Delete expense action', () => {
+        it('should not modify the state', () => {
+            const removedExpense: Expense = expense01;
+
+            const action: ExpenseActions = new DeleteExpense({
+                expense: removedExpense,
+                budgetLineId: null,
+                budgetId: null
+            });
+            // const { initialState } = fromExpenseReducer;
+            const state = fromExpenseReducer.expenseReducer(myState, action);
+
+            expect(state.selectedExpenseId).toEqual(myState.selectedExpenseId);
+            expect(state.ids.length).toEqual(myState.ids.length);
+            expect(state.entities[expense01.id]).toBeDefined();
             expect(state.entities[expense02.id].id).toEqual(expense02.id);
             expect(state.entities[expense02.id].amount).toEqual(expense02.amount);
             expect(state.entities[expense02.id].description).toEqual(expense02.description);

@@ -1,7 +1,7 @@
 import * as fromBudgetLineReducer from './budget-line.reducer';
 import {
     BudgetLinesActions, Added, Modified,
-    Removed, SelectBudgetLineAction, ExpenseAdded,
+    Removed, SelectBudgetLineAction,
     DefaultBudgetLinesLoadedAction,
     CreateBudgetLineAction,
     UpdateBudgetLineAction,
@@ -63,7 +63,7 @@ describe('BudgetLineReducer', () => {
             expect(state.selectedBudgetLineId).toEqual(null);
             expect(state.ids.length).toEqual(1);
             expect(state.ids[0]).toEqual(budgetLine01.id);
-            expect(state.entities['bl001']).toEqual({
+            expect(state.entities[budgetLine01.id]).toEqual({
                 id: budgetLine01.id,
                 name: budgetLine01.name,
                 cashToSpend: budgetLine01.cashToSpend,
@@ -86,9 +86,9 @@ describe('BudgetLineReducer', () => {
 
             expect(state.selectedBudgetLineId).toEqual(null);
             expect(state.ids.length).toEqual(2);
-            expect(state.ids[0]).toEqual('bl001');
-            expect(state.ids[1]).toEqual('bl002');
-            expect(state.entities['bl002']).toEqual({
+            expect(state.ids[0]).toEqual(myState.ids[0]);
+            expect(state.ids[1]).toEqual(myState.ids[1]);
+            expect(state.entities[updatedBudgetLine.id]).toEqual({
                 id: updatedBudgetLine.id,
                 name: updatedBudgetLine.name,
                 cashToSpend: updatedBudgetLine.cashToSpend,
@@ -101,10 +101,7 @@ describe('BudgetLineReducer', () => {
     describe('Removed action', () => {
         it('should remove the entity', () => {
             const entityToRemove: BudgetLine = {
-                id: 'bl002',
-                name: 'Linia zaktualizowana',
-                cashToSpend: 300,
-                cashLeft: 0
+                ...budgetLine02
             };
             const action: BudgetLinesActions = new Removed(entityToRemove);
             // const { initialState } = fromBudgetLineReducer;
@@ -112,9 +109,9 @@ describe('BudgetLineReducer', () => {
 
             expect(state.selectedBudgetLineId).toEqual(null);
             expect(state.ids.length).toEqual(1);
-            expect(state.ids[0]).toEqual('bl001');
-            expect(state.entities['bl001'].id).toEqual(budgetLine01.id);
-            expect(state.entities['bl002']).toBeUndefined();
+            expect(state.ids[0]).toEqual(myState.ids[0]);
+            expect(state.entities[budgetLine01.id].id).toEqual(budgetLine01.id);
+            expect(state.entities[budgetLine02.id]).toBeUndefined();
         });
     });
 
@@ -130,28 +127,7 @@ describe('BudgetLineReducer', () => {
             expect(state.selectedBudgetLineId).toEqual(payload.budgetLineId);
             expect(state.ids.length).toEqual(2);
             expect(state.ids[0]).toEqual(budgetLine01.id);
-            expect(state.entities['bl002'].id).toEqual(budgetLine02.id);
-        });
-    });
-
-    describe('ExpenseAdded action', () => {
-        it('should update the entity', () => {
-            const payload = {
-                budgetId: 'b001',
-                budgetLineId: 'bl002',
-                newCashLeft: 10
-            };
-            const action: BudgetLinesActions = new ExpenseAdded(payload);
-            // const { initialState } = fromBudgetLineReducer;
-            const state = fromBudgetLineReducer.budgetLineReducer(myState, action);
-
-            expect(state.selectedBudgetLineId).toEqual(null);
-            expect(state.ids.length).toEqual(2);
-            expect(state.ids[0]).toEqual(budgetLine01.id);
-            expect(state.ids[1]).toEqual(budgetLine02.id);
-            expect(state.entities[payload.budgetLineId].id).toEqual(myState.entities[budgetLine02.id].id);
-            expect(state.entities[payload.budgetLineId].cashToSpend).toEqual(myState.entities[budgetLine02.id].cashToSpend);
-            expect(state.entities[payload.budgetLineId].cashLeft).toEqual(payload.newCashLeft);
+            expect(state.entities[payload.budgetLineId].id).toEqual(budgetLine02.id);
         });
     });
 

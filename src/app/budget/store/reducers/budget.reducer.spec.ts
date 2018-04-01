@@ -1,17 +1,33 @@
 import * as fromBudgetReducer from './budget.reducer';
-import { BudgetActions, LoadDefaultBudgetAction, DefaultBudgetLoadedAction, ExpenseAdded } from '../actions/budget.actions';
+import {
+    BudgetActions, LoadDefaultBudgetAction, DefaultBudgetLoadedAction, UpdateBudget
+} from '../actions/budget.actions';
 import { State } from './budget.reducer';
 import { Budget } from '../../../models/budget.model';
 
-export const myState: State = {
-    //   budgetHeader2: {
+
+
+export const budget01: Budget = {
     id: 'b001',
     name: 'My budget',
     dateStart: new Date(),
     dateEnd: undefined,
     totalCash: 5000,
     cashLeft: 1400
-    //   }
+};
+
+export const budget02: Budget = {
+    id: 'b002',
+    name: 'Nowy budżet',
+    dateStart: null,
+    dateEnd: null,
+    totalCash: 10000,
+    cashLeft: 5000
+};
+
+
+export const myState: State = {
+    ...budget01
 };
 
 describe('BudgetReducer', () => {
@@ -27,55 +43,67 @@ describe('BudgetReducer', () => {
     });
 
     describe('LoadDefaultBudget action', () => {
-        it('should return payload', () => {
-            const action: BudgetActions = new LoadDefaultBudgetAction('b001');
+        it('should return state', () => {
+            const action: BudgetActions = new LoadDefaultBudgetAction(budget01.id);
             const state = fromBudgetReducer.budgetReducer(myState, action);
 
-            expect(state.id).toEqual('b001');
-            expect(state.name).toEqual('My budget');
-            expect(state.dateEnd).toEqual(undefined);
-            expect(state.totalCash).toEqual(5000);
-            expect(state.cashLeft).toEqual(1400);
+            expect(state.id).toEqual(myState.id);
+            expect(state.name).toEqual(myState.name);
+            expect(state.dateEnd).toEqual(myState.dateEnd);
+            expect(state.totalCash).toEqual(myState.totalCash);
+            expect(state.cashLeft).toEqual(myState.cashLeft);
         });
     });
 
 
     describe('DefaultBudgetLoaded action', () => {
         it('should return new state', () => {
-            const budget: Budget = {
-                id: 'b002',
-                name: 'Nowy budżet',
-                dateStart: null,
-                dateEnd: null,
-                totalCash: 10000,
-                cashLeft: 5000
-            };
+            const budget: Budget = budget02;
             const action: BudgetActions = new DefaultBudgetLoadedAction(budget);
             const { initialState } = fromBudgetReducer;
             const state = fromBudgetReducer.budgetReducer(initialState, action);
 
-            expect(state.id).toEqual('b002');
-            expect(state.name).toEqual('Nowy budżet');
-            expect(state.dateStart).toEqual(null);
-            expect(state.dateEnd).toEqual(null);
-            expect(state.totalCash).toEqual(10000);
-            expect(state.cashLeft).toEqual(5000);
+            expect(state.id).toEqual(budget.id);
+            expect(state.name).toEqual(budget.name);
+            expect(state.dateStart).toEqual(budget.dateStart);
+            expect(state.dateEnd).toEqual(budget.dateEnd);
+            expect(state.totalCash).toEqual(budget.totalCash);
+            expect(state.cashLeft).toEqual(budget.cashLeft);
         });
     });
 
-    describe('ExpenseAdded action', () => {
-        it('should update cashLeft property', () => {
-            const payload = {
-                budgetId: 'b002',
-                newCashLeft: 1000
+    describe('UpdateBudget action', () => {
+        it('should update the state', () => {
+            const changes: Partial<Budget> = {
+                cashLeft: budget02.cashLeft,
+                totalCash: 0,
+                name: 'Update budget'
             };
-            const action: BudgetActions = new ExpenseAdded(payload);
-            const { initialState } = fromBudgetReducer;
-            const state = fromBudgetReducer.budgetReducer(initialState, action);
+            const payload = {
+                budgetId: budget01.id,
+                changes: changes
+            };
 
-            expect(state.id).toEqual(undefined);
-            expect(state.cashLeft).toEqual(1000);
+            const action: BudgetActions = new UpdateBudget(payload);
+            const { initialState } = fromBudgetReducer;
+            const state = fromBudgetReducer.budgetReducer(myState, action);
+
+            expect(state.id).toEqual(budget01.id);
+            expect(state.name).toEqual(payload.changes.name);
+            expect(state.cashLeft).toEqual(payload.changes.cashLeft);
+            expect(state.totalCash).toEqual(payload.changes.totalCash);
+            expect(state.dateStart).toEqual(budget01.dateStart);
+            expect(state.dateEnd).toEqual(budget01.dateEnd);
+
         });
     });
+
+    describe('Query action', () => {
+        it('should...', () => {
+
+        });
+    });
+
+
 });
 

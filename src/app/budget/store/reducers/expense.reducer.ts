@@ -29,6 +29,8 @@ export function expenseReducer(state = initialState, action: ExpenseActions): St
             return adapter.updateOne({ id: action.payload.id, changes: action.payload }, state);
         case ExpenseActionTypes.REMOVED:
             return adapter.removeOne(action.payload.id, state);
+        case ExpenseActionTypes.DeleteExpense:
+            return { ...state };
         default: {
             return state;
         }

@@ -8,8 +8,7 @@ import {
     LoadDefaultBudgetLinesAction, Query,
     DefaultBudgetLinesLoadedAction,
     UpdateBudgetLineAction,
-    BudgetLineUpdatedAction,
-    ExpenseAdded
+    BudgetLineUpdatedAction
 } from '../actions/budget-lines.actions';
 import { switchMap, mergeMap, map } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
@@ -45,20 +44,6 @@ export class BudgetLinesEffects {
                     id: action.payload.doc.id
                 }
             };
-        })
-        );
-
-    @Effect()
-    expenseAdded$: Observable<Action> = this.actions$
-        .ofType(BudgetLinesActionTypes.ExpenseAdded)
-        .pipe(
-        map((action: ExpenseAdded) => action.payload),
-        mergeMap((data) => {
-            return [new UpdateBudgetLineAction({
-                budgetId: data.budgetId,
-                id: data.budgetLineId,
-                changes: { cashLeft: data.newCashLeft }
-            })];
         })
         );
 

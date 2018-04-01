@@ -1,11 +1,12 @@
-import { Query,
+import {
+    Query,
     BudgetLinesActionTypes,
     Added, Modified, Removed,
     SelectBudgetLineAction, LoadDefaultBudgetLinesAction, DefaultBudgetLinesLoadedAction,
-    ExpenseAdded,
     CreateBudgetLineAction, CreateBudgetLinesAction,
     UpdateBudgetLineAction, BudgetLineUpdatedAction,
-    DeleteBudgetLineAction } from './budget-lines.actions';
+    DeleteBudgetLineAction
+} from './budget-lines.actions';
 import { BudgetLine } from '../../../models/budget-line.model';
 
 const budgetLine01: BudgetLine = {
@@ -107,21 +108,6 @@ describe('BudgetLinesAction', () => {
         });
     });
 
-    describe('ExpenseAdded', () => {
-        it('should create an action', () => {
-            const payload = {
-                budgetId: 'b001',
-                budgetLineId: 'bl001',
-                newCashLeft: 1000
-            };
-            const action = new ExpenseAdded(payload);
-            expect({ ...action }).toEqual({
-                type: BudgetLinesActionTypes.ExpenseAdded,
-                payload
-            });
-        });
-    });
-
     describe('CreateBudgetLineAction', () => {
         it('should create an action', () => {
             const changes: Partial<BudgetLine> = {
@@ -190,6 +176,7 @@ describe('BudgetLinesAction', () => {
             });
         });
     });
+
 });
 
 

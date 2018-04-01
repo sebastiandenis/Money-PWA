@@ -9,7 +9,6 @@ export enum UiStateActionTypes {
     CloseSidenav = '[UiState] Close Sidenav (off)',
     SwitchSidenav = '[UiState] Switch Sidenav (on/off)',
     ShowUndoSnackbar = '[UiState] Show Undo Snackbar',
-    DoUndo = '[UiState] Do Undo',
     CloseUndoSnackbar = '[UiState] Close Undo Snackbar',
 }
 
@@ -18,10 +17,6 @@ export class ShowUndoSnackbar implements Action {
     readonly type: string = UiStateActionTypes.ShowUndoSnackbar;
     constructor(public payload?: UndoPayload) {
     }
-}
-
-export class DoUndo implements Action {
-    readonly type: string = UiStateActionTypes.DoUndo;
 }
 
 export class CloseUndoSnackbar implements Action {
@@ -64,5 +59,5 @@ export class ChangeMainToolbarVisibleAction implements Action {
 export type UiStateActions =
     OpenSidenavAction | CloseSidenavAction | SwitchSidenavAction |
     ChangeTitleAction | ChangeMainMenuBtnVisibleAction | ChangeMainToolbarVisibleAction |
-    ShowUndoSnackbar | DoUndo | CloseUndoSnackbar;
+    ShowUndoSnackbar  | CloseUndoSnackbar;
 

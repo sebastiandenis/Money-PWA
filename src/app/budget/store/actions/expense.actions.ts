@@ -53,8 +53,7 @@ export class AddExpense implements Action {
     expense: Expense,
     budgetId: string,
     budgetLineId: string,
-    newBudgetLineCashLeft: number,
-    newBudgetCashLeft: number
+    showUndo?: boolean
   }) { }
 }
 
@@ -91,7 +90,13 @@ export class UpdateExpenses implements Action {
 export class DeleteExpense implements Action {
   readonly type = ExpenseActionTypes.DeleteExpense;
 
-  constructor(public payload: { id: string }) { }
+  constructor(public payload:
+    {
+      expense: Expense,
+      budgetLineId: string,
+      budgetId: string,
+      showUndo?: boolean
+    }) { }
 }
 
 export class DeleteExpenses implements Action {

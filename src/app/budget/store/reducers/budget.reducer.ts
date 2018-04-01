@@ -1,6 +1,6 @@
 import { Budget } from '../../../models/budget.model';
 import { Action, createSelector, createFeatureSelector } from '@ngrx/store';
-import { BudgetActions, DefaultBudgetLoadedAction, BudgetActionTypes, ExpenseAdded } from '../actions/budget.actions';
+import { BudgetActions, DefaultBudgetLoadedAction, BudgetActionTypes, Modified, UpdateBudget } from '../actions/budget.actions';
 import { BudgetEffects } from '../effects/budget.effects';
 import { EntityState, createEntityAdapter } from '@ngrx/entity';
 import * as fromApp from '../../../store/app.reducers';
@@ -36,25 +36,33 @@ export function budgetReducer(state = initialState, action: BudgetActions): Stat
             };
         case BudgetActionTypes.DefaultBudgetLoaded:
             return handleDefaultBudgetLoadedAction(state, <any>action);
-        case BudgetActionTypes.ExpenseAdded:
-            return handleExpenseAdded(state, <any>action);
+        case BudgetActionTypes.UpdateBudget:
+            return handleUpdateBudget(state, <any>action);
+        case BudgetActionTypes.MODIFIED:
+            return handleBudgetModified(state, <any>action);
         default:
             return state;
     }
 }
 
+function handleUpdateBudget(state: State, action: UpdateBudget): State {
+    return {
+        ...state,
+        ...action.payload.changes
+    }
+}
 
+
+function handleBudgetModified(state: State, action: Modified): State {
+    return {
+        ...state,
+        ...action.payload
+    }
+}
 
 function handleDefaultBudgetLoadedAction(state: State, action: DefaultBudgetLoadedAction): State {
     return {
         ...action.payload
-    };
-}
-
-function handleExpenseAdded(state: State, action: ExpenseAdded): State {
-    return {
-        ...state,
-        cashLeft: action.payload.newCashLeft
     };
 }
 

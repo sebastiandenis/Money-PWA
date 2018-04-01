@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { ShowUndoSnackbar, UiStateActionTypes, DoUndo, CloseUndoSnackbar } from './uiState.actions';
+import { ShowUndoSnackbar, UiStateActionTypes, CloseUndoSnackbar } from './uiState.actions';
 
 
 describe('UiStateActions', () => {
@@ -14,14 +14,7 @@ describe('UiStateActions', () => {
         });
     });
 
-    describe('DoUndo', () => {
-        it('should create an action', () => {
-            const action = new DoUndo();
-            expect({ ...action }).toEqual({
-                type: UiStateActionTypes.DoUndo,
-            });
-        });
-    });
+
 
     describe('CloseUndoSnackbar', () => {
         it('should create an action', () => {

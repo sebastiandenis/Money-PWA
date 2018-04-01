@@ -1,6 +1,6 @@
 import { State } from './uiStateReducer';
 import * as fromUiStateReducer from './uiStateReducer';
-import { UiStateActions, ShowUndoSnackbar, CloseUndoSnackbar, DoUndo } from '../actions/uiState.actions';
+import { UiStateActions, ShowUndoSnackbar, CloseUndoSnackbar } from '../actions/uiState.actions';
 import { UndoPayload, UndoPayloadMessages } from '../../core/components/undo-snackbar/undo-snackbar.component';
 
 const myState: State = {
@@ -59,23 +59,6 @@ describe('UiStateReducer', () => {
             expect(state.showSidenav).toEqual(myState.showSidenav);
             expect(state.showUndoSnackbar).toBeFalsy();
             expect(state.lastUndo).toBeNull();
-        });
-    });
-
-    describe('DoUndo action', () => {
-        it('should not modify the state', () => {
-            const action: DoUndo = new DoUndo();
-            const { initialState } = fromUiStateReducer;
-            myState.lastUndo = 'test';
-            const state = fromUiStateReducer.uiState(myState, action);
-
-            expect(state.currentTitle).toEqual(myState.currentTitle);
-            expect(state.locale).toEqual(myState.locale);
-            expect(state.mainMenuBtnVisible).toEqual(myState.mainMenuBtnVisible);
-            expect(state.mainToolbarFixed).toEqual(myState.mainToolbarFixed);
-            expect(state.showSidenav).toEqual(myState.showSidenav);
-            expect(state.showUndoSnackbar).toEqual(myState.showUndoSnackbar);
-            expect(state.lastUndo).toEqual(myState.lastUndo);
         });
     });
 

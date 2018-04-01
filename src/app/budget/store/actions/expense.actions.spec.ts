@@ -105,8 +105,7 @@ const expensesArray: Expense[] =
                     expense,
                     budgetId: 'budget001',
                     budgetLineId: 'budgetLine001',
-                    newBudgetLineCashLeft: 100,
-                    newBudgetCashLeft: 1100
+                    showUndo: true
                 };
                 const action = new AddExpense(payload);
                 expect({ ...action }).toEqual({
@@ -209,7 +208,11 @@ const expensesArray: Expense[] =
         describe('DeleteExpense', () => {
             it('should create an action', () => {
                 const payload = {
-                    id: 'exp001'
+                    expense: expense01,
+                    budgetLineId: 'bl001',
+                    budgetId: 'b001',
+                    newBudgetCashLeft: 0,
+                    newBudgetLineCashLeft: 0
                 };
                 const action = new DeleteExpense(payload);
                 expect({ ...action }).toEqual({

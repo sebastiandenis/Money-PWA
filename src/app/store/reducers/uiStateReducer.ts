@@ -27,10 +27,6 @@ export function uiState(state: State = initialState, action: Action): State {
     switch (action.type) {
         case UiStateActions.UiStateActionTypes.ShowUndoSnackbar:
             return handleShowUndoSnackbarAction(state, <any>action);
-        case UiStateActions.UiStateActionTypes.DoUndo:
-            return {
-                ...state
-            };
         case UiStateActions.UiStateActionTypes.CloseUndoSnackbar:
             return {
                 ...state,

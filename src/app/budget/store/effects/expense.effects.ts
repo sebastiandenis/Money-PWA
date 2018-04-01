@@ -3,22 +3,25 @@ import { Actions, Effect } from '@ngrx/effects';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { BudgetService } from '../../../services/budget.service';
 import { Store, Action } from '@ngrx/store';
-import * as fromRoot from '../../../store/app.reducers';
+import * as fromRoot from '../reducers/index';
 import { Observable } from 'rxjs/Observable';
 import { ExpenseActionTypes, Query, AddExpense, DeleteExpense } from '../actions/expense.actions';
-import { switchMap, mergeMap, map } from 'rxjs/operators';
+import { switchMap, mergeMap, map, withLatestFrom } from 'rxjs/operators';
 import { DocumentReference } from '@firebase/firestore-types';
 // import { BudgetLinesActionTypes, UpdateBudgetLineAction, ExpenseAdded } from '../actions/budget-lines.actions';
 import * as fromBudgetLinesActions from '../actions/budget-lines.actions';
 import * as fromBudgetActions from '../actions/budget.actions';
 import * as fromUiStateActions from '../../../store/actions/uiState.actions';
 import { UndoPayloadMessages } from '../../../core/components/undo-snackbar/undo-snackbar.component';
+import { BudgetLine } from '../../../models/budget-line.model';
+import { Budget } from '../../../models/budget.model';
+import { State } from '@ngrx/store/src/state';
 
 @Injectable()
 export class ExpenseEffects {
 
     constructor(private actions$: Actions,
-        private store: Store<fromRoot.AppState>,
+        private store$: Store<fromRoot.FeatureState>,
         private afs: AngularFirestore,
         private budgetService: BudgetService
     ) { }
@@ -42,40 +45,89 @@ export class ExpenseEffects {
         })
         );
 
+
+    @Effect()
+    deleteExpense$ = this.actions$
+        .ofType(ExpenseActionTypes.DeleteExpense)
+        .pipe(
+        map((action: DeleteExpense) => action.payload),
+        withLatestFrom(this.store$.select(fromRoot.getCurrentBudgetState)),
+        switchMap(([payload, state]) => {
+            return this.budgetService.deleteExpense(payload.expense.id, payload.budgetLineId, payload.budgetId)
+                .mergeMap(() => {
+                    const newBudgetLineCashLeft: number =
+                        state.budgetLines.entities[payload.budgetLineId].cashLeft + payload.expense.amount;
+                    const newBudgetCashLeft: number =
+                        state.budgetHeader.cashLeft + payload.expense.amount;
+                    const newBudgetLine: Partial<BudgetLine> = { id: payload.budgetLineId, cashLeft: newBudgetLineCashLeft };
+                    const newBudget: Partial<Budget> = { id: payload.budgetId, cashLeft: newBudgetCashLeft };
+                    const actions: Action[] = [];
+                    actions.push(new fromBudgetLinesActions.UpdateBudgetLineAction({
+                        budgetId: payload.budgetId,
+                        id: payload.budgetLineId,
+                        changes: newBudgetLine
+                    }));
+
+                    actions.push(new fromBudgetActions.UpdateBudget({
+                        budgetId: payload.budgetId,
+                        changes: newBudget
+                    }));
+
+                    if (payload.showUndo) {
+                        actions.push(new fromUiStateActions.ShowUndoSnackbar({
+                            message: UndoPayloadMessages.ExpenseRemoved,
+                            action: new AddExpense({
+                                expense: payload.expense,
+                                budgetLineId: payload.budgetLineId,
+                                budgetId: payload.budgetId
+                            })
+                        }));
+                    }
+
+                    return actions;
+                });
+        })
+        );
+
     @Effect()
     addExpense$ = this.actions$
         .ofType(ExpenseActionTypes.AddExpense)
         .pipe(
         map((action: AddExpense) => action.payload),
-        switchMap(payload => {
+        withLatestFrom(this.store$.select(fromRoot.getCurrentBudgetState)),
+        switchMap(([payload, state]) => {
             return this.budgetService.addExpense(payload.expense, payload.budgetId, payload.budgetLineId)
-            .mergeMap(() => {
-               // console.log('Expense added: ', expenseDocRef);
-              //  const budgetId = expenseDocRef.parent.parent.parent.parent.id;
-              //  const budgetLineId = expenseDocRef.parent.parent.id;
-             //   console.log('Budget id: ', budgetId);
-             //   console.log('BudgetLine id: ', budgetLineId);
-                return [
-                    new fromBudgetLinesActions.ExpenseAdded({
-                    budgetId: payload.budgetId,
-                    budgetLineId:  payload.budgetLineId,
-                    newCashLeft: payload.newBudgetLineCashLeft
-                }),
-                new fromBudgetActions.ExpenseAdded({
-                    budgetId: payload.budgetId,
-                    newCashLeft: payload.newBudgetCashLeft
-                }),
-                new fromUiStateActions.ShowUndoSnackbar({
-                    message: UndoPayloadMessages.ExpenseAdded,
-                    action: new DeleteExpense({
-                        id: payload.expense.id
-                    })
-                })
-            ];
-            });
+                .mergeMap(() => {
+                    const newBudgetLineCashLeft: number =
+                        state.budgetLines.entities[payload.budgetLineId].cashLeft - payload.expense.amount;
+                    const newBudgetCashLeft: number =
+                        state.budgetHeader.cashLeft - payload.expense.amount;
+                    const newBudgetLine: Partial<BudgetLine> = { id: payload.budgetLineId, cashLeft: newBudgetLineCashLeft };
+                    const newBudget: Partial<Budget> = { id: payload.budgetId, cashLeft: newBudgetCashLeft };
+                    const actions: Action[] = [];
+                    actions.push(new fromBudgetLinesActions.UpdateBudgetLineAction({
+                        budgetId: payload.budgetId,
+                        id: payload.budgetLineId,
+                        changes: newBudgetLine
+                    }));
+                    actions.push(new fromBudgetActions.UpdateBudget({
+                        budgetId: payload.budgetId,
+                        changes: newBudget
+                    }));
+                    if (payload.showUndo) {
+                        actions.push(new fromUiStateActions.ShowUndoSnackbar({
+                            message: UndoPayloadMessages.ExpenseAdded,
+                            action: new DeleteExpense({
+                                expense: payload.expense,
+                                budgetLineId: payload.budgetLineId,
+                                budgetId: payload.budgetId
+                            })
+                        }));
+                    }
+                    return actions;
+                });
 
         }),
 
-        )
-        ;
+    );
 }

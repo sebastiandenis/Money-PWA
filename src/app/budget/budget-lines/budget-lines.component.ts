@@ -53,8 +53,7 @@ export class BudgetLinesComponent implements OnInit, OnDestroy {
         expense: data.expense,
         budgetId: this.budgetId,
         budgetLineId: data.budgetLineId,
-        newBudgetLineCashLeft: data.newBudgetLineCashLeft,
-        newBudgetCashLeft: this.budgetCashLeft - data.expense.amount
+        showUndo: true
       }));
 
   }

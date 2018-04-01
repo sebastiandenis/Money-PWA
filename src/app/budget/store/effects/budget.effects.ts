@@ -8,7 +8,7 @@ import { BudgetService } from '../../../services/budget.service';
 import * as fromRoot from '../../../store/app.reducers';
 // import 'rxjs/add/operator/withLatestFrom';
 import { Observable } from 'rxjs/Observable';
-import { BudgetActionTypes, ExpenseAdded } from '../actions/budget.actions';
+import { BudgetActionTypes, UpdateBudget } from '../actions/budget.actions';
 import { switchMap, mergeMap, map } from 'rxjs/operators';
 
 
@@ -32,12 +32,12 @@ export class BudgetEffects {
         );
 
     @Effect({ dispatch: false })
-    expenseAdded$: Observable<void> = this.actions$
-        .ofType(BudgetActionTypes.ExpenseAdded)
+    updateBudget$: Observable<void> = this.actions$
+        .ofType(BudgetActionTypes.UpdateBudget)
         .pipe(
-        map((action: ExpenseAdded) => action.payload),
+        map((action: UpdateBudget) => action.payload),
         switchMap(data => {
-            return this.budgetService.updateBudget(data.budgetId, { cashLeft: data.newCashLeft });
+            return this.budgetService.updateBudget(data.budgetId, data.changes);
         }));
 
 

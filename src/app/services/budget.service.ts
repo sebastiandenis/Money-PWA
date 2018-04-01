@@ -51,6 +51,12 @@ export class BudgetService {
 
   }
 
+  deleteExpense(expenseId: string, budgetLineId: string, budgetId: string): Observable<void> {
+    const expenseRef: AngularFirestoreDocument<Expense> =
+      this.afs.doc<Expense>(`budgets/${budgetId}/budgetLines/${budgetLineId}/expenses/${expenseId}`);
+    return Observable.fromPromise(expenseRef.delete());
+  }
+
   updateBudget(budgetId: string, changes: Partial<Budget>): Observable<void> {
     const budgetRef: AngularFirestoreDocument<Budget> = this.afs.doc<Budget>(`budgets/${budgetId}`);
     return Observable.fromPromise(budgetRef.update(changes));
