@@ -28,20 +28,11 @@ export function budgetLineReducer(state = initialState, action: BudgetLinesActio
             return adapter.updateOne({ id: action.payload.id, changes: action.payload }, state);
         case BudgetLinesActionTypes.REMOVED:
             return adapter.removeOne(action.payload.id, state);
-        case BudgetLinesActionTypes.LoadDefaultBudgetLines:
-            return {
-                ...state
-            };
         case BudgetLinesActionTypes.SelectBudgetLine:
             return {
                 ...state,
                 selectedBudgetLineId: action.payload.budgetLineId
             };
-        case BudgetLinesActionTypes.DefaultBudgetLinesLoaded:
-            //    return handleDefaultBudgetLinesLoadedAction(state, <any>action);
-            adapter.removeAll(state);
-            return adapter.addMany(action.payload, state);
-
         case BudgetLinesActionTypes.CreateBudgetLine:
             return adapter.addOne(action.payload.budgetLine, state);
 

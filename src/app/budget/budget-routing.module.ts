@@ -11,7 +11,7 @@ const budgetRoutes: Routes = [
         path: 'budget', component: BudgetComponent, children: [
             { path: 'dashboard', component: BudgetDashboardComponent },
             { path: 'lines', component: BudgetLinesComponent },
-            { path: 'settings', component: BudgetSettingsComponent }
+            { path: 'alerts', component: BudgetSettingsComponent }
         ]
     },
 ];

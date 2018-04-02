@@ -51,14 +51,14 @@ export class ExpenseEffects {
         .ofType(ExpenseActionTypes.DeleteExpense)
         .pipe(
         map((action: DeleteExpense) => action.payload),
-        withLatestFrom(this.store$.select(fromRoot.getCurrentBudgetState)),
+        withLatestFrom(this.store$.select(fromRoot.getBudgetModuleState)),
         switchMap(([payload, state]) => {
             return this.budgetService.deleteExpense(payload.expense.id, payload.budgetLineId, payload.budgetId)
                 .mergeMap(() => {
                     const newBudgetLineCashLeft: number =
                         state.budgetLines.entities[payload.budgetLineId].cashLeft + payload.expense.amount;
                     const newBudgetCashLeft: number =
-                        state.budgetHeader.cashLeft + payload.expense.amount;
+                        state.budgets.entities[payload.budgetId].cashLeft + payload.expense.amount;
                     const newBudgetLine: Partial<BudgetLine> = { id: payload.budgetLineId, cashLeft: newBudgetLineCashLeft };
                     const newBudget: Partial<Budget> = { id: payload.budgetId, cashLeft: newBudgetCashLeft };
                     const actions: Action[] = [];
@@ -94,14 +94,14 @@ export class ExpenseEffects {
         .ofType(ExpenseActionTypes.AddExpense)
         .pipe(
         map((action: AddExpense) => action.payload),
-        withLatestFrom(this.store$.select(fromRoot.getCurrentBudgetState)),
+        withLatestFrom(this.store$.select(fromRoot.getBudgetModuleState)),
         switchMap(([payload, state]) => {
             return this.budgetService.addExpense(payload.expense, payload.budgetId, payload.budgetLineId)
                 .mergeMap(() => {
                     const newBudgetLineCashLeft: number =
                         state.budgetLines.entities[payload.budgetLineId].cashLeft - payload.expense.amount;
                     const newBudgetCashLeft: number =
-                        state.budgetHeader.cashLeft - payload.expense.amount;
+                        state.budgets.entities[payload.budgetId].cashLeft - payload.expense.amount;
                     const newBudgetLine: Partial<BudgetLine> = { id: payload.budgetLineId, cashLeft: newBudgetLineCashLeft };
                     const newBudget: Partial<Budget> = { id: payload.budgetId, cashLeft: newBudgetCashLeft };
                     const actions: Action[] = [];

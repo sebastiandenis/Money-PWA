@@ -75,7 +75,7 @@ export class AddExpenseDlgComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.currentBudgetSubscription = this.store.select(fromBudgetApp.selectBudgetHeader).subscribe((budget: Budget) => {
+    this.currentBudgetSubscription = this.store.select(fromBudgetApp.selectCurrentBudget).subscribe((budget: Budget) => {
       // console.log('addExpenseDlgComp.constructor.budget: ', budget);
       this.currentBudgetId = budget.id;
       this.currentBudget = budget;

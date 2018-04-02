@@ -34,7 +34,7 @@ export class BudgetComponent implements OnInit, OnDestroy {
   constructor(translate: TranslateService,
     private store: Store<fromRoot.AppState>) {
     this.user$ = this.store.select(fromRoot.selectUser);
-    this.budget$ = this.store.select(fromBudgetApp.selectBudgetHeader);
+    this.budget$ = this.store.select(fromBudgetApp.selectCurrentBudget);
   }
 
   ngOnInit() {
@@ -43,10 +43,11 @@ export class BudgetComponent implements OnInit, OnDestroy {
     this.store.dispatch(new UiStateActions.ChangeMainMenuBtnVisibleAction(true));
 
     this.userSubscription = this.user$.subscribe(user => {
-      if (user && user.config && user.config.currentBudgetId !== undefined) {
-        this.store.dispatch(new BudgetActions.LoadDefaultBudgetAction(user.config.currentBudgetId)); // TODO: powinno iść z góry
-        this.store.dispatch(
-          new budgetLinesActions.LoadDefaultBudgetLinesAction({ budgetId: user.config.currentBudgetId })); // TODO: powinno iść z góry
+      // console.log('userSubscription: ', user);
+      if (user && user.config && user.config.currentBudgetId !== undefined
+        && user.userId !== undefined) {
+        this.store.dispatch(new BudgetActions.Query({ userId: user.userId }));
+        this.store.dispatch(new BudgetActions.SetCurrentBudget({ budgetId: user.config.currentBudgetId }));
       }
     });
   }

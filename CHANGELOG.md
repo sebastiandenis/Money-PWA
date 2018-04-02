@@ -1,3 +1,7 @@
+## 0.24.0
+* Implemented ngrx/entity for Budget
+* Alerts tab instead of settings
+
 ## 0.23.0
 * Updated undo snackbar for adding and deleting expenses
 * Added some tests

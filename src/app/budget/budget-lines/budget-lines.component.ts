@@ -23,7 +23,7 @@ export class BudgetLinesComponent implements OnInit, OnDestroy {
   budgetCashLeft = 0;
 
   constructor(private store: Store<fromRoot.AppState>) {
-    this.budget$ = this.store.select(fromBudgetApp.selectBudgetHeader);
+    this.budget$ = this.store.select(fromBudgetApp.selectCurrentBudget);
     this.lines$ = this.store.select(fromBudgetApp.selectAllBudgetLines);
   }
 

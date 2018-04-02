@@ -44,7 +44,7 @@ import { LinesActionsOverlayService } from './budget-lines/lines-actions/lines-a
   ],
   imports: [
     CommonModule,
-    StoreModule.forFeature('currentBudget', reducers ),
+    StoreModule.forFeature('budgetModule', reducers ),
     EffectsModule.forFeature([BudgetLinesEffects, BudgetEffects, ExpenseEffects]),
     MaterialModule,
     SharedModule,

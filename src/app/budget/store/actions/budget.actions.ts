@@ -7,27 +7,17 @@ export enum BudgetActionTypes {
     ADDED = '[Budget] added',
     MODIFIED = '[Budget] modified',
     REMOVED = '[Budget] removed',
-    LoadDefaultBudget = '[Budget] Load Default Budget',
-    DefaultBudgetLoaded = '[Budget] Default Budget Loaded',
     UpdateBudget = '[Budget] Update',
+    SetCurrentBudget = '[Budget] Set Current Budget'
 }
 
 
 
 // ------------------------------------------------------------- BUDGET ACTIONS
 
-
-
-export class LoadDefaultBudgetAction implements Action {
-    readonly type: string = BudgetActionTypes.LoadDefaultBudget;
-    constructor(public payload?: string) {
-    }
-}
-
-export class DefaultBudgetLoadedAction implements Action {
-    readonly type: string = BudgetActionTypes.DefaultBudgetLoaded;
-    constructor(public payload?: Budget) {
-    }
+export class SetCurrentBudget implements Action {
+    readonly type: string = BudgetActionTypes.SetCurrentBudget;
+    constructor(public payload: { budgetId: string }) { }
 }
 
 export class UpdateBudget implements Action {
@@ -38,7 +28,9 @@ export class UpdateBudget implements Action {
 
 export class Query implements Action {
     readonly type = BudgetActionTypes.QUERY;
-    constructor(public payload: { budgetId: string }) { }
+    constructor(public payload: { userId: string }) {
+        console.log('Budget.Query():', this.payload.userId);
+     }
 }
 
 export class Added implements Action {
@@ -64,11 +56,10 @@ export class Removed implements Action {
 
 
 export type BudgetActions =
-    | DefaultBudgetLoadedAction
-    | LoadDefaultBudgetAction
     | Query
     | Modified
     | Removed
     | Added
-    | UpdateBudget;
+    | UpdateBudget
+    | SetCurrentBudget;
 

@@ -5,8 +5,7 @@ import { BudgetService } from '../../../services/budget.service';
 import { Store, Action } from '@ngrx/store';
 import {
     BudgetLinesActionTypes,
-    LoadDefaultBudgetLinesAction, Query,
-    DefaultBudgetLinesLoadedAction,
+    Query,
     UpdateBudgetLineAction,
     BudgetLineUpdatedAction
 } from '../actions/budget-lines.actions';
@@ -53,22 +52,13 @@ export class BudgetLinesEffects {
         .pipe(
         map((action: UpdateBudgetLineAction) => action.payload),
         switchMap(data => {
-            console.log('Effect.updateBudgetLine.budgetId: ', data.budgetId);
+            // console.log('Effect.updateBudgetLine.budgetId: ', data.budgetId);
             const ref = this.afs.doc<Budget>(`budgets/${data.budgetId}/budgetLines/${data.id}`);
             return Observable.fromPromise(ref.update(data.changes));
         }),
         map(() => new BudgetLineUpdatedAction)
         );
 
-
-    @Effect()
-    budgetLinesFetch$ = this.actions$
-        .ofType(BudgetLinesActionTypes.LoadDefaultBudgetLines)
-        .map((action: LoadDefaultBudgetLinesAction) => action.payload)
-        .switchMap(budgetId => {
-            return this.budgetService.loadBudgetLines(budgetId.budgetId);
-        })
-        .map(results => new DefaultBudgetLinesLoadedAction(results));
 
 
 

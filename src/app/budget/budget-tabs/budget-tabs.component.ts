@@ -51,8 +51,8 @@ export class BudgetTabsComponent implements OnInit, OnDestroy {
         index: 1
       },
       {
-        icon: 'settings',
-        link: './settings',
+        icon: 'lightbulb_outline',
+        link: './alerts',
         index: 2
       }
     ];

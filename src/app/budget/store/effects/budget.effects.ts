@@ -8,7 +8,7 @@ import { BudgetService } from '../../../services/budget.service';
 import * as fromRoot from '../../../store/app.reducers';
 // import 'rxjs/add/operator/withLatestFrom';
 import { Observable } from 'rxjs/Observable';
-import { BudgetActionTypes, UpdateBudget } from '../actions/budget.actions';
+import { BudgetActionTypes, UpdateBudget, Query } from '../actions/budget.actions';
 import { switchMap, mergeMap, map } from 'rxjs/operators';
 
 
@@ -19,17 +19,25 @@ export class BudgetEffects {
         private store: Store<fromRoot.AppState>,
         private budgetService: BudgetService) { }
 
-
     @Effect()
-    budgetFetch = this.actions$
-        .ofType(BudgetActions.BudgetActionTypes.LoadDefaultBudget)
+    query$: Observable<Action> = this.actions$
+        .ofType(BudgetActionTypes.QUERY)
         .pipe(
-        map((action: BudgetActions.LoadDefaultBudgetAction) => action.payload),
-        switchMap(budgetId => {
-            return this.budgetService.loadDefaultBudget(budgetId);
+        switchMap((action: BudgetActions.Query) => {
+            return this.budgetService.queryAllBudgets(action.payload.userId);
         }),
-        map(results => new BudgetActions.DefaultBudgetLoadedAction(results))
+        mergeMap(actions => actions),
+        map(action => {
+            return {
+                type: `[Budget] ${action.type}`,
+                payload: {
+                    ...action.payload.doc.data(),
+                    id: action.payload.doc.id
+                }
+            };
+        })
         );
+
 
     @Effect({ dispatch: false })
     updateBudget$: Observable<void> = this.actions$

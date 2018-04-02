@@ -13,17 +13,19 @@ export class BudgetService {
 
   constructor(private afs: AngularFirestore) { }
 
-  loadDefaultBudget(budgetId: string): Observable<Budget> {
-    // console.log('BudgetService.loadDefaultBudget->budgetId=', budgetId);
-    return this.afs.doc<Budget>(`budgets/${budgetId}`).valueChanges();
-  }
 
-  loadBudgetLines(budgetId: string): Observable<BudgetLine[]> {
-    console.log('BudgetService.loadDefaultBudgetLines->budgetId=', budgetId);
-    const budget: AngularFirestoreDocument<Budget> = this.afs.doc<Budget>(`budgets/${budgetId}`);
-    return budget.collection<BudgetLine>('budgetLines').valueChanges();
-
+  queryAllBudgets(userId: string): Observable<DocumentChangeAction[]> {
+    // console.log('BudgetService.queryAllBudgets -> userId=', userId);
+    return this.afs.collection('budgets', ref => ref.where(`access.${userId}`, '==', true)).snapshotChanges();
   }
+  /*
+    loadBudgetLines(budgetId: string): Observable<BudgetLine[]> {
+      // console.log('BudgetService.loadDefaultBudgetLines->budgetId=', budgetId);
+      const budget: AngularFirestoreDocument<Budget> = this.afs.doc<Budget>(`budgets/${budgetId}`);
+      return budget.collection<BudgetLine>('budgetLines').valueChanges();
+  
+    }
+    */
 
   queryAllBudgetLines(budgetId: string): Observable<DocumentChangeAction[]> {
     const budget: AngularFirestoreDocument<Budget> = this.afs.doc<Budget>(`budgets/${budgetId}`);

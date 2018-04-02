@@ -46,7 +46,7 @@ export class BudgetDashboardComponent implements OnInit, OnDestroy {
   constructor(translate: TranslateService,
     private store: Store<fromRoot.AppState>) {
     this.user$ = this.store.select(fromRoot.selectUser);
-    this.budget$ = this.store.select(fromBudgetApp.selectBudgetHeader);
+    this.budget$ = this.store.select(fromBudgetApp.selectCurrentBudget);
 
 
   }
