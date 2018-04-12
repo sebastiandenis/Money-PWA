@@ -29,7 +29,7 @@ export class UpdateBudget implements Action {
 export class Query implements Action {
     readonly type = BudgetActionTypes.QUERY;
     constructor(public payload: { userId: string }) {
-        console.log('Budget.Query():', this.payload.userId);
+       // console.log('Budget.Query():', this.payload.userId);
      }
 }
 

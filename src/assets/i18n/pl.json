@@ -1,7 +1,7 @@
 {
     "add": "Dodaj",
     "addcash": "Dodaj środki",
-    "addexpenese": "Dodaj wydatek",
+    "addexpense": "Dodaj wydatek",
     "amount": "Wartość",
     "appname": "Money PWA",
     "atleastxcharsinpassword": "Przynajmniej {{value}} znaków w haśle",

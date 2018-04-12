@@ -1,7 +1,7 @@
 {
     "add": "Add",
     "addcash": "Add cash",
-    "addexpenese": "Add expense",
+    "addexpense": "Add expense",
     "amount": "Amount",
     "appname": "Money PWA",
     "atleastxcharsinpassword": "At least {{value}} characters in password",

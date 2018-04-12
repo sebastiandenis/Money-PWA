@@ -10,7 +10,8 @@ const myState: State = {
     mainToolbarFixed: true,
     showSidenav: true,
     showUndoSnackbar: true,
-    lastUndo: null
+    lastUndo: null,
+    mainToolbarCloseBtnVisible: false
 };
 
 describe('UiStateReducer', () => {
@@ -30,7 +31,7 @@ describe('UiStateReducer', () => {
             const actionPayload: UndoPayload = {
                 message: UndoPayloadMessages.ExpenseAdded,
                 action: 'test'
-            }
+            };
             const action: ShowUndoSnackbar = new ShowUndoSnackbar(actionPayload);
             const { initialState } = fromUiStateReducer;
             const state = fromUiStateReducer.uiState(initialState, action);
@@ -43,6 +44,7 @@ describe('UiStateReducer', () => {
             expect(state.showUndoSnackbar).toBeTruthy();
             expect(state.lastUndo).toBeDefined();
             expect(state.lastUndo.action).toEqual(action.payload.action);
+            expect(state.mainToolbarCloseBtnVisible).toEqual(initialState.mainToolbarCloseBtnVisible);
         });
     });
 

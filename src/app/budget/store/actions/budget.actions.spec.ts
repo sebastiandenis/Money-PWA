@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { LoadDefaultBudgetAction, BudgetActionTypes, DefaultBudgetLoadedAction, Query, Added, Modified, Removed, UpdateBudget } from './budget.actions';
+import { BudgetActionTypes, Query, Added, Modified, Removed, UpdateBudget, SetCurrentBudget } from './budget.actions';
 import { Budget } from '../../../models/budget.model';
 
 const budget01: Budget = {
@@ -20,29 +20,16 @@ const budget02: Budget = {
     cashLeft: 10
 };
 
-describe('BudgetAction', () => {
-    describe('LoadDefaultBudgetAction', () => {
-        it('should create an action', () => {
-            const action = new LoadDefaultBudgetAction('bl001');
-            expect({ ...action }).toEqual({ type: BudgetActionTypes.LoadDefaultBudget, payload: 'bl001' });
-        });
-    });
+const budgetArray: Budget[] = [
+    budget01, budget02
+];
 
-    describe('DefaultBudgetLoadedAction', () => {
-        it('should create an action', () => {
-            const payload = budget01;
-            const action = new DefaultBudgetLoadedAction(payload);
-            expect({ ...action }).toEqual({
-                type: BudgetActionTypes.DefaultBudgetLoaded,
-                payload
-            });
-        });
-    });
+describe('BudgetAction', () => {
 
     describe('Query', () => {
         it('should create an action', () => {
             const payload = {
-                budgetId: 'abcde'
+                userId: 'abcde'
             };
             const action = new Query(payload);
             expect({ ...action }).toEqual({
@@ -103,6 +90,19 @@ describe('BudgetAction', () => {
             });
         });
     });
+
+    describe('SetCurrentBudget', () => {
+        it('should create an action', () => {
+            const action = new SetCurrentBudget({ budgetId: 'b001' });
+            expect({ ...action }).toEqual({
+                type: BudgetActionTypes.SetCurrentBudget,
+                payload: {
+                    budgetId: 'b001'
+                }
+            });
+        });
+    });
+
 });
 
 

@@ -9,6 +9,8 @@ export interface State {
     locale: string;
     lastUndo: any;
     showUndoSnackbar: boolean;
+    mainToolbarCloseBtnVisible: boolean;
+
 
 }
 
@@ -19,12 +21,15 @@ export const initialState: State = {
     mainToolbarFixed: true,
     locale: 'pl-PL',
     lastUndo: null,
-    showUndoSnackbar: false
+    showUndoSnackbar: false,
+    mainToolbarCloseBtnVisible: false
 
 };
 
 export function uiState(state: State = initialState, action: Action): State {
     switch (action.type) {
+        case UiStateActions.UiStateActionTypes.MainToolbarCloseBtnVisible:
+            return handleChangeMainToolbarCloseBtnVisibleAction(state, <any>action);
         case UiStateActions.UiStateActionTypes.ShowUndoSnackbar:
             return handleShowUndoSnackbarAction(state, <any>action);
         case UiStateActions.UiStateActionTypes.CloseUndoSnackbar:
@@ -77,6 +82,13 @@ function handleChangeTitleAction(state: State, action: UiStateActions.ChangeTitl
     return {
         ...state,
         currentTitle: action.payload
+    };
+}
+
+function handleChangeMainToolbarCloseBtnVisibleAction(state: State, action: UiStateActions.ChangeMainMenuBtnVisibleAction): State {
+    return {
+        ...state,
+        mainToolbarCloseBtnVisible: action.payload
     };
 }
 

@@ -49,6 +49,10 @@ export function selectUiTitle(state: AppState) {
     return state.uiState.currentTitle;
 }
 
+export function selectUiMainToolbarCloseBtnVisible(state: AppState) {
+    return state.uiState.mainToolbarCloseBtnVisible;
+}
+
 export function selectUiMainMenuBtnVisible(state: AppState) {
     return state.uiState.mainMenuBtnVisible;
 }

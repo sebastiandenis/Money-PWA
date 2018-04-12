@@ -5,12 +5,14 @@ export enum UiStateActionTypes {
     ChangeTitle = '[UiState] Change Title',
     MainMenuBtnVisible = '[UiState] Main Menu Button Visible',
     MainToolbarVisible = '[UiState] Main Toolbar Visible',
+    MainToolbarCloseBtnVisible = '[UiState] Main Toolbar Close Button Visible',
     OpenSidenav = '[UiState] Open Sidenav (on)',
     CloseSidenav = '[UiState] Close Sidenav (off)',
     SwitchSidenav = '[UiState] Switch Sidenav (on/off)',
     ShowUndoSnackbar = '[UiState] Show Undo Snackbar',
     CloseUndoSnackbar = '[UiState] Close Undo Snackbar',
 }
+
 
 
 export class ShowUndoSnackbar implements Action {
@@ -44,6 +46,12 @@ export class ChangeTitleAction implements Action {
     }
 }
 
+export class ChangeMainToolbarCloseBtnVisibleAction implements Action {
+    readonly type: string = UiStateActionTypes.MainToolbarCloseBtnVisible;
+    constructor(public payload?: boolean) {
+    }
+}
+
 export class ChangeMainMenuBtnVisibleAction implements Action {
     readonly type: string = UiStateActionTypes.MainMenuBtnVisible;
     constructor(public payload?: boolean) {
@@ -57,7 +65,13 @@ export class ChangeMainToolbarVisibleAction implements Action {
 }
 
 export type UiStateActions =
-    OpenSidenavAction | CloseSidenavAction | SwitchSidenavAction |
-    ChangeTitleAction | ChangeMainMenuBtnVisibleAction | ChangeMainToolbarVisibleAction |
-    ShowUndoSnackbar  | CloseUndoSnackbar;
+    OpenSidenavAction
+    | CloseSidenavAction
+    | SwitchSidenavAction
+    | ChangeTitleAction
+    | ChangeMainMenuBtnVisibleAction
+    | ChangeMainToolbarVisibleAction
+    | ShowUndoSnackbar
+    | CloseUndoSnackbar
+    | ChangeMainToolbarCloseBtnVisibleAction;
 

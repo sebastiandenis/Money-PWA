@@ -24,6 +24,7 @@ import { BudgetLinesEffects } from './store/effects/budget-lines.effects';
 import { ExpenseEffects } from './store/effects/expense.effects';
 import { reducers } from './store/reducers/index';
 import { LinesActionsOverlayService } from './budget-lines/lines-actions/lines-actions-overlay.service';
+import { AddFastExpenseComponent } from './add-fast-expense/add-fast-expense.component';
 
 
 
@@ -40,7 +41,8 @@ import { LinesActionsOverlayService } from './budget-lines/lines-actions/lines-a
     LinesListItemComponent,
     LinesActionsComponent,
     LineDetailsComponent,
-    AddExpenseDlgComponent
+    AddExpenseDlgComponent,
+    AddFastExpenseComponent
   ],
   imports: [
     CommonModule,

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import * as fromRoot from '../../store/app.reducers';
 import { OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
@@ -23,8 +23,8 @@ export class BudgetLinesComponent implements OnInit, OnDestroy {
   budgetCashLeft = 0;
 
   constructor(private store: Store<fromRoot.AppState>) {
-    this.budget$ = this.store.select(fromBudgetApp.selectCurrentBudget);
-    this.lines$ = this.store.select(fromBudgetApp.selectAllBudgetLines);
+    this.budget$ = this.store.pipe(select(fromBudgetApp.selectCurrentBudget));
+    this.lines$ = this.store.pipe(select(fromBudgetApp.selectAllBudgetLines));
   }
 
 

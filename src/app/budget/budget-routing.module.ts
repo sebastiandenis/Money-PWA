@@ -5,15 +5,20 @@ import { BudgetDashboardComponent } from './budget-dashboard/budget-dashboard.co
 import { BudgetLinesComponent } from './budget-lines/budget-lines.component';
 import { BudgetSettingsComponent } from './budget-settings/budget-settings.component';
 import { BudgetComponent } from './budget.component';
+import { AddFastExpenseComponent } from './add-fast-expense/add-fast-expense.component';
 
 const budgetRoutes: Routes = [
     {
         path: 'budget', component: BudgetComponent, children: [
             { path: 'dashboard', component: BudgetDashboardComponent },
             { path: 'lines', component: BudgetLinesComponent },
-            { path: 'alerts', component: BudgetSettingsComponent }
-        ]
+            { path: 'alerts', component: BudgetSettingsComponent },
+
+        ],
     },
+    {
+        path: 'addFastExpense', component: AddFastExpenseComponent
+    }
 ];
 
 @NgModule({

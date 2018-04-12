@@ -1,3 +1,8 @@
+## 0.25.0
+* More ngrx tests
+* BudgetService tests
+* Add Fast Expense component
+
 ## 0.24.0
 * Implemented ngrx/entity for Budget
 * Alerts tab instead of settings

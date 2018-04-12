@@ -2,7 +2,7 @@ import {
     Query,
     BudgetLinesActionTypes,
     Added, Modified, Removed,
-    SelectBudgetLineAction, LoadDefaultBudgetLinesAction, DefaultBudgetLinesLoadedAction,
+    SelectBudgetLineAction, 
     CreateBudgetLineAction, CreateBudgetLinesAction,
     UpdateBudgetLineAction, BudgetLineUpdatedAction,
     DeleteBudgetLineAction
@@ -86,27 +86,6 @@ describe('BudgetLinesAction', () => {
         });
     });
 
-    describe('LoadDefaultBudgetLinesAction', () => {
-        it('should create an action', () => {
-            const payload = { budgetId: 'b001' };
-            const action = new LoadDefaultBudgetLinesAction(payload);
-            expect({ ...action }).toEqual({
-                type: BudgetLinesActionTypes.LoadDefaultBudgetLines,
-                payload
-            });
-        });
-    });
-
-    describe('DefaultBudgetLinesLoadedAction', () => {
-        it('should create an action', () => {
-            const payload = budgetLineArray;
-            const action = new DefaultBudgetLinesLoadedAction(payload);
-            expect({ ...action }).toEqual({
-                type: BudgetLinesActionTypes.DefaultBudgetLinesLoaded,
-                payload
-            });
-        });
-    });
 
     describe('CreateBudgetLineAction', () => {
         it('should create an action', () => {

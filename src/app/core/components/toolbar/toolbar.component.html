@@ -5,7 +5,11 @@
   </button>
   <span>{{ (uiTitle$ | async) | translate}}</span>
   <span fxFlex="1 1 auto"></span>
+  <button mat-icon-button *ngIf="closeBtnVisible$ | async" (click)="onCloseBtn()">
+    <mat-icon>close</mat-icon>
+</button>
   <app-main-menu></app-main-menu>
+
 
 
 

@@ -53,6 +53,8 @@ export function budgetReducer(state = initialState, action: BudgetActions): Stat
             return handleRemovedAction(state, <any>action);
         case BudgetActionTypes.SetCurrentBudget:
             return handleSetCurrentBudget(state, <any>action);
+        case BudgetActionTypes.QUERY:
+            return { ...state };
         default:
             return state;
     }
@@ -84,9 +86,9 @@ function handleModifiedAction(state: State, action: Modified): State {
 
 
 
-export function getBudget(state: State) {
-    return state;
-}
+// export function getBudget(state: State) {
+//     return state;
+// }
 
 
 export const getCurrentBudgetId = (state: State) => {

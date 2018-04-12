@@ -1,6 +1,6 @@
 import * as fromBudgetReducer from './budget.reducer';
 import {
-    BudgetActions, LoadDefaultBudgetAction, DefaultBudgetLoadedAction, UpdateBudget
+    BudgetActions, UpdateBudget, Query, SetCurrentBudget
 } from '../actions/budget.actions';
 import { State } from './budget.reducer';
 import { Budget } from '../../../models/budget.model';
@@ -25,10 +25,21 @@ export const budget02: Budget = {
     cashLeft: 5000
 };
 
+export const budgetArray: Budget[] = [
+    budget01, budget02
+];
+
 
 export const myState: State = {
-    ...budget01
+    currentBudgetId: budget01.id,
+    ids: [budget01.id, budget02.id],
+    entities: {
+        [budget01.id]: budget01,
+        [budget02.id]: budget02
+    }
 };
+
+
 
 describe('BudgetReducer', () => {
     describe('undefined action', () => {
@@ -39,36 +50,6 @@ describe('BudgetReducer', () => {
             };
             const state = fromBudgetReducer.budgetReducer(undefined, action);
             expect(state).toBe(initialState);
-        });
-    });
-
-    describe('LoadDefaultBudget action', () => {
-        it('should return state', () => {
-            const action: BudgetActions = new LoadDefaultBudgetAction(budget01.id);
-            const state = fromBudgetReducer.budgetReducer(myState, action);
-
-            expect(state.id).toEqual(myState.id);
-            expect(state.name).toEqual(myState.name);
-            expect(state.dateEnd).toEqual(myState.dateEnd);
-            expect(state.totalCash).toEqual(myState.totalCash);
-            expect(state.cashLeft).toEqual(myState.cashLeft);
-        });
-    });
-
-
-    describe('DefaultBudgetLoaded action', () => {
-        it('should return new state', () => {
-            const budget: Budget = budget02;
-            const action: BudgetActions = new DefaultBudgetLoadedAction(budget);
-            const { initialState } = fromBudgetReducer;
-            const state = fromBudgetReducer.budgetReducer(initialState, action);
-
-            expect(state.id).toEqual(budget.id);
-            expect(state.name).toEqual(budget.name);
-            expect(state.dateStart).toEqual(budget.dateStart);
-            expect(state.dateEnd).toEqual(budget.dateEnd);
-            expect(state.totalCash).toEqual(budget.totalCash);
-            expect(state.cashLeft).toEqual(budget.cashLeft);
         });
     });
 
@@ -88,22 +69,41 @@ describe('BudgetReducer', () => {
             const { initialState } = fromBudgetReducer;
             const state = fromBudgetReducer.budgetReducer(myState, action);
 
-            expect(state.id).toEqual(budget01.id);
-            expect(state.name).toEqual(payload.changes.name);
-            expect(state.cashLeft).toEqual(payload.changes.cashLeft);
-            expect(state.totalCash).toEqual(payload.changes.totalCash);
-            expect(state.dateStart).toEqual(budget01.dateStart);
-            expect(state.dateEnd).toEqual(budget01.dateEnd);
+            expect(state.currentBudgetId).toEqual(myState.currentBudgetId);
+            expect(state.ids.length).toEqual(myState.ids.length);
+            expect(state.ids[0]).toEqual(myState.ids[0]);
+            expect(state.ids[1]).toEqual(myState.ids[1]);
+            expect(state.entities[budget01.id].id).toEqual(payload.budgetId);
+            expect(state.entities[budget01.id].totalCash).toEqual(payload.changes.totalCash);
+            expect(state.entities[budget01.id].dateStart).toEqual(budget01.dateStart);
+            expect(state.entities[budget01.id].dateEnd).toEqual(budget01.dateEnd);
+
+
 
         });
     });
 
     describe('Query action', () => {
-        it('should...', () => {
+        it('should return initial state', () => {
+            const action: BudgetActions = new Query({ userId: 'user001' });
+            const { initialState } = fromBudgetReducer;
+            const state = fromBudgetReducer.budgetReducer(initialState, action);
+
+            expect(state).toEqual(initialState);
 
         });
     });
 
+    describe('getCurrentBudgetId', () => {
+        it('should return id from state', () => {
+            const action: BudgetActions = new SetCurrentBudget({ budgetId: budget02.id });
+            const { initialState } = fromBudgetReducer;
+            const state = fromBudgetReducer.budgetReducer(initialState, action);
+
+            expect(fromBudgetReducer.getCurrentBudgetId(state)).toEqual(state.currentBudgetId);
+
+        });
+    });
 
 });
 

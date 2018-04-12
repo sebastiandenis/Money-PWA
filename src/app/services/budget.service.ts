@@ -16,71 +16,59 @@ export class BudgetService {
 
   queryAllBudgets(userId: string): Observable<DocumentChangeAction[]> {
     // console.log('BudgetService.queryAllBudgets -> userId=', userId);
-    return this.afs.collection('budgets', ref => ref.where(`access.${userId}`, '==', true)).snapshotChanges();
+    //  const colRef = this.afs.collection<Budget>('budgets');
+    //  colRef.ref.where(`access.${userId}`, '==', true);
+    //  return colRef.snapshotChanges();
+    return this.afs.collection<Budget>('budgets', ref => ref.where(`access.${userId}`, '==', true)).snapshotChanges();
   }
-  /*
-    loadBudgetLines(budgetId: string): Observable<BudgetLine[]> {
-      // console.log('BudgetService.loadDefaultBudgetLines->budgetId=', budgetId);
-      const budget: AngularFirestoreDocument<Budget> = this.afs.doc<Budget>(`budgets/${budgetId}`);
-      return budget.collection<BudgetLine>('budgetLines').valueChanges();
-  
-    }
-    */
+
 
   queryAllBudgetLines(budgetId: string): Observable<DocumentChangeAction[]> {
-    const budget: AngularFirestoreDocument<Budget> = this.afs.doc<Budget>(`budgets/${budgetId}`);
-    return budget.collection<BudgetLine>('budgetLines').stateChanges();
+    // const budget: AngularFirestoreDocument<Budget> = this.afs.doc<Budget>(`budgets/${budgetId}`);
+    return this.afs
+      .doc<Budget>(`budgets/${budgetId}`)
+      .collection<BudgetLine>('budgetLines')
+      .stateChanges();
   }
 
   queryAllExpenses(budgetId: string, budgetLineId: string): Observable<DocumentChangeAction[]> {
-    const budgetLine: AngularFirestoreDocument<Budget> = this.afs.doc<Budget>(`budgets/${budgetId}/budgetLines/${budgetLineId}`);
-    return budgetLine.collection<Expense>('expenses').stateChanges();
+    // const budgetLine: AngularFirestoreDocument<Budget> = this.afs.doc<Budget>(`budgets/${budgetId}/budgetLines/${budgetLineId}`);
+    return this.afs.doc<Budget>(`budgets/${budgetId}/budgetLines/${budgetLineId}`).collection<Expense>('expenses').stateChanges();
   }
 
 
   addExpense(expense: Expense,
     budgetId: string,
     budgetLineId: string): Observable<void> {
-    const budgetLineRef: AngularFirestoreDocument<BudgetLine> =
-      this.afs.doc<BudgetLine>(`budgets/${budgetId}/budgetLines/${budgetLineId}`);
-    const expensesCollectionRef: AngularFirestoreCollection<Expense> =
-      budgetLineRef.collection<Expense>(`expenses`);
+    // const budgetLineRef: AngularFirestoreDocument<BudgetLine> =
+    //   this.afs.doc<BudgetLine>(`budgets/${budgetId}/budgetLines/${budgetLineId}`);
+    // const expensesCollectionRef: AngularFirestoreCollection<Expense> =
+    //   this.afs.doc<BudgetLine>(`budgets/${budgetId}/budgetLines/${budgetLineId}`).collection<Expense>(`expenses`);
     // this.afs.collection<Expense>(`budgets/${budgetId}/budgetLines/${budgetLineId}/expenses`);
 
     const id = this.afs.createId();
     expense.id = id;
-    return Observable.fromPromise(expensesCollectionRef.doc(id).set(expense));
+
+    return Observable.fromPromise(
+      this.afs.doc<BudgetLine>(`budgets/${budgetId}/budgetLines/${budgetLineId}`)
+        .collection<Expense>(`expenses`)
+        .doc(id)
+        .set(expense));
 
   }
 
   deleteExpense(expenseId: string, budgetLineId: string, budgetId: string): Observable<void> {
-    const expenseRef: AngularFirestoreDocument<Expense> =
-      this.afs.doc<Expense>(`budgets/${budgetId}/budgetLines/${budgetLineId}/expenses/${expenseId}`);
-    return Observable.fromPromise(expenseRef.delete());
+    // const expenseRef: AngularFirestoreDocument<Expense> =
+    //   this.afs.doc<Expense>(`budgets/${budgetId}/budgetLines/${budgetLineId}/expenses/${expenseId}`);
+    return Observable.fromPromise(
+      this.afs.doc<Expense>(`budgets/${budgetId}/budgetLines/${budgetLineId}/expenses/${expenseId}`)
+        .delete());
   }
 
   updateBudget(budgetId: string, changes: Partial<Budget>): Observable<void> {
-    const budgetRef: AngularFirestoreDocument<Budget> = this.afs.doc<Budget>(`budgets/${budgetId}`);
-    return Observable.fromPromise(budgetRef.update(changes));
+    // const budgetRef: AngularFirestoreDocument<Budget> = this.afs.doc<Budget>(`budgets/${budgetId}`);
+    return Observable.fromPromise(
+      this.afs.doc<Budget>(`budgets/${budgetId}`)
+        .update(changes));
   }
-
-  /*
-
-
-  addExpense(expense: Expense,
-    budgetId: string,
-    budgetLineId: string,
-    amount: number,
-    changes: Partial<BudgetLine>): Observable<BudgetLine> {
-    const budgetRef: AngularFirestoreDocument<Budget> = this.afs.doc<Budget>(`budgets/${budgetId}`);
-    const budgetLineRef: AngularFirestoreDocument<BudgetLine> =
-      this.afs.doc<BudgetLine>(`budgets/${budgetId}/budgetLines/${budgetLineId}`);
-    budgetLineRef.update(changes);
-    return budgetLineRef.valueChanges();
-  }
-
-  */
-
-
-
 }
