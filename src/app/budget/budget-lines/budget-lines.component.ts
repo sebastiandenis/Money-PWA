@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs/Subscription';
 import * as BudgetLinesActions from '../store/actions/budget-lines.actions';
 import * as fromBudgetApp from '../store/reducers/index';
 import { Observable } from 'rxjs/Observable';
-import { Budget } from '../../models/budget.model';
+import { Budget } from '../models/budget.model';
 import * as ExpenseActions from '../store/actions/expense.actions';
 
 @Component({

@@ -1,4 +1,4 @@
-import { Budget } from '../../../models/budget.model';
+import { Budget } from '../../models/budget.model';
 import { Action, createSelector, createFeatureSelector } from '@ngrx/store';
 import {
     BudgetActions, BudgetActionTypes,

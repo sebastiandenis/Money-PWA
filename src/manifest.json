@@ -1,0 +1,21 @@
+{
+    "short_name": "Money PWA",
+    "name": "Money PWA",
+    "start_url": "/",
+    "theme_color": "#673ab7",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "/assets/icons/money-pwa-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "/assets/icons/money-pwa-256x256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        }
+    ]
+}

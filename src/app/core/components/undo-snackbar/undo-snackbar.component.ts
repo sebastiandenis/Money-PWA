@@ -3,12 +3,12 @@ import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material';
 import { OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../../store/app.reducers';
-import * as AuthActions from '../../../store/actions/auth.actions';
+import * as AuthActions from '../../../auth/store/auth.actions';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import * as fromRoot from '../../../store/app.reducers';
-import { CloseUndoSnackbar } from '../../../store/actions/uiState.actions';
+import { CloseUndoSnackbar } from '../../../core/store/uiState.actions';
 
 export enum UndoPayloadMessages {
     ExpenseAdded = 'expenseadded',

@@ -6,7 +6,7 @@ import {
     UpdateBudgetLineAction,
     DeleteBudgetLineAction
 } from '../actions/budget-lines.actions';
-import { BudgetLine } from '../../../models/budget-line.model';
+import { BudgetLine } from '../../models/budget-line.model';
 import { State } from './budget-line.reducer';
 
 

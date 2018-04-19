@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { BudgetLine } from '../../../models/budget-line.model';
+import { BudgetLine } from '../../models/budget-line.model';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../store/app.reducers';
 import { SelectBudgetLineAction } from '../../store/actions/budget-lines.actions';

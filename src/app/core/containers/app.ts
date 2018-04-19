@@ -4,16 +4,16 @@ import { Observable } from 'rxjs/Observable';
 import { TranslateService } from '@ngx-translate/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Store } from '@ngrx/store';
-import * as AuthActions from '../../store/actions/auth.actions';
-import * as UserActions from '../../store/actions/user.actions';
+import * as AuthActions from '../../auth/store/auth.actions';
+import * as UserActions from '../../user/store/user.actions';
 import * as BudgetActions from '../../budget/store/actions/budget.actions';
-import * as UiStateActions from '../../store/actions/uiState.actions';
+import * as UiStateActions from '../../core/store/uiState.actions';
 import * as fromRoot from '../../store/app.reducers';
-import { User } from '../../models/user.model';
+import { User } from '../../user/models/user.model';
 import { OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { OnDestroy } from '@angular/core';
-import { Auth } from '../../models/auth.model';
+import { Auth } from '../../auth/models/auth.model';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { StorageService } from '../../services/storage.service';
 import 'rxjs/add/observable/fromEvent';
@@ -25,7 +25,7 @@ import { WINDOW } from '../../services/window.service';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { MatSnackBar } from '@angular/material';
 import { UndoSnackbarComponent } from '../components/undo-snackbar/undo-snackbar.component';
-import { CloseUndoSnackbar } from '../../store/actions/uiState.actions';
+import { CloseUndoSnackbar } from '../../core/store/uiState.actions';
 
 
 

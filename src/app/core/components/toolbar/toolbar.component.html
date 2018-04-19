@@ -1,6 +1,6 @@
-<mat-toolbar color="primary" layout="row">
+<mat-toolbar color="primary" layout="row" id="mainToolbar">
 
-  <button mat-icon-button (click)="switchSideMenu.emit()">
+  <button mat-icon-button (click)="switchSideMenu.emit()" id="sideMenuBtn">
       <mat-icon>menu</mat-icon>
   </button>
   <span>{{ (uiTitle$ | async) | translate}}</span>

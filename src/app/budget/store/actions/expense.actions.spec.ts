@@ -15,7 +15,7 @@ import {
     ClearExpenses,
     Added
 } from './expense.actions';
-import { Expense } from '../../../models/expense.model';
+import { Expense } from '../../models/expense.model';
 import { Update } from '@ngrx/entity/src/models';
 
 const expense01: Expense = {

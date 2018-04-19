@@ -1,7 +1,7 @@
 import { EntityState, createEntityAdapter } from '@ngrx/entity';
 import { createFeatureSelector } from '@ngrx/store';
 import * as fromApp from '../../../store/app.reducers';
-import { Expense } from '../../../models/expense.model';
+import { Expense } from '../../models/expense.model';
 import { ExpenseActions, ExpenseActionTypes } from '../actions/expense.actions';
 
 export interface FeatureState extends fromApp.AppState {

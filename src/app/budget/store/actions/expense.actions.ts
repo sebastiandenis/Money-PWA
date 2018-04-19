@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
-import { Expense } from '../../../models/expense.model';
+import { Expense } from '../../models/expense.model';
 
 export enum ExpenseActionTypes {
   QUERY = '[Expense] query Expense',

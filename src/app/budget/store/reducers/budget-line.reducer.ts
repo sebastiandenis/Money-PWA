@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { BudgetLine } from '../../../models/budget-line.model';
+import { BudgetLine } from '../../models/budget-line.model';
 import { BudgetLinesActions, BudgetLinesActionTypes } from '../actions/budget-lines.actions';
 import { EntityState, createEntityAdapter } from '@ngrx/entity';
 import { createFeatureSelector } from '@ngrx/store';

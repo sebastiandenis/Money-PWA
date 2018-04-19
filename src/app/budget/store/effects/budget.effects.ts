@@ -4,7 +4,7 @@ import { Store, Action } from '@ngrx/store';
 import * as BudgetActions from '../actions/budget.actions';
 import * as BudgetLinesActions from '../actions/budget-lines.actions';
 import { Effect } from '@ngrx/effects';
-import { BudgetService } from '../../../services/budget.service';
+import { BudgetService } from '../../services/budget.service';
 import * as fromRoot from '../../../store/app.reducers';
 // import 'rxjs/add/operator/withLatestFrom';
 import { Observable } from 'rxjs/Observable';

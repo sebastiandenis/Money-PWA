@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { ServiceWorkerModule } from '@angular/service-worker';
 import { AppComponent } from './core/containers/app';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
@@ -19,15 +19,15 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { reducers } from './store/app.reducers';
 import { AuthModule } from './auth/auth.module';
-import { AuthEffects } from './store/effects/auth.effects';
+import { AuthEffects } from './auth/store/auth.effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { environment } from '../environments/environment';
-import { BudgetService } from './services/budget.service';
+import { BudgetService } from './budget/services/budget.service';
 import { BudgetEffects } from './budget/store/effects/budget.effects';
-import { UserEffects } from './store/effects/user.effects';
-import { UserService } from './services/user.service';
-import { AuthService } from './services/auth.service';
-import { EqualValidator } from './auth/signup/equal-validator.directive';
+import { UserEffects } from './user/store/user.effects';
+import { UserService } from './user/services/user.service';
+import { AuthService } from './auth/services/auth.service';
+import { EqualValidator } from './auth/containers/signup/equal-validator.directive';
 import { CommonModule } from '@angular/common';
 import { MainMenuComponent } from './core/components/main-menu/main-menu.component';
 import { ToolbarComponent } from './core/components/toolbar/toolbar.component';
@@ -75,6 +75,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     EffectsModule.forRoot([AuthEffects, UserEffects]),
     StoreRouterConnectingModule,
     !environment.production ? StoreDevtoolsModule.instrument() : [],
+    environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

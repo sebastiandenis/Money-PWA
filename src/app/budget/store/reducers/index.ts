@@ -3,7 +3,7 @@ import * as fromBudget from './budget.reducer';
 import * as fromBudgetLine from './budget-line.reducer';
 import * as fromExpense from './expense.reducer';
 import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
-import { Budget } from '../../../models/budget.model';
+import { Budget } from '../../models/budget.model';
 
 
 export interface FeatureState extends fromApp.AppState {

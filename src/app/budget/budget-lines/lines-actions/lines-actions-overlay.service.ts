@@ -6,7 +6,7 @@ import { ComponentPortal, PortalInjector } from '@angular/cdk/portal';
 import { LinesActionsComponent } from './lines-actions.component';
 import { ComponentRef } from '@angular/core/src/linker/component_factory';
 // import { LINES_ACTIONS_DIALOG_DATA } from './lines-actions-overlay.tokens';
-import { BudgetLine } from '../../../models/budget-line.model';
+import { BudgetLine } from '../../models/budget-line.model';
 
 
 

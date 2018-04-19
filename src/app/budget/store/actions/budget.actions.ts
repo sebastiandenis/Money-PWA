@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Budget } from '../../../models/budget.model';
+import { Budget } from '../../models/budget.model';
 
 
 export enum BudgetActionTypes {

@@ -1,5 +1,5 @@
 import * as fromExpenseReducer from './expense.reducer';
-import { Expense } from '../../../models/expense.model';
+import { Expense } from '../../models/expense.model';
 import { State } from './expense.reducer';
 import { ExpenseActions, AddExpense, Added, Modified, Removed, DeleteExpense } from '../actions/expense.actions';
 

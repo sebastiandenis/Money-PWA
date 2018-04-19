@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { BudgetActionTypes, Query, Added, Modified, Removed, UpdateBudget, SetCurrentBudget } from './budget.actions';
-import { Budget } from '../../../models/budget.model';
+import { Budget } from '../../models/budget.model';
 
 const budget01: Budget = {
     id: 'abcdef',

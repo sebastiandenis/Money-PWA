@@ -3,7 +3,7 @@ import {
     BudgetActions, UpdateBudget, Query, SetCurrentBudget
 } from '../actions/budget.actions';
 import { State } from './budget.reducer';
-import { Budget } from '../../../models/budget.model';
+import { Budget } from '../../models/budget.model';
 
 
 

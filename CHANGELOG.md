@@ -1,3 +1,8 @@
+## 0.26.0
+* First Cypress E2E tests
+* Folders restructurization
+* Service Workers
+
 ## 0.25.0
 * More ngrx tests
 * BudgetService tests

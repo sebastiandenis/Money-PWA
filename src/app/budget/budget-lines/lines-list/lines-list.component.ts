@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { BudgetLine } from '../../../models/budget-line.model';
+import { BudgetLine } from '../../models/budget-line.model';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { LinesActionsComponent } from '../lines-actions/lines-actions.component';
 import { LinesActionsOverlayRef } from '../lines-actions/lines-actions-overlay-ref';

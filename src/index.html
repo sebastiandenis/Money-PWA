@@ -6,11 +6,25 @@
   <base href="/">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/x-icon" href="/assets/icons/money-pwa-256x256.png">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+  <link rel="manifest" href="/manifest.json">
+
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#673ab7">
+
+
 </head>
 <body style="margin: 0px;">
   <app-root></app-root>
+  <div class="splash" id="content">
+    <img src="/assets/icons/logo.svg" width="256px" alt="Money PWA logo" >
+    <h1>Money PWA</h1>
+  </div>
+
+  <noscript>
+    <p>Sorry, JavaScript must be enabled to use this app</p>
+  </noscript>
 </body>
 </html>

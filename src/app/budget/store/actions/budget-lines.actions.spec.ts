@@ -2,12 +2,12 @@ import {
     Query,
     BudgetLinesActionTypes,
     Added, Modified, Removed,
-    SelectBudgetLineAction, 
+    SelectBudgetLineAction,
     CreateBudgetLineAction, CreateBudgetLinesAction,
     UpdateBudgetLineAction, BudgetLineUpdatedAction,
     DeleteBudgetLineAction
 } from './budget-lines.actions';
-import { BudgetLine } from '../../../models/budget-line.model';
+import { BudgetLine } from '../../models/budget-line.model';
 
 const budgetLine01: BudgetLine = {
     id: 'bgline01',

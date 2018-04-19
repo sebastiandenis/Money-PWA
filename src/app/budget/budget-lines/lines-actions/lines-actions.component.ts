@@ -6,7 +6,7 @@ import { AddExpenseDlgComponent } from '../add-expense-dlg.component';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { trigger, state, transition, animate, style, AnimationEvent } from '@angular/animations';
 // import { Subscription } from 'rxjs/Subscription';
-import { BudgetLine } from '../../../models/budget-line.model';
+import { BudgetLine } from '../../models/budget-line.model';
 import { ChangeDetectionStrategy } from '@angular/core';
 
 // Reusable animation timings

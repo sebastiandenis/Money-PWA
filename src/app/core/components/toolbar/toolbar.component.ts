@@ -2,7 +2,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../store/app.reducers';
-import * as UiStateActions from '../../../store/actions/uiState.actions';
+import * as UiStateActions from '../../../core/store/uiState.actions';
 import { OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 

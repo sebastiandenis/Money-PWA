@@ -1,9 +1,9 @@
 import { ActionReducerMap, createSelector, createFeatureSelector } from '@ngrx/store';
 import * as fromBudget from '../budget/store/reducers/budget.reducer';
 import * as fromBudgetApp from '../budget/store/reducers/index';
-import * as fromUiState from './reducers/uiStateReducer';
-import * as fromAuth from './reducers/auth.reducer';
-import * as fromUser from './reducers/user.reducer';
+import * as fromUiState from '../core/store/uiStateReducer';
+import * as fromAuth from '../auth/store/auth.reducer';
+import * as fromUser from '../user/store/user.reducer';
 
 
 export interface AppState {
@@ -21,11 +21,11 @@ export const reducers: ActionReducerMap<AppState> = {
 };
 
 
-export function selectUiShowUndoSnackbar(state: AppState){
+export function selectUiShowUndoSnackbar(state: AppState) {
     return state.uiState.showUndoSnackbar;
 }
 
-export function selectUiLastUndo(state: AppState){
+export function selectUiLastUndo(state: AppState) {
     return state.uiState.lastUndo;
 }
 

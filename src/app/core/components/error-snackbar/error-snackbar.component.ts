@@ -3,7 +3,7 @@ import { MAT_SNACK_BAR_DATA } from '@angular/material';
 import { OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../../store/app.reducers';
-import * as AuthActions from '../../../store/actions/auth.actions';
+import * as AuthActions from '../../../auth/store/auth.actions';
 
 
 @Component({

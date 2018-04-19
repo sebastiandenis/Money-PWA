@@ -6,12 +6,12 @@ import * as fromRoot from '../../store/app.reducers';
 import * as fromBudgetApp from '../store/reducers/index';
 import * as BudgetLinesActions from '../store/actions/budget-lines.actions';
 import * as ExpenseActions from '../store/actions/expense.actions';
-import { BudgetLine } from '../../models/budget-line.model';
+import { BudgetLine } from '../models/budget-line.model';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { OnDestroy } from '@angular/core';
-import { Budget } from '../../models/budget.model';
+import { Budget } from '../models/budget.model';
 
 
 @Component({

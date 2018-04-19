@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import {TranslateModule} from '@ngx-translate/core';
 
-import { SigninComponent } from './signin/signin.component';
-import { SignupComponent } from './signup/signup.component';
+import { SigninComponent } from './containers/signin/signin.component';
+import { SignupComponent } from './containers/signup/signup.component';
 import { AuthRoutingModule } from './auth-routing.module';
 import { MatInputModule, MatFormFieldModule, MatHint, MatError, MatIcon } from '@angular/material';
 import {MatButtonModule} from '@angular/material';
