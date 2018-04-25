@@ -39,9 +39,9 @@ import { StorageService } from './services/storage.service';
 import { WindowScrollDirective } from './core/containers/window-scroll.directive';
 import { CoreModule } from './core/core.module';
 import { WINDOW_PROVIDERS } from './services/window.service';
-import { LinesActionsOverlayService } from './budget/budget-lines/lines-actions/lines-actions-overlay.service';
+import { LinesActionsOverlayService } from './budget/components/lines-actions/lines-actions-overlay.service';
 import { BudgetLinesEffects } from './budget/store/effects/budget-lines.effects';
-import { LinesActionsComponent } from './budget/budget-lines/lines-actions/lines-actions.component';
+import { LinesActionsComponent } from './budget/components/lines-actions/lines-actions.component';
 import { MAT_DATE_LOCALE } from '@angular/material';
 
 

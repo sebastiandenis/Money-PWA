@@ -4,7 +4,7 @@ import { MatDialogRef, MatDialog } from '@angular/material';
 import { LinesActionsComponent } from '../lines-actions/lines-actions.component';
 import { LinesActionsOverlayRef } from '../lines-actions/lines-actions-overlay-ref';
 import { LinesActionsOverlayService } from '../lines-actions/lines-actions-overlay.service';
-import { AddExpenseDlgComponent } from '../add-expense-dlg.component';
+import { AddExpenseDlgComponent } from '../../containers/budget-lines/add-expense-dlg.component';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({

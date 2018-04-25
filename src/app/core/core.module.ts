@@ -13,7 +13,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { EqualValidator } from '../auth/containers/signup/equal-validator.directive';
 import { NotFoundPageComponent } from './containers/not-found-page';
 import { WindowScrollDirective } from './containers/window-scroll.directive';
-import { LinesActionsOverlayService } from '../budget/budget-lines/lines-actions/lines-actions-overlay.service';
+import { LinesActionsOverlayService } from '../budget/components/lines-actions/lines-actions-overlay.service';
 
 @NgModule({
     declarations: [

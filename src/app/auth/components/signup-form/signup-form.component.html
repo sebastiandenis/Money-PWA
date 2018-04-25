@@ -1,4 +1,4 @@
-<form [formGroup]="signupForm" class="signup-form" (ngSubmit)="onSignup()"  fxLayout="column" fxLayoutAlign="center center" 
+<form [formGroup]="signupForm" class="signup-form" (ngSubmit)="signUp()"  fxLayout="column" fxLayoutAlign="center center"
 fxLayoutGap="10px">
   <div formGroupName="userData">
     <mat-form-field class="full-width space-between">
@@ -31,16 +31,16 @@ fxLayoutGap="10px">
       <mat-error>
         {{'atleastxcharsinpassword' | translate:param}}!
       </mat-error>
-   
-      
+
+
     </mat-form-field>
-    <div class="mat-error" style="font-size: 75%;margin-top: -5px;" *ngIf="(signupForm.get('passwords.password').touched 
+    <div class="mat-error" style="font-size: 75%;margin-top: -5px;" *ngIf="(signupForm.get('passwords.password').touched
     ||  signupForm.get('passwords.confirmPassword').touched )
     && signupForm.get('passwords').hasError('nomatch')">
       {{'passwordsdontmatch' | translate:param}}!
     </div>
 
-  
+
   </div>
 
 

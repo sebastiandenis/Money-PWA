@@ -2,7 +2,11 @@
     background: #ef5350;
     padding: 20px;
   }
-  
+
+  :host .error-class{
+    background-color: #ef5350;
+  }
+
   ::ng-deep .error-class .mat-simple-snackbar {
     color: white;
   }

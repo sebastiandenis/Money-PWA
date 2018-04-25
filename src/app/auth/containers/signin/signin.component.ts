@@ -14,10 +14,17 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import * as FbAuthErrorCodes from '../../../utils/firebase-error-codes';
 
 
+
+export interface TranslationSiginForm {
+  tEmail: string;
+  tInvalidEmail: string;
+  tPassword: string;
+  tSignin: string;
+}
+
 @Component({
   selector: 'app-signin',
-  templateUrl: './signin.component.html',
-  styleUrls: ['./signin.component.css']
+  template: `<app-signin-form (signIn)="signIn($event)"></app-signin-form>`
 })
 export class SigninComponent implements OnInit, OnDestroy {
 
@@ -25,7 +32,8 @@ export class SigninComponent implements OnInit, OnDestroy {
   authErrorSubscription: Subscription;
 
 
-  constructor(private store: Store<fromApp.AppState>, public snackBar: MatSnackBar) {
+  constructor(private store: Store<fromApp.AppState>,
+    public snackBar: MatSnackBar) {
     this.authError$ = this.store.select(fromRoot.selectAuthError);
   }
 
@@ -50,11 +58,13 @@ export class SigninComponent implements OnInit, OnDestroy {
     });
   }
 
-  onSignin(form: NgForm) {
-    const email = form.value.email;
-    const password = form.value.password;
+  signIn(data: any) {
+    const email = data.login;
+    const password = data.password;
     this.store.dispatch(new AuthActions.TrySignin({ user: { email, password } }));
   }
+
+
 
   ngOnDestroy() {
     if (this.authErrorSubscription) {

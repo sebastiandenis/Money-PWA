@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, EventEmitter, Output } from '@angular/core';
 import { LinesActionsOverlayRef } from './lines-actions-overlay-ref';
 // import { LINES_ACTIONS_DIALOG_DATA } from './lines-actions-overlay.tokens';
 import { TranslateService } from '@ngx-translate/core';
-import { AddExpenseDlgComponent } from '../add-expense-dlg.component';
+import { AddExpenseDlgComponent } from '../../containers/budget-lines/add-expense-dlg.component';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { trigger, state, transition, animate, style, AnimationEvent } from '@angular/animations';
 // import { Subscription } from 'rxjs/Subscription';

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { BudgetDashboardComponent } from './containers/budget-dashboard/budget-dashboard.component';
-import { BudgetLinesComponent } from './budget-lines/budget-lines.component';
+import { BudgetLinesComponent } from './containers/budget-lines/budget-lines.component';
 import { BudgetSettingsComponent } from './containers/budget-settings/budget-settings.component';
 import { BudgetComponent } from './budget.component';
 import { AddFastExpenseComponent } from './containers/add-fast-expense/add-fast-expense.component';

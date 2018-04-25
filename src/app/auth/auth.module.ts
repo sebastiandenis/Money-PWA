@@ -11,12 +11,16 @@ import { ErrorSnackbarComponent } from '../core/components/error-snackbar/error-
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../material/index';
 import { SharedModule } from '../shared/shared.module';
+import { SigninFormComponent } from './components/signin-form/signin-form.component';
+import { SignupFormComponent } from './components/signup-form/signup-form.component';
 
 
 @NgModule({
   declarations: [
     SigninComponent,
-    SignupComponent
+    SignupComponent,
+    SigninFormComponent,
+    SignupFormComponent
   ],
   entryComponents: [ErrorSnackbarComponent],
   imports: [
