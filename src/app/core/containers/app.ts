@@ -61,6 +61,7 @@ export class AppComponent implements OnInit, OnDestroy {
     showUndoSnackbar$: Observable<boolean>;
     showUndoSnackbarSub: Subscription;
     mainToolbarFixed$: Observable<boolean>;
+
     storageRef: any;
     photoUrl: string;
     toolbarClassName = 'app-header';
@@ -124,15 +125,12 @@ export class AppComponent implements OnInit, OnDestroy {
         this.showUndoSnackbarSub = this.showUndoSnackbar$.subscribe(
             isVisible => {
                 if (isVisible) {
-                    // widoczny
-                    // console.log('UndoSnackbar widoczny');
                     this.snackBar.openFromComponent(UndoSnackbarComponent, {
                         data: 'not used',
                         duration: 3500,
-                        extraClasses: ['error-class']
+                    //    extraClasses: ['undo-class']
                     });
                     this.snackBar._openedSnackBarRef.afterDismissed().subscribe(() => {
-                        // console.log('Undo snackbar zamknięty!');
                         this.store.dispatch(new CloseUndoSnackbar());
                     });
 

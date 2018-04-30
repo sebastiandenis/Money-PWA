@@ -15,22 +15,25 @@ export class ToolbarComponent implements OnInit {
   @Output() switchSideMenu = new EventEmitter();
   uiTitle$: Observable<string>;
   closeBtnVisible$: Observable<boolean>;
+  sideMenuBtnVisible$: Observable<boolean>;
 
-
-  constructor(private store: Store<fromRoot.AppState>,
-    private _location: Location) {
+  constructor(
+    private store: Store<fromRoot.AppState>,
+    private _location: Location
+  ) {
     this.uiTitle$ = this.store.select(fromRoot.selectUiTitle);
-    this.closeBtnVisible$ = this.store.select(fromRoot.selectUiMainToolbarCloseBtnVisible);
+    this.closeBtnVisible$ = this.store.select(
+      fromRoot.selectUiMainToolbarCloseBtnVisible
+    );
+    this.sideMenuBtnVisible$ = this.store.select(
+      fromRoot.selectUiSideMenuBtnVisible
+    );
   }
 
   ngOnInit() {
-
   }
 
   onCloseBtn() {
     this._location.back();
   }
-
-
-
 }

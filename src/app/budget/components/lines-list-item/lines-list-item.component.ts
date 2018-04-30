@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { BudgetLine } from '../../models/budget-line.model';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../store/app.reducers';
@@ -11,24 +18,21 @@ import { SelectBudgetLineAction } from '../../store/actions/budget-lines.actions
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LinesListItemComponent implements OnInit {
+  @Input() line: BudgetLine;
 
-  @Input()
-  line: BudgetLine;
+  @Input() isFastExpenseMode = false;
 
-  @Output()
-  onSelectLine = new EventEmitter<null>();
+  @Output() onSelectLine = new EventEmitter<string>();
 
-  constructor(private store: Store<fromRoot.AppState>) { }
+  constructor(private store: Store<fromRoot.AppState>) {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 
   getBadgeColor(cashLeft: number, totalCash: number) {
     if (cashLeft && totalCash) {
       if (cashLeft <= 0) {
         return { 'my-chip-red': true };
-      } else if (Math.round((cashLeft / totalCash) * 100) < 25) {
+      } else if (Math.round(cashLeft / totalCash * 100) < 25) {
         return { 'my-chip-orange': true };
       } else {
         return { 'my-chip-green': true };
@@ -39,10 +43,12 @@ export class LinesListItemComponent implements OnInit {
   }
 
   selectLine(lineId: string) {
-    this.store.dispatch(new SelectBudgetLineAction({ budgetLineId: lineId }));
-   // console.log('clicked: ', lineId);
-    this.onSelectLine.emit();
+    if (this.isFastExpenseMode) {
+    } else {
+      // this.store.dispatch(new SelectBudgetLineAction({ budgetLineId: lineId }));
+    }
+
+    // console.log('clicked: ', lineId);
+    this.onSelectLine.emit(lineId);
   }
-
-
 }

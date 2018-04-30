@@ -1,20 +1,22 @@
 @import '~@angular/material/theming';
-
 @mixin app-root-theme($theme) {
-  $primary: map-get($theme, primary);
-  $accent: map-get($theme, accent);
-  $warn: map-get($theme, warn);
-  $foreground: map-get($theme, foreground);
-  $background: map-get($theme, background);
-
-  app-root {
-    >div {
-      background-color: mat-color($background, card);
-
-      >h1 {
-        color: mat-color($foreground, text);
-      }
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+    $warn: map-get($theme, warn);
+    $foreground: map-get($theme, foreground);
+    $background: map-get($theme, background);
+    app-root {
+        >div {
+            background-color: mat-color($background, card);
+            >h1 {
+                color: mat-color($foreground, text);
+            }
+        }
     }
-  }
-
+    snack-bar-container.mat-snack-bar-container {
+        padding: 20px;
+    }
+    snack-bar-container.mat-snack-bar-container.error-class {
+        background: mat-color($warn);
+    }
 }

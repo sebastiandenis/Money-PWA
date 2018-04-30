@@ -1,38 +1,32 @@
 .my-nav-tab {
-  position: fixed;
-  top: 55px;
-  width: 100vw;
- z-index: 5;
-
+    position: fixed;
+    top: 55px;
+    width: 100vw;
+    z-index: 5;
 }
 
-
-
-.nav-tab-fixed{
-  position: fixed;
-  top: 55px;
-  width: 100vw;
-
-  z-index: 5;
+.nav-tab-fixed {
+    position: fixed;
+    top: 55px;
+    width: 100vw;
+    z-index: 5;
 }
 
-.nav-tab{
-  position: fixed;
-  width: 100vw;
- 
+.nav-tab {
+    position: fixed;
+    width: 100vw;
 }
 
-.nav-tab-fixed-hidden{
-  position: fixed;
-  top: -55px;
-  width: 100vw;
+.nav-tab-fixed-hidden {
+    position: fixed;
+    top: -55px;
+    width: 100vw;
 }
 
 .mat-tab-links {
-  text-align: center;
-
-
+    text-align: center;
 }
+
 .mat-tab-link {
-  min-width: 33.3%;
+    min-width: 33.3%;
 }

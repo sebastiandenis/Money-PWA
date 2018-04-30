@@ -56,7 +56,7 @@ export class SignupComponent implements OnInit {
         }
         this.snackBar.openFromComponent(ErrorSnackbarComponent, {
           data: errorData,
-          duration: 5000,
+          duration: 3500,
           extraClasses: ['error-class']
         });
       }

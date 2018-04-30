@@ -1,18 +1,9 @@
-:host{
-  display: flex;
-  justify-content: space-between;
-  line-height: 20px;
-  opacity: 1;
+:host {
+    display: flex;
+    justify-content: space-between;
+    line-height: 20px;
+    opacity: 1;
 }
-
-::ng-deep snack-bar-container.error-class {
-    background: #1976d2;
-    padding: 20px;
-  }
-  
-  ::ng-deep .error-class .mat-simple-snackbar {
-    color: white;
-  }
 
   .mat-simple-snackbar-action {
     background: none;

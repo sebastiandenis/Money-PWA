@@ -42,6 +42,7 @@ export class BudgetComponent implements OnInit, OnDestroy {
     this.store.dispatch(new UiStateActions.ChangeTitleAction('budgettitle'));
     this.store.dispatch(new UiStateActions.ChangeMainMenuBtnVisibleAction(true));
     this.store.dispatch(new UiStateActions.ChangeMainToolbarCloseBtnVisibleAction(false));
+    this.store.dispatch(new UiStateActions.ChangeSideMenuBtnVisibleAction(true));
 
     this.userSubscription = this.user$.subscribe(user => {
       // console.log('userSubscription: ', user);

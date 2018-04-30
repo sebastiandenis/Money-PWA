@@ -53,6 +53,10 @@ export function selectUiMainToolbarCloseBtnVisible(state: AppState) {
     return state.uiState.mainToolbarCloseBtnVisible;
 }
 
+export function selectUiSideMenuBtnVisible(state: AppState){
+  return state.uiState.sideMenuBtnVisible;
+}
+
 export function selectUiMainMenuBtnVisible(state: AppState) {
     return state.uiState.mainMenuBtnVisible;
 }

@@ -1,33 +1,22 @@
 @import '~@angular/material/theming';
-
 @mixin app-lines-actions-theme($theme) {
-  $primary: map-get($theme, primary);
-  $accent: map-get($theme, accent);
-  $warn: map-get($theme, warn);
-  $foreground: map-get($theme, foreground);
-  $background: map-get($theme, background);
- 
-
-  app-lines-actions {
-    
-    
-    color: #ffffff;
- 
- 
-  }
-
-  .tm-lines-actions-dialog-panel{
-    background-color: mat-color($background, dialog);
-    width: 100vw;
-    position: fixed !important;
-  }
-
-  .cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
-    &.dark-backdrop {
-      background: mat-color($foreground, text);
-      opacity: 0.2 !important;
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+    $warn: map-get($theme, warn);
+    $foreground: map-get($theme, foreground);
+    $background: map-get($theme, background);
+    app-lines-actions {
+        color: #ffffff;
     }
-  }
-
-
+    .tm-lines-actions-dialog-panel {
+        background-color: mat-color($background, dialog);
+        width: 100vw;
+        position: fixed !important;
+    }
+    .cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
+        &.dark-backdrop {
+            background: mat-color($foreground, text);
+            opacity: 0.2 !important;
+        }
+    }
 }

@@ -1,3 +1,9 @@
+## 0.28.0
+* Issues: #1
+* ErrorSnackbarComponent and UndoSnackbarComponent theme styling
+* AddFastExpense finished
+* Ngrx code removed from LinesListComponent and LineItemComponent
+
 ## 0.27.0
 * Folders and components restructurization
 

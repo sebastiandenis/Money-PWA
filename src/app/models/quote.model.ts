@@ -1,4 +1,4 @@
-import { Translation } from './translation.model';
+import { Translation } from '../core/models/translation.model';
 
 export interface Quote {
     id: string;

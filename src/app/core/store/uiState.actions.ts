@@ -4,6 +4,7 @@ import { UndoPayload } from '../../core/components/undo-snackbar/undo-snackbar.c
 export enum UiStateActionTypes {
     ChangeTitle = '[UiState] Change Title',
     MainMenuBtnVisible = '[UiState] Main Menu Button Visible',
+    ChangeSideMenuBtnVisible = '[UiState] Side Menu Button Visible Change',
     MainToolbarVisible = '[UiState] Main Toolbar Visible',
     MainToolbarCloseBtnVisible = '[UiState] Main Toolbar Close Button Visible',
     OpenSidenav = '[UiState] Open Sidenav (on)',
@@ -58,6 +59,12 @@ export class ChangeMainMenuBtnVisibleAction implements Action {
     }
 }
 
+export class ChangeSideMenuBtnVisibleAction implements Action {
+  readonly type: string = UiStateActionTypes.ChangeSideMenuBtnVisible;
+  constructor(public payload?: boolean) {
+  }
+}
+
 export class ChangeMainToolbarVisibleAction implements Action {
     readonly type: string = UiStateActionTypes.MainToolbarVisible;
     constructor(public payload?: boolean) {
@@ -68,6 +75,7 @@ export type UiStateActions =
     OpenSidenavAction
     | CloseSidenavAction
     | SwitchSidenavAction
+    | ChangeSideMenuBtnVisibleAction
     | ChangeTitleAction
     | ChangeMainMenuBtnVisibleAction
     | ChangeMainToolbarVisibleAction

@@ -8,7 +8,7 @@ import * as AuthActions from '../../../auth/store/auth.actions';
 
 @Component({
     selector: 'app-error-snackbar',
-    styleUrls: ['./error-snackbar.component.css'],
+    styleUrls: ['./error-snackbar.component.scss'],
     template: '<span >{{ data | translate }}</span>'
 })
 export class ErrorSnackbarComponent implements OnInit {

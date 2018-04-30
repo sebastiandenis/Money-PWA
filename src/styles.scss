@@ -1,40 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
+
 @import '~@angular/material/theming';
-
 @include mat-core();
-
 @import './themes/my-theme';
 @import './themes/my-second-theme';
-
 @import './app/core/containers/app.scss-theme';
 @import './app/budget/containers/budget-tabs/budget-tabs.component.scss-theme';
 @import './app/budget/components/lines-actions/lines-actions.component.scss-theme';
 @import './app/budget/components/lines-list-item/lines-list-item.component.scss-theme';
-
+@import './app/core/components/error-snackbar/error-snackbar.component.scss-theme.scss';
+@import './app/budget/components/dashboard-chart/dashboard-chart.component.scsss-theme.scss';
 @mixin my-custom-components($theme) {
-  @include app-root-theme($theme);
-  @include app-budget-tabs-theme($theme);
-  @include app-lines-actions-theme($theme);
-  @include app-lines-list-item-theme($theme);
-  /* ... */
+    @include app-root-theme($theme);
+    @include app-budget-tabs-theme($theme);
+    @include app-lines-actions-theme($theme);
+    @include app-lines-list-item-theme($theme);
+    @include app-error-snackbar-theme($theme);
+    @include app-dashboard-chart-theme($theme);
+    /* ... */
+
 }
 
-
-
-
-
-
 .my-theme {
-  @include angular-material-theme($my-theme);
-  @include my-custom-components($my-theme);
+    @include angular-material-theme($my-theme);
+    @include my-custom-components($my-theme);
 }
 
 .my-second-theme {
-  @include angular-material-theme($my-second-theme);
-  @include my-custom-components($my-second-theme);
+    @include angular-material-theme($my-second-theme);
+    @include my-custom-components($my-second-theme);
 }
 
-
 body {
-    font-family: Roboto;
+    font-family: 'Roboto', sans-serif;
 }

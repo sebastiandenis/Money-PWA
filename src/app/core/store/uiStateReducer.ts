@@ -4,6 +4,7 @@ import * as UiStateActions from './uiState.actions';
 export interface State {
     currentTitle: string;
     mainMenuBtnVisible: boolean;
+    sideMenuBtnVisible: boolean;
     showSidenav: boolean;
     mainToolbarFixed: boolean;
     locale: string;
@@ -17,6 +18,7 @@ export interface State {
 export const initialState: State = {
     currentTitle: 'appname',
     mainMenuBtnVisible: false,
+    sideMenuBtnVisible: false,
     showSidenav: false,
     mainToolbarFixed: true,
     locale: 'pl-PL',
@@ -30,6 +32,8 @@ export function uiState(state: State = initialState, action: Action): State {
     switch (action.type) {
         case UiStateActions.UiStateActionTypes.MainToolbarCloseBtnVisible:
             return handleChangeMainToolbarCloseBtnVisibleAction(state, <any>action);
+            case UiStateActions.UiStateActionTypes.ChangeSideMenuBtnVisible:
+            return handleChangeSideMenuBtnVisibleAction(state, <any>action);
         case UiStateActions.UiStateActionTypes.ShowUndoSnackbar:
             return handleShowUndoSnackbarAction(state, <any>action);
         case UiStateActions.UiStateActionTypes.CloseUndoSnackbar:
@@ -90,6 +94,13 @@ function handleChangeMainToolbarCloseBtnVisibleAction(state: State, action: UiSt
         ...state,
         mainToolbarCloseBtnVisible: action.payload
     };
+}
+
+function handleChangeSideMenuBtnVisibleAction(state: State, action: UiStateActions.ChangeSideMenuBtnVisibleAction): State {
+  return {
+      ...state,
+      sideMenuBtnVisible: action.payload
+  };
 }
 
 function handleChangeMainMenuBtnVisibleAction(state: State, action: UiStateActions.ChangeMainMenuBtnVisibleAction): State {
