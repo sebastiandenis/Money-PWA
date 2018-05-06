@@ -1,4 +1,4 @@
-## 0.29.0
+## 0.30.1
 * Tests for: SigninFormComponent, SignupFormComponent
 * Fixed Issue #2 (Bug in test - cant use beforeEach)
 
