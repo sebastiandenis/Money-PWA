@@ -54,7 +54,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),

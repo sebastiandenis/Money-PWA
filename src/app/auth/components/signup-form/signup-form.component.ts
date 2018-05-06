@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import {
   FormGroup,
   Validators,
@@ -8,10 +8,12 @@ import {
 import { passwordMatcher } from '../../../utils/password-matcher';
 import { Observable } from 'rxjs/Observable';
 
+
 @Component({
   selector: 'app-signup-form',
   templateUrl: './signup-form.component.html',
-  styleUrls: ['./signup-form.component.scss']
+  styleUrls: ['./signup-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SignupFormComponent implements OnInit {
   signupForm: FormGroup;
@@ -56,12 +58,12 @@ export class SignupFormComponent implements OnInit {
       userData: new FormGroup({
         username: new FormControl(null, [
           Validators.required,
-          this.forbiddenNames.bind(this)
+         this.forbiddenNames.bind(this)
         ]),
         email: new FormControl(
           null,
           [Validators.required, Validators.email],
-          this.forbiddenEmails
+       //   this.forbiddenEmails
         )
       }),
       passwords: new FormGroup(

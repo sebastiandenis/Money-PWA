@@ -19,7 +19,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
       <input matInput placeholder="{{'password' | translate}}" id="password" type="password"
         formControlName="password">
     </mat-form-field>
-    <button mat-raised-button color="accent" type="submit" class="signin-btn" [disabled]="!signinForm.valid"
+    <button mat-raised-button color="accent" type="submit" id="submit" class="signin-btn" [disabled]="!signinForm.valid"
     style="margin-top: 10px;">
       {{'signin' | translate}}
     </button>
