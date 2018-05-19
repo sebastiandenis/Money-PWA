@@ -1,7 +1,9 @@
+## 0.31.1
+* Updated to Angular 6
+
 ## 0.30.1
 * Tests for: SigninFormComponent, SignupFormComponent
 * Fixed Issue #2 (Bug in test - cant use beforeEach)
-
 
 ## 0.28.0
 * Issues: #1

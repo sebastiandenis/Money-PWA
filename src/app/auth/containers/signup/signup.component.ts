@@ -6,9 +6,8 @@ import * as AuthActions from '../../store/auth.actions';
 import * as UiStateActions from '../../../core/store/uiState.actions';
 import { AbstractControl, FormGroup, FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
-import { Observable } from 'rxjs/Observable';
+import { Observable ,  Subscription } from 'rxjs';
 import { passwordMatcher } from '../../../utils/password-matcher';
-import { Subscription } from 'rxjs/Subscription';
 import { MatSnackBar } from '@angular/material';
 import { ErrorSnackbarComponent } from '../../../core/components/error-snackbar/error-snackbar.component';
 import * as FbAuthErrorCodes from '../../../utils/firebase-error-codes';
@@ -57,7 +56,7 @@ export class SignupComponent implements OnInit {
         this.snackBar.openFromComponent(ErrorSnackbarComponent, {
           data: errorData,
           duration: 3500,
-          extraClasses: ['error-class']
+          panelClass: ['error-class']
         });
       }
     });

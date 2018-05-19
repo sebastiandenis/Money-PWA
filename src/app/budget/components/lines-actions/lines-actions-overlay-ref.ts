@@ -1,7 +1,6 @@
 import { OverlayRef } from '@angular/cdk/overlay';
 import { LinesActionsComponent } from './lines-actions.component';
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
+import { Subject ,  Observable } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 import { AnimationEvent } from '@angular/animations';
 

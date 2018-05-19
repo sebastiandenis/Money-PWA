@@ -1,11 +1,10 @@
 import { Component, OnInit, Input, HostListener, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable ,  Subscription } from 'rxjs';
 import { Budget } from '../../models/budget.model';
 import { BudgetLine } from '../../models/budget-line.model';
 import { User } from '../../../user/models/user.model';
-import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 import { OnDestroy } from '@angular/core';
 import * as BudgetActions from '../../store/actions/budget.actions';

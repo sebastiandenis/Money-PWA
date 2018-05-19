@@ -1,11 +1,10 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Observable ,  Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../../store/app.reducers';
 import { trigger, style, state, transition, animate } from '@angular/animations';
-import { Subscription } from 'rxjs/Subscription';
 import { ChangeDetectorRef } from '@angular/core';
 
 

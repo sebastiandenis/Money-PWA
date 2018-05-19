@@ -6,9 +6,8 @@ import * as AuthActions from '../../store/auth.actions';
 import * as UiStateActions from '../../../core/store/uiState.actions';
 import { Auth } from '../../models/auth.model';
 import { MatSnackBar, MAT_SNACK_BAR_DATA } from '@angular/material';
-import { Observable } from 'rxjs/Observable';
+import { Observable ,  Subscription } from 'rxjs';
 import * as fromRoot from '../../../store/app.reducers';
-import { Subscription } from 'rxjs/Subscription';
 import { ErrorSnackbarComponent } from '../../../core/components/error-snackbar/error-snackbar.component';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import * as FbAuthErrorCodes from '../../../utils/firebase-error-codes';
@@ -52,7 +51,7 @@ export class SigninComponent implements OnInit, OnDestroy {
         this.snackBar.openFromComponent(ErrorSnackbarComponent, {
           data: errorData,
           duration: 5000,
-          extraClasses: ['error-class']
+          panelClass: ['error-class']
         });
       }
     });

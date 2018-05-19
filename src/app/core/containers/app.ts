@@ -1,9 +1,8 @@
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Component, Input, Inject, HostListener } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { TranslateService } from '@ngx-translate/core';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import * as AuthActions from '../../auth/store/auth.actions';
 import * as UserActions from '../../user/store/user.actions';
 import * as BudgetActions from '../../budget/store/actions/budget.actions';
@@ -11,13 +10,12 @@ import * as UiStateActions from '../../core/store/uiState.actions';
 import * as fromRoot from '../../store/app.reducers';
 import { User } from '../../user/models/user.model';
 import { OnInit } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
 import { OnDestroy } from '@angular/core';
 import { Auth } from '../../auth/models/auth.model';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { StorageService } from '../../services/storage.service';
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/map';
+
+
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { ChangeDetectorRef } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
@@ -26,6 +24,7 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 import { MatSnackBar } from '@angular/material';
 import { UndoSnackbarComponent } from '../components/undo-snackbar/undo-snackbar.component';
 import { CloseUndoSnackbar } from '../../core/store/uiState.actions';
+import { Observable, Subscription } from 'rxjs';
 
 
 
@@ -102,7 +101,7 @@ export class AppComponent implements OnInit, OnDestroy {
                 // nie jest zalogowany
             }
         });
-        this.isLoggedIn$ = this.store.select(fromRoot.selectAuthIsUserLoggedIn);
+        this.isLoggedIn$ = this.store.pipe(select(fromRoot.selectAuthIsUserLoggedIn));
         this.showSidenav$ = this.store.select(fromRoot.selectShowSidenav);
         this.mainToolbarFixed$ = this.store.select(fromRoot.selectMainToolbarFixed);
         this.auth$ = this.store.select(fromRoot.selectAuthUserData);

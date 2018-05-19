@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument, DocumentChangeAction, AngularFirestoreCollection } from 'angularfire2/firestore';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs-compat';
 import { Budget } from '../models/budget.model';
 import { BudgetLine } from '../models/budget-line.model';
 import { Expense } from '../models/expense.model';
 import { DocumentReference } from '@firebase/firestore-types';
-import 'rxjs/add/observable/fromPromise';
-import { switchMap } from 'rxjs/operators';
+
+import { switchMap } from 'rxjs-compat/operators/switchMap';
 
 @Injectable()
 export class BudgetService {
@@ -14,16 +14,17 @@ export class BudgetService {
   constructor(private afs: AngularFirestore) { }
 
 
-  queryAllBudgets(userId: string): Observable<DocumentChangeAction[]> {
-    // console.log('BudgetService.queryAllBudgets -> userId=', userId);
+  queryAllBudgets(userId: string): Observable<DocumentChangeAction<any>[]> {
+     console.log('BudgetService.queryAllBudgets -> userId=', userId);
     //  const colRef = this.afs.collection<Budget>('budgets');
     //  colRef.ref.where(`access.${userId}`, '==', true);
     //  return colRef.snapshotChanges();
+
     return this.afs.collection<Budget>('budgets', ref => ref.where(`access.${userId}`, '==', true)).snapshotChanges();
   }
 
 
-  queryAllBudgetLines(budgetId: string): Observable<DocumentChangeAction[]> {
+  queryAllBudgetLines(budgetId: string): Observable<DocumentChangeAction<any>[]> {
     // const budget: AngularFirestoreDocument<Budget> = this.afs.doc<Budget>(`budgets/${budgetId}`);
     return this.afs
       .doc<Budget>(`budgets/${budgetId}`)
@@ -31,7 +32,7 @@ export class BudgetService {
       .stateChanges();
   }
 
-  queryAllExpenses(budgetId: string, budgetLineId: string): Observable<DocumentChangeAction[]> {
+  queryAllExpenses(budgetId: string, budgetLineId: string): Observable<DocumentChangeAction<any>[]> {
     // const budgetLine: AngularFirestoreDocument<Budget> = this.afs.doc<Budget>(`budgets/${budgetId}/budgetLines/${budgetLineId}`);
     return this.afs.doc<Budget>(`budgets/${budgetId}/budgetLines/${budgetLineId}`).collection<Expense>('expenses').stateChanges();
   }

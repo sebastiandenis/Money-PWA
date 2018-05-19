@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Auth } from '../models/auth.model';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 
 

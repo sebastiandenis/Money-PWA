@@ -5,6 +5,7 @@ import { Effect } from '@ngrx/effects';
 import { UserService } from '../../user/services/user.service';
 import * as fromRoot from '../../store/app.reducers';
 import * as UserActions from './user.actions';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class UserEffects {

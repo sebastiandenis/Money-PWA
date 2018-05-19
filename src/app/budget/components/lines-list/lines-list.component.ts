@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { BudgetLine } from '../../models/budget-line.model';
 
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-lines-list',

@@ -1,12 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable ,  Subscription } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import * as fromRoot from '../../../store/app.reducers';
 import * as fromBudgetApp from '../../store/reducers/index';
 import * as UiStateActions from '../../../core/store/uiState.actions';
 import * as BudgetLinesActions from '../../store/actions/budget-lines.actions';
 import { MatDialogRef, MatDialog } from '@angular/material';
-import { Subscription } from 'rxjs/Subscription';
 import { LinesActionsComponent } from '../../components/lines-actions/lines-actions.component';
 import { LinesActionsOverlayRef } from '../../components/lines-actions/lines-actions-overlay-ref';
 import { LinesActionsOverlayService } from '../../components/lines-actions/lines-actions-overlay.service';

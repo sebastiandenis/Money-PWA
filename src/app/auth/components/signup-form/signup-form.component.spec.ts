@@ -2,13 +2,10 @@ import { SignupFormComponent } from './signup-form.component';
 import {
   ComponentFixture,
   TestBed,
-  tick,
   async,
   fakeAsync,
   ComponentFixtureAutoDetect
 } from '@angular/core/testing';
-import { DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {
   TranslateModule,
@@ -17,14 +14,24 @@ import {
   TranslateFakeLoader
 } from '@ngx-translate/core';
 import { MaterialModule } from '../../../material/index';
-import { AuthModule } from '../../auth.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Observable } from 'rxjs';
+
+
+
+
+
 
 describe('Component: SignupFormComponent', () => {
   let component: SignupFormComponent;
   let fixture: ComponentFixture<SignupFormComponent>;
+  let spy: any;
+
+
 
   beforeEach(async(() => {
+
+
     TestBed.configureTestingModule({
       imports: [
         ReactiveFormsModule,
@@ -147,7 +154,12 @@ describe('Component: SignupFormComponent', () => {
     expect(errors['nomatch']).toBeTruthy();
   });
 
-  it('Entering all fields values should emit onSignup event', async(() => {
+  it('Should emit onSignup event', async(() => {
+
+    // spy = spyOn(component, 'forbiddenEmails').and.callFake(fakeForbiddenEmails);
+    spy = spyOn(component, 'forbiddenEmails').and.returnValue({
+      $observable: Observable.fromPromise(Promise.resolve(true))
+    });
     expect(component.signupForm.valid).toBeFalsy();
 
     component.signupForm.get('userData.username').setValue('Sebastian');
@@ -161,6 +173,7 @@ describe('Component: SignupFormComponent', () => {
     fixture.whenStable().then(() => {
       fixture.detectChanges();
       expect(component.signupForm.valid).toBeTruthy();
+
 
       let user: {
         email;

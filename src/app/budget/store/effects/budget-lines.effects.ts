@@ -10,7 +10,7 @@ import {
     BudgetLineUpdatedAction
 } from '../actions/budget-lines.actions';
 import { switchMap, mergeMap, map } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { BudgetLine } from '../../models/budget-line.model';
 import { Budget } from '../../models/budget.model';

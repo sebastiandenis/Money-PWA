@@ -6,7 +6,7 @@ import {
   AbstractControl
 } from '@angular/forms';
 import { passwordMatcher } from '../../../utils/password-matcher';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 
 @Component({

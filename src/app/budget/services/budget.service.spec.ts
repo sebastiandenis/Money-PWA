@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+import { Observable } from 'rxjs';
+
 import { BudgetService } from './budget.service';
 import {
   AngularFirestore,
