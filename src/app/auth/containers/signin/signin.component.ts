@@ -1,29 +1,18 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { NgForm, FormControl, Validators } from '@angular/forms';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+import { MatSnackBar } from '@angular/material';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../../store/app.reducers';
 import * as AuthActions from '../../store/auth.actions';
 import * as UiStateActions from '../../../core/store/uiState.actions';
-import { Auth } from '../../models/auth.model';
-import { MatSnackBar, MAT_SNACK_BAR_DATA } from '@angular/material';
-import { Observable ,  Subscription } from 'rxjs';
 import * as fromRoot from '../../../store/app.reducers';
-import { ErrorSnackbarComponent } from '../../../core/components/error-snackbar/error-snackbar.component';
-import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import * as FbAuthErrorCodes from '../../../utils/firebase-error-codes';
-
-
-
-export interface TranslationSiginForm {
-  tEmail: string;
-  tInvalidEmail: string;
-  tPassword: string;
-  tSignin: string;
-}
+import { ErrorSnackbarComponent } from '../../../core/components/error-snackbar/error-snackbar.component';
 
 @Component({
   selector: 'app-signin',
-  template: `<app-signin-form (signIn)="signIn($event)"></app-signin-form>`
+  templateUrl: './signin.component.html',
+  styleUrls: ['./signin.component.scss']
 })
 export class SigninComponent implements OnInit, OnDestroy {
 
@@ -72,4 +61,3 @@ export class SigninComponent implements OnInit, OnDestroy {
   }
 
 }
-

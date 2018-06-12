@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import * as firebase from 'firebase';
 
 
@@ -18,6 +18,6 @@ export class StorageService {
     }
 
     private fromFirebaseStoragePromise(promise): Observable<any> {
-        return Observable.fromPromise(<Promise<any>>promise);
+        return from(<Promise<any>>promise);
     }
 }

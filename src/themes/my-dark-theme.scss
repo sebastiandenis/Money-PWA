@@ -1,0 +1,12 @@
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// **Be sure that you only ever include this mixin once!**
+@include mat-core();
+// Define the default theme (same as the example above).
+$money-app-dark-primary: mat-palette($mat-blue-grey);
+$money-app-dark-accent : mat-palette($mat-amber, A200, A100, A400);
+$money-app-dark-warn : mat-palette($mat-deep-orange);
+$money-app-dark-theme : mat-dark-theme($money-app-dark-primary, $money-app-dark-accent, $money-app-dark-warn);
+

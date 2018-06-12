@@ -1,36 +1,101 @@
-/* You can add global styles to this file, and also import other style files */
-
 @import '~@angular/material/theming';
 @include mat-core();
 @import './themes/my-theme';
-@import './themes/my-second-theme';
-@import './app/core/containers/app.scss-theme';
-@import './app/budget/containers/budget-tabs/budget-tabs.component.scss-theme';
-@import './app/budget/components/lines-actions/lines-actions.component.scss-theme';
-@import './app/budget/components/lines-list-item/lines-list-item.component.scss-theme';
-@import './app/core/components/error-snackbar/error-snackbar.component.scss-theme.scss';
-@import './app/budget/components/dashboard-chart/dashboard-chart.component.scsss-theme.scss';
-@mixin my-custom-components($theme) {
-    @include app-root-theme($theme);
-    @include app-budget-tabs-theme($theme);
-    @include app-lines-actions-theme($theme);
-    @include app-lines-list-item-theme($theme);
-    @include app-error-snackbar-theme($theme);
-    @include app-dashboard-chart-theme($theme);
-    /* ... */
+@import './themes/my-dark-theme';
 
+.money-theme {
+  @include angular-material-theme($money-app-theme);
 }
 
-.my-theme {
-    @include angular-material-theme($my-theme);
-    @include my-custom-components($my-theme);
-}
-
-.my-second-theme {
-    @include angular-material-theme($my-second-theme);
-    @include my-custom-components($my-second-theme);
+.money-dark-theme {
+    @include angular-material-theme($money-app-dark-theme);
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    font-family: 'Roboto', sans-serif
 }
+
+
+
+// snack-bar-container.mat-snack-bar-container {
+//   padding: 20px;
+// }
+
+// snack-bar-container.mat-snack-bar-container.error-class {
+//   background: mat-color($warn);
+// }
+
+// app-budget-tabs {
+//   .my-nav-tab {
+//       background-color: mat-color($primary);
+//   }
+//   .nav-tab-fixed {
+//       background-color: mat-color($primary);
+//   }
+//   .nav-tab {
+//       background-color: mat-color($primary);
+//   }
+//   mat-icon {
+//       color: mat-color($primary, lighter);
+//   }
+// }
+
+// app-dashboard-chart {
+//   .current {
+//       position: absolute; // color: #1a7b99;
+//       color: mat-color($mat-blue-grey, 500);
+//       font-weight: 100;
+//       line-height: 1;
+//   }
+// }
+
+// app-lines-actions {
+//   color: #ffffff;
+// }
+
+// .tm-lines-actions-dialog-panel {
+//   background-color: mat-color($background, dialog);
+//   width: 100vw;
+//   position: fixed !important;
+// }
+
+// .cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
+//   &.dark-backdrop {
+//       background: mat-color($foreground, text);
+//       opacity: 0.2 !important;
+//   }
+// }
+
+// .my-mat-chip-cash-left {
+//   font-size: 0.75rem;
+// }
+
+// .my-mat-chip-total-cash {
+//   font-size: 0.65rem;
+//   background-color: mat-color($mat-blue-grey, 100);
+// }
+
+// .my-chip {
+//   padding: 4px 10px;
+//   border-radius: 15px;
+//   margin-right: 1px !important;
+//   margin-left: 1px !important;
+// }
+
+// .my-chip-orange {
+//   background-color: mat-color($mat-amber, 700);
+//   color: #ffff;
+// }
+
+// .my-chip-green {
+//   background-color: mat-color($mat-light-green, 600);
+//   color: #ffff;
+// }
+
+// .my-chip-red {
+//   background-color: mat-color($mat-red, 400);
+//   color: #ffff;
+// }
+
+

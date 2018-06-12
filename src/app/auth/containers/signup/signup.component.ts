@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
+import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../store/app.reducers';
 import * as AuthActions from '../../store/auth.actions';
 import * as UiStateActions from '../../../core/store/uiState.actions';
 import { AbstractControl, FormGroup, FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
-import { Observable ,  Subscription } from 'rxjs';
 import { passwordMatcher } from '../../../utils/password-matcher';
-import { MatSnackBar } from '@angular/material';
 import { ErrorSnackbarComponent } from '../../../core/components/error-snackbar/error-snackbar.component';
 import * as FbAuthErrorCodes from '../../../utils/firebase-error-codes';
 
 @Component({
   selector: 'app-signup',
-  template: `<app-signup-form (onSignup)="onSignup($event)"></app-signup-form>`
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
   authError$: Observable<any>;

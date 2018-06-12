@@ -1,26 +1,22 @@
-import { Component, OnInit, Input, HostListener, Inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { Observable ,  Subscription } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+import { User } from '../../../user/models/user.model';
 import { Budget } from '../../models/budget.model';
 import { BudgetLine } from '../../models/budget-line.model';
-import { User } from '../../../user/models/user.model';
+import { TranslateService } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
-import { OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import * as BudgetActions from '../../store/actions/budget.actions';
 import * as UiStateActions from '../../../core/store/uiState.actions';
 import * as fromRoot from '../../../store/app.reducers';
 import * as fromBudgetApp from '../../store/reducers/index';
-import { DOCUMENT } from '@angular/platform-browser';
-import { MatDialog } from '@angular/material';
-import { BudgetLinesComponent } from '../budget-lines/budget-lines.component';
 
 @Component({
   selector: 'app-budget-dashboard',
   templateUrl: './budget-dashboard.component.html',
-  styleUrls: ['./budget-dashboard.component.css']
+  styleUrls: ['./budget-dashboard.component.scss']
 })
-export class BudgetDashboardComponent implements OnInit, OnDestroy {
+export class BudgetDashboardComponent  implements OnInit, OnDestroy {
 
 
   lastOffset: number;

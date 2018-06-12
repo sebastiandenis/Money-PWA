@@ -1,66 +1,84 @@
 <div style="width: 100%; text-align: right">
-    <button mat-fab color="accent" style="margin-right: 25px;" (click)="onAddFastExpense()">
-        <mat-icon aria-label="Add expense">add</mat-icon>
-    </button>
+  <button mat-fab color="accent" style="margin-right: 25px;" (click)="onAddFastExpense()">
+    <mat-icon aria-label="Add expense">add</mat-icon>
+  </button>
 </div>
 
 <div *ngIf="(budget$ | async) as budget else loadingTpl2">
-     <app-dashboard-chart [budget]="budget"></app-dashboard-chart>
+  <app-dashboard-chart [budget]="budget"></app-dashboard-chart>
+
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>dialpad</mat-icon>
+      <span>Redial</span>
+    </button>
+    <button mat-menu-item disabled>
+      <mat-icon>voicemail</mat-icon>
+      <span>Check voicemail</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>notifications_off</mat-icon>
+      <span>Disable alerts</span>
+    </button>
+  </mat-menu>
 
 
-    <p>Please scroll!</p>
-    <br>
-    <br>
-    <p>Please scroll!</p>
-    <br>
-    <br>
-    <p>Please scroll!</p>
-    <br>
-    <br>
-    <p>Please scroll!</p>
-    <br>
-    <br>
-    <p>Please scroll!</p>
-    <br>
-    <br>
-    <p>Please scroll!</p>
-    <br>
-    <br>
-    <p>Please scroll!</p>
-    <br>
-    <br>
-    <p>Please scroll!</p>
-    <br>
-    <br>
-    <p>Please scroll!</p>
-    <br>
-    <br>
-    <p>Please scroll!</p>
-    <br>
-    <br>
-    <p>Please scroll!</p>
-    <br>
-    <br>
-    <p>Please scroll!</p>
-    <br>
-    <br>
-    <p>Please scroll!</p>
-    <br>
-    <br>
-    <p>Please scroll!</p>
-    <br>
-    <br>
-    <p>Please scroll!</p>
-    <br>
-    <br>
-    <p>Please scroll!</p>
-    <br>
-    <br>
-    <p>Please scroll!</p>
-    <br>
-    <br>
+  <p>Please scroll!</p>
+  <br>
+  <br>
+  <p>Please scroll!</p>
+  <br>
+  <br>
+  <p>Please scroll!</p>
+  <br>
+  <br>
+  <p>Please scroll!</p>
+  <br>
+  <br>
+  <p>Please scroll!</p>
+  <br>
+  <br>
+  <p>Please scroll!</p>
+  <br>
+  <br>
+  <p>Please scroll!</p>
+  <br>
+  <br>
+  <p>Please scroll!</p>
+  <br>
+  <br>
+  <p>Please scroll!</p>
+  <br>
+  <br>
+  <p>Please scroll!</p>
+  <br>
+  <br>
+  <p>Please scroll!</p>
+  <br>
+  <br>
+  <p>Please scroll!</p>
+  <br>
+  <br>
+  <p>Please scroll!</p>
+  <br>
+  <br>
+  <p>Please scroll!</p>
+  <br>
+  <br>
+  <p>Please scroll!</p>
+  <br>
+  <br>
+  <p>Please scroll!</p>
+  <br>
+  <br>
+  <p>Please scroll!</p>
+  <br>
+  <br>
 
 </div>
 <ng-template #loadingTpl2>
-    <span class="loading">{{'loading' | translate}}...</span>
+  <span class="loading">{{'loading' | translate}}...</span>
 </ng-template>

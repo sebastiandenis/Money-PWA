@@ -1,0 +1,19 @@
+<form [formGroup]="signinForm" (ngSubmit)="onSubmit()"
+  class="signin-form" fxLayout="column" fxLayoutAlign="center center"
+  fxLayoutGap="10px" id="signInForm">
+    <mat-form-field class="full-width space-between">
+      <input matInput placeholder="{{'email' | translate}}" id="email" type="email"
+       formControlName="login">
+      <mat-error >
+        {{'pleaseenteravalidemailaddress' | translate}}!
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width space-between" style="margin-top: 20px;">
+      <input matInput placeholder="{{'password' | translate}}" id="password" type="password"
+        formControlName="password">
+    </mat-form-field>
+    <button mat-raised-button color="accent" type="submit" id="submit" class="signin-btn" [disabled]="!signinForm.valid"
+    style="margin-top: 10px;">
+      {{'signin' | translate}}
+    </button>
+  </form>

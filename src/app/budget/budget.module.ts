@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BudgetComponent } from './budget.component';
-
 import { MaterialModule } from '../material/material.module';
 import { SharedModule } from '../shared/shared.module';
 import { RoundProgressModule } from 'angular-svg-round-progressbar';
@@ -12,9 +10,8 @@ import { BudgetSettingsComponent } from './containers/budget-settings/budget-set
 import { BudgetRoutingModule } from './budget-routing.module';
 import { LinesListComponent } from './components/lines-list/lines-list.component';
 import { LinesListItemComponent } from './components/lines-list-item/lines-list-item.component';
-import { LinesActionsComponent } from './components/lines-actions/lines-actions.component';
 import { LineDetailsComponent } from './components/line-details/line-details.component';
-import { OverlayModule } from '@angular/cdk/overlay';
+import { OverlayModule, OverlayContainer } from '@angular/cdk/overlay';
 import { TranslateModule } from '@ngx-translate/core';
 import { AddExpenseDlgComponent } from './containers/budget-lines/add-expense-dlg.component';
 import { StoreModule } from '@ngrx/store';
@@ -23,28 +20,27 @@ import { BudgetEffects } from './store/effects/budget.effects';
 import { BudgetLinesEffects } from './store/effects/budget-lines.effects';
 import { ExpenseEffects } from './store/effects/expense.effects';
 import { reducers } from './store/reducers/index';
-import { LinesActionsOverlayService } from './components/lines-actions/lines-actions-overlay.service';
 import { AddFastExpenseComponent } from './containers/add-fast-expense/add-fast-expense.component';
 import { DashboardChartComponent } from './components/dashboard-chart/dashboard-chart.component';
-
-
-
+import { BudgetMainComponent } from './containers/budget-main/budget-main.component';
+import { LineMenuComponent } from './components/line-menu/line-menu.component';
+import { LineMenuService } from './components/line-menu/line-menu.service';
 
 
 @NgModule({
   declarations: [
-    BudgetComponent,
     BudgetDashboardComponent,
     BudgetLinesComponent,
     BudgetSettingsComponent,
     BudgetTabsComponent,
     LinesListComponent,
     LinesListItemComponent,
-    LinesActionsComponent,
     LineDetailsComponent,
     AddExpenseDlgComponent,
     AddFastExpenseComponent,
-    DashboardChartComponent
+    DashboardChartComponent,
+    BudgetMainComponent,
+    LineMenuComponent
   ],
   imports: [
     CommonModule,
@@ -57,9 +53,9 @@ import { DashboardChartComponent } from './components/dashboard-chart/dashboard-
     OverlayModule
   ],
   entryComponents: [
-     AddExpenseDlgComponent, LinesActionsComponent
+     AddExpenseDlgComponent, LineMenuComponent
   ],
-  providers: []
+  providers: [LineMenuService]
 
 })
 export class BudgetModule { }

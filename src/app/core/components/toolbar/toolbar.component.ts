@@ -1,17 +1,16 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import * as fromRoot from '../../../store/app.reducers';
-import * as UiStateActions from '../../../core/store/uiState.actions';
-import { OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import * as fromRoot from '../../../store/app.reducers';
 
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
-  styleUrls: ['./toolbar.component.css']
+  styleUrls: ['./toolbar.component.scss']
 })
 export class ToolbarComponent implements OnInit {
+
   @Output() switchSideMenu = new EventEmitter();
   uiTitle$: Observable<string>;
   closeBtnVisible$: Observable<boolean>;
@@ -36,4 +35,5 @@ export class ToolbarComponent implements OnInit {
   onCloseBtn() {
     this._location.back();
   }
+
 }

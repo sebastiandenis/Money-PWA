@@ -1,0 +1,18 @@
+:host {
+  display: flex;
+  justify-content: space-between;
+  line-height: 20px;
+  opacity: 1;
+}
+
+.mat-simple-snackbar-action {
+  background: none;
+  flex-shrink: 0;
+  border: none;
+  outline: none;
+}
+
+.mat-simple-snackbar-action:focus {
+  border: none;
+  outline: none;
+}

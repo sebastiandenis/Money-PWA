@@ -13,11 +13,8 @@ import {
   UpdateBudget,
   Query
 } from '../actions/budget.actions';
-import { map } from 'rxjs-compat/operators/map';
-import { tap } from 'rxjs-compat/operators/tap';
-import { switchMap } from 'rxjs-compat/operators/switchMap';
-import { mergeMap } from 'rxjs-compat/operators/mergeMap';
-import { catchError } from 'rxjs-compat/operators/catchError';
+import { switchMap, mergeMap, map, tap } from 'rxjs/operators';
+
 
 @Injectable()
 export class BudgetEffects {

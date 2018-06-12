@@ -13,30 +13,36 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { EqualValidator } from '../auth/containers/signup/equal-validator.directive';
 import { NotFoundPageComponent } from './containers/not-found-page';
 import { WindowScrollDirective } from './containers/window-scroll.directive';
-import { LinesActionsOverlayService } from '../budget/components/lines-actions/lines-actions-overlay.service';
+import { UndoSnackbarComponent } from './components/undo-snackbar/undo-snackbar.component';
+import { OverlayContainer } from '@angular/cdk/overlay';
 
 @NgModule({
-    declarations: [
-        MainMenuComponent,
-        ToolbarComponent,
-        EqualValidator,
-        NotFoundPageComponent,
-        WindowScrollDirective
-    ],
-    imports: [
-        SharedModule,
-        AppRoutingModule,
-        MaterialModule,
-        FlexLayoutModule
-    ],
-    exports: [
-        AppRoutingModule,
-        MainMenuComponent,
-        ToolbarComponent,
-        EqualValidator,
-        NotFoundPageComponent,
-        WindowScrollDirective
-    ],
-    providers: [AuthService, BudgetService, UserService, StorageService, LinesActionsOverlayService],
+  declarations: [
+    MainMenuComponent,
+    ToolbarComponent,
+    EqualValidator,
+    NotFoundPageComponent,
+    WindowScrollDirective
+  ],
+  imports: [SharedModule, AppRoutingModule, MaterialModule, FlexLayoutModule],
+  exports: [
+    AppRoutingModule,
+    MainMenuComponent,
+    ToolbarComponent,
+    EqualValidator,
+    NotFoundPageComponent,
+    WindowScrollDirective
+  ],
+  providers: [
+    AuthService,
+    BudgetService,
+    UserService,
+    StorageService
+  ]
 })
-export class CoreModule {}
+export class CoreModule {
+  constructor(overlayContainer: OverlayContainer) {
+    overlayContainer.getContainerElement().classList.add('money-theme');
+
+  }
+}

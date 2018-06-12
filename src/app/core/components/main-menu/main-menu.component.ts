@@ -1,14 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../store/app.reducers';
-import { MatMenuTrigger } from '@angular/material';
-
 
 @Component({
   selector: 'app-main-menu',
   templateUrl: './main-menu.component.html',
-  styleUrls: ['./main-menu.component.css']
+  styleUrls: ['./main-menu.component.scss']
 })
 export class MainMenuComponent implements OnInit {
 
@@ -21,7 +19,5 @@ export class MainMenuComponent implements OnInit {
 
   ngOnInit() {
   }
-
-
 
 }

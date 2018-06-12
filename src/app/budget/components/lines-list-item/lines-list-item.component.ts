@@ -1,11 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
-  ChangeDetectionStrategy
-} from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 import { BudgetLine } from '../../models/budget-line.model';
 
 @Component({
@@ -19,7 +12,7 @@ export class LinesListItemComponent implements OnInit {
 
   @Input() isFastExpenseMode = false;
 
-  @Output() onSelectLine = new EventEmitter<string>();
+  @Output() lineSelected = new EventEmitter<string>();
 
   constructor() {}
 
@@ -46,6 +39,6 @@ export class LinesListItemComponent implements OnInit {
     }
 
     // console.log('clicked: ', lineId);
-    this.onSelectLine.emit(lineId);
+    this.lineSelected.emit(lineId);
   }
 }

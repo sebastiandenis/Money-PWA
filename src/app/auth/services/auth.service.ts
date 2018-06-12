@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Auth } from '../models/auth.model';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 
 
 
@@ -29,6 +29,6 @@ export class AuthService {
     }
 
     private fromFirebaseAuthPromise(promise): Observable<any> {
-        return Observable.fromPromise(<Promise<any>>promise);
+        return from(<Promise<any>>promise);
     }
 }

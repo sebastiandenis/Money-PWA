@@ -10,7 +10,7 @@ import {
     BudgetLineUpdatedAction
 } from '../actions/budget-lines.actions';
 import { switchMap, mergeMap, map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { BudgetLine } from '../../models/budget-line.model';
 import { Budget } from '../../models/budget.model';
@@ -54,7 +54,7 @@ export class BudgetLinesEffects {
         switchMap(data => {
             // console.log('Effect.updateBudgetLine.budgetId: ', data.budgetId);
             const ref = this.afs.doc<Budget>(`budgets/${data.budgetId}/budgetLines/${data.id}`);
-            return Observable.fromPromise(ref.update(data.changes));
+            return from(ref.update(data.changes));
         }),
         map(() => new BudgetLineUpdatedAction)
         );

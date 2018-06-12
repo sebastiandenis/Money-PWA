@@ -1,3 +1,23 @@
+// Import all the tools needed to customize the theme and extract parts of it
+@import '~@angular/material/theming';
+@import 'src/themes/my-theme.scss';
+// Define a mixin that accepts a theme and outputs the color styles for the component.
+.my-nav-tab {
+    background-color: mat-color($money-app-primary);
+}
+
+.nav-tab-fixed {
+    background-color: mat-color($money-app-primary);
+}
+
+.nav-tab {
+    background-color: mat-color($money-app-primary);
+}
+
+mat-icon {
+    color: mat-color($money-app-primary, lighter);
+}
+
 .my-nav-tab {
     position: fixed;
     top: 55px;

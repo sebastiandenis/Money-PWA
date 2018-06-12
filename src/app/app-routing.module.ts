@@ -1,19 +1,10 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 
-import { AppComponent } from './core/containers/app';
-
-
-const appRoutes: Routes = [
-
-];
+const routes: Routes = [];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(appRoutes, {preloadingStrategy: PreloadAllModules})
-  ],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {
-
-}
+export class AppRoutingModule { }

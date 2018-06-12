@@ -22,8 +22,7 @@ export class DashboardChartComponent implements OnInit {
   gradient = false;
   realCurrent = 0;
 
-  @Input()
-  budget: Budget;
+  @Input() budget: Budget;
 
   constructor() {}
 

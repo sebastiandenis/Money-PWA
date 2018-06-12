@@ -1,3 +1,8 @@
+## 0.32.1
+* Changed LinesActionComponent to BottomSheet
+* Custom theme improvements
+* Issues: #4
+
 ## 0.31.1
 * Updated to Angular 6
 

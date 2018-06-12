@@ -16,7 +16,8 @@ import {
   MatDialogModule,
   MatExpansionModule,
   MatDatepickerModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MatBottomSheetModule
 } from '@angular/material';
 import { OverlayModule } from '@angular/cdk/overlay';
 
@@ -39,7 +40,8 @@ import { OverlayModule } from '@angular/cdk/overlay';
     OverlayModule,
     MatExpansionModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatBottomSheetModule
   ],
   exports: [
     MatInputModule,
@@ -58,7 +60,8 @@ import { OverlayModule } from '@angular/cdk/overlay';
     OverlayModule,
     MatExpansionModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatBottomSheetModule
   ],
   declarations: []
 })

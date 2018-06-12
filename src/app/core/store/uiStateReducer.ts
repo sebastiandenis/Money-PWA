@@ -18,7 +18,7 @@ export interface State {
 export const initialState: State = {
     currentTitle: 'appname',
     mainMenuBtnVisible: false,
-    sideMenuBtnVisible: false,
+    sideMenuBtnVisible: true,
     showSidenav: false,
     mainToolbarFixed: true,
     locale: 'pl-PL',

@@ -65,7 +65,7 @@ describe('Component: LinesListItemComponent', () => {
   it('should emit onSelectLine', () => {
     let lineId: string;
 
-    component.onSelectLine.subscribe(value => {
+    component.lineSelected.subscribe(value => {
       lineId = value;
     });
     component.selectLine('line001');

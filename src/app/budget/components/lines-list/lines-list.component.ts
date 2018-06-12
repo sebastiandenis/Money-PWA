@@ -1,19 +1,10 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
-  OnDestroy
-} from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { BudgetLine } from '../../models/budget-line.model';
-
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-lines-list',
   templateUrl: './lines-list.component.html',
-  styleUrls: ['./lines-list.component.css']
+  styleUrls: ['./lines-list.component.scss']
 })
 export class LinesListComponent implements OnInit, OnDestroy {
   @Input() lines: BudgetLine[] = [];

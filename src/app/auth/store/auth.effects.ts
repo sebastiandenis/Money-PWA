@@ -3,7 +3,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Router } from '@angular/router';
 import { tap, map, switchMap, catchError } from 'rxjs/operators';
 
-import { from as fromPromise, Observable } from 'rxjs';
+import { of, Observable } from 'rxjs';
 import * as firebase from 'firebase';
 
 import * as AuthActions from './auth.actions';
@@ -14,6 +14,12 @@ import { Action } from '@ngrx/store';
 
 @Injectable()
 export class AuthEffects {
+  constructor(
+    private actions$: Actions,
+    private authService: AuthService,
+    private router: Router
+  ) {}
+
   @Effect()
   authSignup$ = this.actions$.pipe(
     ofType(AuthActions.AuthActionTypes.TrySignup),
@@ -31,49 +37,40 @@ export class AuthEffects {
           tap(() => this.router.navigate(['/']))
         )
     ),
-    catchError(error =>
-      Observable.of(new AuthActions.AuthErrorAction({ error: error }))
-    )
+    catchError(error => of(new AuthActions.AuthErrorAction({ error: error })))
   );
 
   @Effect()
-  authSignin$: Observable<Action> = this.actions$
-    .ofType(AuthActions.AuthActionTypes.TrySignin)
-    .map((action: AuthActions.TrySignin) => action.payload)
-    .switchMap((authData: AuthUserPayload) =>
+  authSignin$: Observable<Action> = this.actions$.pipe(
+    ofType(AuthActions.AuthActionTypes.TrySignin),
+    map((action: AuthActions.TrySignin) => action.payload),
+    switchMap((authData: AuthUserPayload) =>
       this.authService
         .signIn(authData.user)
-        .map(
-          res =>
-            new AuthActions.SigninCompleted(
-              new AuthActions.AuthUserPayload(res)
-            )
+        .pipe(
+          map(
+            res =>
+              new AuthActions.SigninCompleted(
+                new AuthActions.AuthUserPayload(res)
+              )
+          ),
+          tap(() => this.router.navigate(['/']))
         )
-        .pipe(tap(() => this.router.navigate(['/'])))
-        .catch(error => {
-          return Observable.of(
-            new AuthActions.AuthErrorAction({ error: error })
-          );
-        })
-    );
+    )
+  );
 
   @Effect({ dispatch: false })
-  authLogout = this.actions$
-    .ofType(AuthActions.AuthActionTypes.Logout)
-    .map((action: AuthActions.Logout) => action.payload)
-    .switchMap(payload =>
+  authLogout = this.actions$.pipe(
+    ofType(AuthActions.AuthActionTypes.Logout),
+    map((action: AuthActions.Logout) => action.payload),
+    switchMap(payload =>
       this.authService
         .signOut()
-        .map(res => new AuthActions.LogoutCompleted())
-        .pipe(tap(() => this.router.navigate(['/'])))
-        .catch(error =>
-          Observable.of(new AuthActions.AuthErrorAction({ error: error }))
+        .pipe(
+          map(res => new AuthActions.LogoutCompleted()),
+          tap(() => this.router.navigate(['/']))
         )
-    );
-
-  constructor(
-    private actions$: Actions,
-    private authService: AuthService,
-    private router: Router
-  ) {}
+    ),
+    catchError(error => of(new AuthActions.AuthErrorAction({ error: error })))
+  );
 }

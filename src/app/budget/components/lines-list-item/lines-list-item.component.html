@@ -1,10 +1,10 @@
-
-<div fxLayout="row" fxLayoutAlign="space-between center" style="height: 100%;padding-top: 5px;padding-bottom: 5px;border-bottom: 1px solid #EEEEEE;" (click)="selectLine(line.id)">
-    <span style="font-size: 0.9rem;" >
-      {{line.name}}
-    </span>
-    <span>
-          <span [ngClass]="getBadgeColor(line.cashLeft, line.cashToSpend)" class="my-chip my-mat-chip-cash-left" >{{line.cashLeft}}</span> 
-          <span class="my-chip my-mat-chip-total-cash" >{{line.cashToSpend}}</span>
-    </span>
-  </div>
+<div fxLayout="row" fxLayoutAlign="space-between center" style="height: 100%;padding-top: 5px;padding-bottom: 5px;border-bottom: 1px solid #EEEEEE;"
+  (click)="selectLine(line.id)">
+  <span style="font-size: 0.9rem;">
+    {{line.name}}
+  </span>
+  <span>
+    <span [ngClass]="getBadgeColor(line.cashLeft, line.cashToSpend)" class="my-chip my-mat-chip-cash-left">{{line.cashLeft}}</span>
+    <span class="my-chip my-mat-chip-total-cash">{{line.cashToSpend}}</span>
+  </span>
+</div>
