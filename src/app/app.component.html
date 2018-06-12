@@ -27,7 +27,7 @@
 
   </mat-sidenav>
 
-  <mat-sidenav-content>
+  <mat-sidenav-content cdkScrollable>
       <app-toolbar (switchSideMenu)="switchSidenav()" class="app-header" [@toolbarState]="toolbarState"></app-toolbar>
       <router-outlet></router-outlet>
   </mat-sidenav-content>

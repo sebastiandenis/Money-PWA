@@ -15,7 +15,7 @@ import { Observable, from } from 'rxjs';
 export class BudgetService {
   constructor(private afs: AngularFirestore) {}
 
-  queryAllBudgets(userId: string): Observable<DocumentChangeAction<any>[]> {
+  queryAllBudgets(userId: string): Observable<DocumentChangeAction<Budget>[]> {
     console.log('BudgetService.queryAllBudgets -> userId=', userId);
     //  const colRef = this.afs.collection<Budget>('budgets');
     //  colRef.ref.where(`access.${userId}`, '==', true);

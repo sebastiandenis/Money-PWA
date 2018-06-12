@@ -20,6 +20,7 @@ import {
   MatBottomSheetModule
 } from '@angular/material';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { ScrollDispatchModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   imports: [
@@ -41,7 +42,8 @@ import { OverlayModule } from '@angular/cdk/overlay';
     MatExpansionModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatBottomSheetModule
+    MatBottomSheetModule,
+    ScrollDispatchModule
   ],
   exports: [
     MatInputModule,
@@ -61,7 +63,8 @@ import { OverlayModule } from '@angular/cdk/overlay';
     MatExpansionModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatBottomSheetModule
+    MatBottomSheetModule,
+    ScrollDispatchModule
   ],
   declarations: []
 })

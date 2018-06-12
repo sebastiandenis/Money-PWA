@@ -26,6 +26,7 @@ describe('Component: LinesListItemComponent', () => {
     chipCashLeftEl = fixture.debugElement.query(
       By.css('.my-mat-chip-cash-left')
     );
+
     budgetLine01 = {
       id: 'bl001',
       cashLeft: 100,
@@ -72,7 +73,7 @@ describe('Component: LinesListItemComponent', () => {
     expect(lineId).toEqual('line001');
   });
 
-  it('should set proper class for my-chip span', () => {
+  it('should set my-chip-green class when cashLeft is above 25%', () => {
     component.isFastExpenseMode = false;
     budgetLine01.cashLeft = 100;
     budgetLine01.cashToSpend = 100;
@@ -81,17 +82,40 @@ describe('Component: LinesListItemComponent', () => {
     expect(chipCashLeftEl.classes['my-chip-green']).toBeTruthy();
     expect(chipCashLeftEl.classes['my-chip-orange']).toBeUndefined();
     expect(chipCashLeftEl.classes['my-chip-red']).toBeUndefined();
+  });
 
+  it('should set my-chip-red class when cashLeft is 0%', () => {
+    component.isFastExpenseMode = false;
     budgetLine01.cashLeft = 0;
     budgetLine01.cashToSpend = 100;
     component.line = budgetLine01;
     fixture.detectChanges();
-    console.log('Classes : ', chipCashLeftEl.classes);
     expect(chipCashLeftEl.classes['my-chip-green']).toBeUndefined();
     expect(chipCashLeftEl.classes['my-chip-orange']).toBeUndefined();
     expect(chipCashLeftEl.classes['my-chip-red']).toBeTruthy();
-
-
-
   });
+
+  it('should set my-chip-orange class when cashLeft is 24%', () => {
+    component.isFastExpenseMode = false;
+    budgetLine01.cashLeft = 24;
+    budgetLine01.cashToSpend = 100;
+    component.line = budgetLine01;
+    fixture.detectChanges();
+    expect(chipCashLeftEl.classes['my-chip-green']).toBeUndefined();
+    expect(chipCashLeftEl.classes['my-chip-orange']).toBeTruthy();
+    expect(chipCashLeftEl.classes['my-chip-red']).toBeUndefined();
+  });
+
+  it('should set my-chip-green class when cashLeft is 25%', () => {
+    component.isFastExpenseMode = false;
+    budgetLine01.cashLeft = 25;
+    budgetLine01.cashToSpend = 100;
+    component.line = budgetLine01;
+    fixture.detectChanges();
+    expect(chipCashLeftEl.classes['my-chip-green']).toBeTruthy();
+    expect(chipCashLeftEl.classes['my-chip-orange']).toBeUndefined();
+    expect(chipCashLeftEl.classes['my-chip-red']).toBeUndefined();
+  });
+
+
 });

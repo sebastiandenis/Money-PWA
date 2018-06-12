@@ -1,3 +1,7 @@
+## 0.33.0
+* Scrolling listener with CdKSrollable
+* Unit tests updated to Angular 6
+
 ## 0.32.1
 * Changed LinesActionComponent to BottomSheet
 * Custom theme improvements

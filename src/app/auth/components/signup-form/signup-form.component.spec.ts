@@ -15,7 +15,7 @@ import {
 } from '@ngx-translate/core';
 import { MaterialModule } from '../../../material/index';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 
 
 
@@ -158,7 +158,7 @@ describe('Component: SignupFormComponent', () => {
 
     // spy = spyOn(component, 'forbiddenEmails').and.callFake(fakeForbiddenEmails);
     spy = spyOn(component, 'forbiddenEmails').and.returnValue({
-      $observable: Observable.fromPromise(Promise.resolve(true))
+      $observable: from(Promise.resolve(true))
     });
     expect(component.signupForm.valid).toBeFalsy();
 

@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { BudgetService } from './budget.service';
 import {
@@ -57,11 +57,11 @@ describe('BudgetService', () => {
 
     snapshotChangesSpy = jasmine
       .createSpy('snapshotChanges')
-      .and.returnValue(Observable.of(array1));
+      .and.returnValue(of(array1));
 
     stateChangesSpy = jasmine
       .createSpy('stateChangesSpy')
-      .and.returnValue(Observable.of([array2]));
+      .and.returnValue(of([array2]));
 
     collectionSpy = jasmine.createSpy('collection').and.returnValue({
       snapshotChanges: snapshotChangesSpy,
@@ -111,7 +111,7 @@ describe('BudgetService', () => {
 
   it('#queryAllBudgets should return stubbed value from a spy', () => {
     const query$: Observable<
-      DocumentChangeAction[]
+      DocumentChangeAction<any>[]
     > = budgetService.queryAllBudgets('user001');
 
     expect(collectionSpy).toHaveBeenCalledTimes(1);
@@ -129,7 +129,7 @@ describe('BudgetService', () => {
 
   it('#queryAllBudgetLines should return stubbed value from a spy', () => {
     const query$: Observable<
-      DocumentChangeAction[]
+      DocumentChangeAction<any>[]
     > = budgetService.queryAllBudgetLines('b001');
 
     expect(collectionSpy).toHaveBeenCalledTimes(1);
@@ -149,7 +149,7 @@ describe('BudgetService', () => {
 
   it('#queryAllExpenses should return stubbed value from a spy', () => {
     const query$: Observable<
-      DocumentChangeAction[]
+      DocumentChangeAction<any>[]
     > = budgetService.queryAllExpenses('b001', 'bl001');
 
     expect(collectionSpy).toHaveBeenCalledTimes(1);

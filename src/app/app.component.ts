@@ -7,7 +7,8 @@ import {
   Inject,
   HostListener,
   ChangeDetectorRef,
-  ViewChild
+  ViewChild,
+  ElementRef
 } from '@angular/core';
 import {
   transition,
@@ -40,8 +41,7 @@ import { StorageService } from './services/storage.service';
 import { Observable, Subscription } from 'rxjs';
 import { MatSnackBar, MatSidenav } from '@angular/material';
 import { UndoSnackbarComponent } from './core/components/undo-snackbar/undo-snackbar.component';
-import { DOCUMENT } from '@angular/platform-browser';
-import { WINDOW } from './services/window.service';
+import { ScrollDispatcher, CdkScrollable } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-root',
@@ -80,6 +80,7 @@ export class AppComponent implements OnInit, OnDestroy {
   userSubscription: Subscription;
   authSubscription: Subscription;
   mainToolbarSubscription: Subscription;
+  scrollingSubscription: Subscription;
   showSidenav$: Observable<boolean>;
   showUndoSnackbar$: Observable<boolean>;
   showUndoSnackbarSub: Subscription;
@@ -109,8 +110,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private store: Store<fromRoot.AppState>,
     private storageService: StorageService,
     public cd: ChangeDetectorRef,
-    @Inject(DOCUMENT) private document: Document,
-    @Inject(WINDOW) private window: Window,
+    public scroll: ScrollDispatcher,
     public snackBar: MatSnackBar
   ) {
     // this language will be used as a fallback when a translation isn't found in the current language
@@ -171,6 +171,12 @@ export class AppComponent implements OnInit, OnDestroy {
         });
       }
     });
+
+    this.scrollingSubscription = this.scroll
+      .scrolled()
+      .subscribe((data: CdkScrollable) => {
+        this.onWindowScroll(data);
+      });
   }
 
   closeSidenav() {
@@ -189,14 +195,8 @@ export class AppComponent implements OnInit, OnDestroy {
     this.closeSidenav();
   }
 
-  @HostListener('window:scroll', [])
-  onWScroll() {
-    // console.log('window scrolling...');
-    const scrollTop =
-      this.window.pageYOffset ||
-      this.document.documentElement.scrollTop ||
-      this.document.body.scrollTop ||
-      0;
+  private onWindowScroll(data: CdkScrollable) {
+    const scrollTop = data.getElementRef().nativeElement.scrollTop || 0;
     if (this.lastOffset > scrollTop) {
       this.store.dispatch(
         new UiStateActions.ChangeMainToolbarVisibleAction(true)
@@ -250,6 +250,10 @@ export class AppComponent implements OnInit, OnDestroy {
     }
     if (this.showUndoSnackbarSub) {
       this.showUndoSnackbarSub.unsubscribe();
+    }
+
+    if (this.scrollingSubscription) {
+      this.scrollingSubscription.unsubscribe();
     }
   }
 }
