@@ -13,7 +13,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule, MatSidenavModule, MatIconModule, MatListModule, MAT_DATE_LOCALE } from '@angular/material';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { firebaseConfig } from '../environments/fiebase.config';
+import { firebaseConfig } from '../environments/firebase.config';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AuthModule } from './auth/auth.module';
 import { CommonModule } from '@angular/common';

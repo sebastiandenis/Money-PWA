@@ -1,6 +1,6 @@
 <div id="myapp" class="money-theme">
 <mat-sidenav-container class="example-container" (backdropClick)="backdrop()">
-  <mat-sidenav #sidenav (keydown.escape)="close('escape')" disableClose [opened]="showSidenav$ | async">
+  <mat-sidenav #sidenav (keydown.escape)="closeSidenav()" disableClose [opened]="showSidenav$ | async" [ngClass]="sidenavClass" >
       <mat-nav-list style="margin-top: 60px; width: 100%;">
           <a mat-list-item (click)="closeSidenav()" [routerLink]="['/budget/dashboard']" id="sideMenuLinkDashboard">
               <mat-icon mat-list-icon>list</mat-icon>
@@ -27,7 +27,7 @@
 
   </mat-sidenav>
 
-  <mat-sidenav-content cdkScrollable>
+  <mat-sidenav-content cdkScrollable #sidenavContent>
       <app-toolbar (switchSideMenu)="switchSidenav()" class="app-header" [@toolbarState]="toolbarState"></app-toolbar>
       <router-outlet></router-outlet>
   </mat-sidenav-content>

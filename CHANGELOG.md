@@ -1,4 +1,8 @@
-## 0.33.0
+## 0.33.3
+* Fixed issue #5
+* Responsive sidenav width
+
+## 0.33.1
 * Scrolling listener with CdKSrollable
 * Unit tests updated to Angular 6
 

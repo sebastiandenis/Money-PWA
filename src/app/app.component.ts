@@ -39,9 +39,11 @@ import { User } from './user/models/user.model';
 import { Auth } from './auth/models/auth.model';
 import { StorageService } from './services/storage.service';
 import { Observable, Subscription } from 'rxjs';
-import { MatSnackBar, MatSidenav } from '@angular/material';
+import { MatSnackBar, MatSidenav, MatSidenavContent } from '@angular/material';
 import { UndoSnackbarComponent } from './core/components/undo-snackbar/undo-snackbar.component';
 import { ScrollDispatcher, CdkScrollable } from '@angular/cdk/overlay';
+import { Router, NavigationEnd } from '@angular/router';
+import { LocationStrategy } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -73,6 +75,7 @@ export class AppComponent implements OnInit, OnDestroy {
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
     .pipe(map(result => result.matches));
+
   title = 'app';
   user$: Observable<User>;
   auth$: Observable<Auth>;
@@ -80,28 +83,27 @@ export class AppComponent implements OnInit, OnDestroy {
   userSubscription: Subscription;
   authSubscription: Subscription;
   mainToolbarSubscription: Subscription;
+  routerSubscription: Subscription;
+  handsetSubscription: Subscription;
   scrollingSubscription: Subscription;
   showSidenav$: Observable<boolean>;
   showUndoSnackbar$: Observable<boolean>;
   showUndoSnackbarSub: Subscription;
   mainToolbarFixed$: Observable<boolean>;
 
+  isPopState = false;
+
   storageRef: any;
   photoUrl: string;
   toolbarClassName = 'app-header';
   toolbarState = 'normal';
+  sidenavClass = {};
 
   @Input() open = false;
   lastOffset: number;
 
   @ViewChild('sidenav') sidenav: MatSidenav;
-
-  reason = '';
-
-  close(reason: string) {
-    this.reason = reason;
-    this.sidenav.close();
-  }
+  @ViewChild('sidenavContent') sidenavContent: MatSidenavContent;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -111,7 +113,9 @@ export class AppComponent implements OnInit, OnDestroy {
     private storageService: StorageService,
     public cd: ChangeDetectorRef,
     public scroll: ScrollDispatcher,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    private router: Router,
+    private locStrat: LocationStrategy
   ) {
     // this language will be used as a fallback when a translation isn't found in the current language
     this.translate.setDefaultLang('en');
@@ -231,6 +235,33 @@ export class AppComponent implements OnInit, OnDestroy {
         this.toolbarClassName = 'app-header-hidden';
       }
     });
+
+    this.locStrat.onPopState(() => {
+      this.isPopState = true;
+    });
+
+    this.routerSubscription = this.router.events.subscribe(event => {
+      // Scroll to top if accessing a page, not via browser history stack
+      if (event instanceof NavigationEnd && !this.isPopState) {
+        document.querySelector('[cdkScrollable]').scrollTop = 0;
+        // window.scrollTo(0, 0);
+        this.isPopState = false;
+      }
+
+      // Ensures that isPopState is reset
+      if (event instanceof NavigationEnd) {
+        this.isPopState = false;
+      }
+    });
+
+    this.handsetSubscription = this.isHandset$.subscribe(result => {
+      console.log('isHandset: ', result);
+      if (result) {
+        this.sidenavClass = { 'app-sidenav-handset': true };
+      } else {
+        this.sidenavClass = { 'app-sidenav': true };
+      }
+    });
   }
 
   signOut() {
@@ -254,6 +285,14 @@ export class AppComponent implements OnInit, OnDestroy {
 
     if (this.scrollingSubscription) {
       this.scrollingSubscription.unsubscribe();
+    }
+
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
+    }
+
+    if (this.handsetSubscription) {
+      this.handsetSubscription.unsubscribe();
     }
   }
 }
