@@ -1,3 +1,6 @@
+## 0.34.0
+* Adding cash to budget line
+
 ## 0.33.3
 * Fixed issue #5
 * Responsive sidenav width

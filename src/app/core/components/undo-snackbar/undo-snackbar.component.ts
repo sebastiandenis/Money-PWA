@@ -7,7 +7,10 @@ import * as fromRoot from '../../../store/app.reducers';
 
 export enum UndoPayloadMessages {
   ExpenseAdded = 'expenseadded',
-  ExpenseRemoved = 'expenseremoved'
+  ExpenseRemoved = 'expenseremoved',
+  ShiftAdded = 'shiftadded',
+  ShiftRemoved = 'shiftremoved',
+
 }
 
 export interface UndoPayload {

@@ -3,7 +3,7 @@
     <mat-icon matListIcon>add_circle</mat-icon>
     <p matLine>{{ 'addexpense' | translate}}</p>
   </mat-list-item>
-  <mat-list-item>
+  <mat-list-item (click)="onAddCash()">
     <mat-icon matListIcon>attach_money</mat-icon>
     <p matLine> {{ 'addcash' | translate}}</p>
   </mat-list-item>

@@ -6,7 +6,7 @@ import * as fromBudgetApp from '../../store/reducers/index';
 import * as UiStateActions from '../../../core/store/uiState.actions';
 import * as BudgetLinesActions from '../../store/actions/budget-lines.actions';
 import { MatDialogRef, MatDialog } from '@angular/material';
-import { AddExpenseDlgComponent } from '../../containers/budget-lines/add-expense-dlg.component';
+import { AddExpenseDlgComponent } from '../../containers/add-expense-dlg/add-expense-dlg.component';
 import * as ExpenseActions from '../../store/actions/expense.actions';
 import { BudgetLine } from '../../models/budget-line.model';
 import { Budget } from '../../models/budget.model';

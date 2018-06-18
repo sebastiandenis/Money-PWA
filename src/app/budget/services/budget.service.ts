@@ -9,14 +9,15 @@ import { Budget } from '../models/budget.model';
 import { BudgetLine } from '../models/budget-line.model';
 import { Expense } from '../models/expense.model';
 import { DocumentReference } from '@firebase/firestore-types';
-import { Observable, from } from 'rxjs';
+import { Observable, from, merge } from 'rxjs';
+import { Shift, NewShiftData } from '../models/shift.model';
+import { selectShiftTotal } from '../store/reducers/shift.reducer';
 
 @Injectable()
 export class BudgetService {
   constructor(private afs: AngularFirestore) {}
 
   queryAllBudgets(userId: string): Observable<DocumentChangeAction<Budget>[]> {
-    console.log('BudgetService.queryAllBudgets -> userId=', userId);
     //  const colRef = this.afs.collection<Budget>('budgets');
     //  colRef.ref.where(`access.${userId}`, '==', true);
     //  return colRef.snapshotChanges();
@@ -49,6 +50,17 @@ export class BudgetService {
       .stateChanges();
   }
 
+  queryAllShifts(
+    budgetId: string,
+    budgetLineId: string
+  ): Observable<DocumentChangeAction<any>[]> {
+    // const budgetLine: AngularFirestoreDocument<Budget> = this.afs.doc<Budget>(`budgets/${budgetId}/budgetLines/${budgetLineId}`);
+    return this.afs
+      .doc<Budget>(`budgets/${budgetId}/budgetLines/${budgetLineId}`)
+      .collection<Shift>('shifts')
+      .stateChanges();
+  }
+
   addExpense(
     expense: Expense,
     budgetId: string,
@@ -72,6 +84,66 @@ export class BudgetService {
     );
   }
 
+  addShift(
+    shift: Shift,
+    budgetId: string,
+    budgetLineId: string
+  ): Observable<void> {
+    // const budgetLineRef: AngularFirestoreDocument<BudgetLine> =
+    //   this.afs.doc<BudgetLine>(`budgets/${budgetId}/budgetLines/${budgetLineId}`);
+    // const expensesCollectionRef: AngularFirestoreCollection<Expense> =
+    //   this.afs.doc<BudgetLine>(`budgets/${budgetId}/budgetLines/${budgetLineId}`).collection<Expense>(`expenses`);
+    // this.afs.collection<Expense>(`budgets/${budgetId}/budgetLines/${budgetLineId}/expenses`);
+
+    const id = this.afs.createId();
+    shift.id = id;
+
+    return from(
+      this.afs
+        .doc<BudgetLine>(`budgets/${budgetId}/budgetLines/${budgetLineId}`)
+        .collection<Shift>(`shifts`)
+        .doc(id)
+        .set(shift)
+    );
+  }
+
+  addShifts(shifts: Shift[], budgetId: string): Observable<void> {
+    const shiftsObs: Observable<void>[] = [];
+    shifts.forEach((shift: Shift) => {
+      shift.id = this.afs.createId();
+      shiftsObs.push(
+        from(
+          this.afs
+            .doc<BudgetLine>(
+              `budgets/${budgetId}/budgetLines/${shift.budgetLineId}`
+            )
+            .collection<Shift>(`shifts`)
+            .doc(shift.id)
+            .set(shift)
+        )
+      );
+    });
+
+    return merge(...shiftsObs);
+  }
+
+
+
+  deleteShifts(shifts: Shift[], budgetId: string): Observable<void> {
+    const shiftsObs: Observable<any>[] = [];
+    shifts.forEach((shift: Shift) => {
+      const obs = from(
+        this.afs
+          .doc<Expense>(
+            `budgets/${budgetId}/budgetLines/${shift.budgetLineId}/shifts/${shift.id}`
+          )
+          .delete()
+      );
+      shiftsObs.push(obs);
+    });
+    return merge(...shiftsObs);
+  }
+
   deleteExpense(
     expenseId: string,
     budgetLineId: string,
@@ -83,6 +155,20 @@ export class BudgetService {
       this.afs
         .doc<Expense>(
           `budgets/${budgetId}/budgetLines/${budgetLineId}/expenses/${expenseId}`
+        )
+        .delete()
+    );
+  }
+
+  deleteShift(
+    shiftId: string,
+    budgetLineId: string,
+    budgetId: string
+  ): Observable<void> {
+    return from(
+      this.afs
+        .doc<Shift>(
+          `budgets/${budgetId}/budgetLines/${budgetLineId}/shifts/${shiftId}`
         )
         .delete()
     );

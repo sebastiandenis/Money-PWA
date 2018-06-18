@@ -1,0 +1,35 @@
+<span matDialogTitle>
+  <span class="mat-dialog-title-small">{{'acd_addingexpenseto' | translate}}: </span>
+  {{selectedBudgetLine?.name}}
+</span>
+<form fxLayout="column" fxLayoutAlign="center center" #f="ngForm" (ngSubmit)="onSubmit(f)">
+  <mat-dialog-content fxLayoutGap="5px">
+    <mat-form-field>
+      <input type="number" matInput placeholder="{{'amount' | translate}}" ngModel name="expenseAmount" id="expenseAmount" required
+        #amountInput="ngModel" style="font-size: 150%;">
+      <mat-error>{{ 'typeanumber' | translate }}</mat-error>
+    </mat-form-field>
+    <mat-accordion>
+      <mat-expansion-panel class="addExpenseExtensionPanel" style="margin-top: 10px;box-shadow: none;">
+        <mat-expansion-panel-header style="padding-left: 5px; padding-right: 5px;">
+          <mat-panel-title>
+            {{'more' | translate}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div fxLayout="column">
+          <mat-form-field>
+            <textarea matInput placeholder="{{'desc' | translate}}" ngModel id="expenseDesc" name="expenseDesc" #expenseDesc="ngModel"></textarea>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="{{'date' | translate}}" [matDatepicker]="picker" ngModel name="expenseDate" readonly="true">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button type="submit" mat-raised-button color="accent" [disabled]="!f.valid">{{'add' | translate}}</button>
+  </mat-dialog-actions>
+</form>

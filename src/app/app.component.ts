@@ -72,9 +72,7 @@ import { LocationStrategy } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit, OnDestroy {
-  isHandset$: Observable<boolean> = this.breakpointObserver
-    .observe(Breakpoints.Handset)
-    .pipe(map(result => result.matches));
+  isSmall$: Observable<boolean>;
 
   title = 'app';
   user$: Observable<User>;
@@ -84,7 +82,7 @@ export class AppComponent implements OnInit, OnDestroy {
   authSubscription: Subscription;
   mainToolbarSubscription: Subscription;
   routerSubscription: Subscription;
-  handsetSubscription: Subscription;
+  smallScreenSubscription: Subscription;
   scrollingSubscription: Subscription;
   showSidenav$: Observable<boolean>;
   showUndoSnackbar$: Observable<boolean>;
@@ -181,6 +179,10 @@ export class AppComponent implements OnInit, OnDestroy {
       .subscribe((data: CdkScrollable) => {
         this.onWindowScroll(data);
       });
+
+    this.isSmall$ = this.breakpointObserver
+      .observe(Breakpoints.HandsetPortrait)
+      .pipe(map(result => result.matches));
   }
 
   closeSidenav() {
@@ -197,25 +199,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   backdrop() {
     this.closeSidenav();
-  }
-
-  private onWindowScroll(data: CdkScrollable) {
-    const scrollTop = data.getElementRef().nativeElement.scrollTop || 0;
-    if (this.lastOffset > scrollTop) {
-      this.store.dispatch(
-        new UiStateActions.ChangeMainToolbarVisibleAction(true)
-      );
-    } else if (scrollTop < 10) {
-      this.store.dispatch(
-        new UiStateActions.ChangeMainToolbarVisibleAction(true)
-      );
-    } else if (scrollTop > 100) {
-      this.store.dispatch(
-        new UiStateActions.ChangeMainToolbarVisibleAction(false)
-      );
-    }
-
-    this.lastOffset = scrollTop;
   }
 
   ngOnInit() {
@@ -254,14 +237,33 @@ export class AppComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.handsetSubscription = this.isHandset$.subscribe(result => {
-      console.log('isHandset: ', result);
+    this.smallScreenSubscription = this.isSmall$.subscribe(result => {
+      // console.log('isSmallScreen: ', result);
       if (result) {
         this.sidenavClass = { 'app-sidenav-handset': true };
       } else {
         this.sidenavClass = { 'app-sidenav': true };
       }
     });
+  }
+
+  private onWindowScroll(data: CdkScrollable) {
+    const scrollTop = data.getElementRef().nativeElement.scrollTop || 0;
+    if (this.lastOffset > scrollTop) {
+      this.store.dispatch(
+        new UiStateActions.ChangeMainToolbarVisibleAction(true)
+      );
+    } else if (scrollTop < 10) {
+      this.store.dispatch(
+        new UiStateActions.ChangeMainToolbarVisibleAction(true)
+      );
+    } else if (scrollTop > 100) {
+      this.store.dispatch(
+        new UiStateActions.ChangeMainToolbarVisibleAction(false)
+      );
+    }
+
+    this.lastOffset = scrollTop;
   }
 
   signOut() {
@@ -291,8 +293,8 @@ export class AppComponent implements OnInit, OnDestroy {
       this.routerSubscription.unsubscribe();
     }
 
-    if (this.handsetSubscription) {
-      this.handsetSubscription.unsubscribe();
+    if (this.smallScreenSubscription) {
+      this.smallScreenSubscription.unsubscribe();
     }
   }
 }

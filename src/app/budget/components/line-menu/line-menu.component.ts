@@ -33,4 +33,9 @@ export class LineMenuComponent implements OnInit {
     this.lineMenuService.emitAddExpense(this.data);
     this.bottomSheetRef.dismiss();
   }
+
+  onAddCash() {
+    this.lineMenuService.emitAddCash(this.data);
+    this.bottomSheetRef.dismiss();
+  }
 }

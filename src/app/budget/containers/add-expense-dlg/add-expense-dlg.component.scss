@@ -1,0 +1,20 @@
+@import '~@angular/material/theming';
+@import 'src/themes/my-theme.scss';
+::ng-deep .addExpenseExtensionPanel .mat-expansion-panel-body {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+mat-form-field {
+    max-width: 300px;
+}
+
+::ng-deep .mat-option-text {
+    font-size: 85%;
+}
+
+.mat-dialog-title-small {
+  font-size: 70%;
+  color: mat-color($mat-blue-grey, 500);
+}
+

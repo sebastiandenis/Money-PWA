@@ -17,7 +17,8 @@ import {
   MatExpansionModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatBottomSheetModule
+  MatBottomSheetModule,
+  MatSelectModule
 } from '@angular/material';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { ScrollDispatchModule } from '@angular/cdk/scrolling';
@@ -43,7 +44,8 @@ import { ScrollDispatchModule } from '@angular/cdk/scrolling';
     MatDatepickerModule,
     MatNativeDateModule,
     MatBottomSheetModule,
-    ScrollDispatchModule
+    ScrollDispatchModule,
+    MatSelectModule
   ],
   exports: [
     MatInputModule,
@@ -64,7 +66,8 @@ import { ScrollDispatchModule } from '@angular/cdk/scrolling';
     MatDatepickerModule,
     MatNativeDateModule,
     MatBottomSheetModule,
-    ScrollDispatchModule
+    ScrollDispatchModule,
+    MatSelectModule
   ],
   declarations: []
 })

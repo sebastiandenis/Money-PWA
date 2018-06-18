@@ -13,7 +13,7 @@ import { LinesListItemComponent } from './components/lines-list-item/lines-list-
 import { LineDetailsComponent } from './components/line-details/line-details.component';
 import { OverlayModule, OverlayContainer } from '@angular/cdk/overlay';
 import { TranslateModule } from '@ngx-translate/core';
-import { AddExpenseDlgComponent } from './containers/budget-lines/add-expense-dlg.component';
+import { AddExpenseDlgComponent } from './containers/add-expense-dlg/add-expense-dlg.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { BudgetEffects } from './store/effects/budget.effects';
@@ -25,7 +25,8 @@ import { DashboardChartComponent } from './components/dashboard-chart/dashboard-
 import { BudgetMainComponent } from './containers/budget-main/budget-main.component';
 import { LineMenuComponent } from './components/line-menu/line-menu.component';
 import { LineMenuService } from './components/line-menu/line-menu.service';
-
+import { AddCashDlgComponent } from './containers/add-cash-dlg/add-cash-dlg.component';
+import { ShiftEffects } from './store/effects/shift.effects';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { LineMenuService } from './components/line-menu/line-menu.service';
     LinesListItemComponent,
     LineDetailsComponent,
     AddExpenseDlgComponent,
+    AddCashDlgComponent,
     AddFastExpenseComponent,
     DashboardChartComponent,
     BudgetMainComponent,
@@ -44,8 +46,13 @@ import { LineMenuService } from './components/line-menu/line-menu.service';
   ],
   imports: [
     CommonModule,
-    StoreModule.forFeature('budgetModule', reducers ),
-    EffectsModule.forFeature([BudgetLinesEffects, BudgetEffects, ExpenseEffects]),
+    StoreModule.forFeature('budgetModule', reducers),
+    EffectsModule.forFeature([
+      BudgetLinesEffects,
+      BudgetEffects,
+      ExpenseEffects,
+      ShiftEffects
+    ]),
     MaterialModule,
     SharedModule,
     RoundProgressModule,
@@ -53,9 +60,10 @@ import { LineMenuService } from './components/line-menu/line-menu.service';
     OverlayModule
   ],
   entryComponents: [
-     AddExpenseDlgComponent, LineMenuComponent
+    AddCashDlgComponent,
+    AddExpenseDlgComponent,
+    LineMenuComponent
   ],
   providers: [LineMenuService]
-
 })
-export class BudgetModule { }
+export class BudgetModule {}

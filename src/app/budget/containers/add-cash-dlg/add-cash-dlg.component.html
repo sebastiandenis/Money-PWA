@@ -1,0 +1,53 @@
+<span matDialogTitle>
+  <span class="mat-dialog-title-small">{{'acd_addingcashto' | translate}}: </span>
+  {{selectedBudgetLine?.name}}
+</span>
+<form fxLayout="column" fxLayoutAlign="center center" #f="ngForm" (ngSubmit)="onSubmit(f)">
+  <mat-dialog-content >
+    <div fxLayout="column" fxLayoutGap="7px" >
+      <mat-form-field>
+        <input type="number" matInput placeholder="{{'acd_amount' | translate}}" [(ngModel)]="cashAmount" name="addCashAmount" id="addCashAmount"
+          required #amountInput="ngModel" style="font-size: 150%;">
+        <mat-error>{{ 'typeanumber' | translate }}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="{{ 'acd_cashfrom' | translate}}" ngModel name="addCashFromLine" id="addCashFromLine" #fromLineSelect="ngModel"
+          required [(value)]="selectedLine">
+          <mat-select-trigger>
+            {{selectedLine?.name}}
+          </mat-select-trigger>
+
+          <mat-option *ngFor="let line of (lines$ | async)" [value]="line">
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+              <span>
+                {{line.name}}
+              </span>
+              <span style="font-size: 90%" [ngClass]="getLineColor(cashAmount, line.cashLeft)">
+                {{line.cashLeft}}/{{line.cashToSpend}}
+              </span>
+            </div>
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="fromLineSelect.hasError('required')">{{ 'pleaseselectsomething' | translate}}</mat-error>
+      </mat-form-field>
+
+      <mat-accordion>
+        <mat-expansion-panel class="addCashExtensionPanel" style="margin-top: 10px;box-shadow: none;">
+          <mat-expansion-panel-header style="padding-left: 5px; padding-right: 5px;">
+            <mat-panel-title>
+              {{'more' | translate}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div fxLayout="column">
+            <mat-form-field>
+              <textarea matInput placeholder="{{'desc' | translate}}" ngModel id="addCashDesc" name="addCashDesc" #addCashDesc="ngModel"></textarea>
+            </mat-form-field>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button type="submit" mat-raised-button color="accent" [disabled]="!f.valid">{{'add' | translate}}</button>
+  </mat-dialog-actions>
+</form>
