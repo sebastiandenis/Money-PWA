@@ -1,3 +1,7 @@
+## 0.35.0
+* Animations on routing
+* Hammerjs for BudgetMain component
+
 ## 0.34.0
 * Adding cash to budget line
 

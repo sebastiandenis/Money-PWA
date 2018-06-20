@@ -1,4 +1,4 @@
-<app-budget-tabs></app-budget-tabs>
-<div class="budget-content">
-  <router-outlet></router-outlet>
+<app-budget-tabs [routerState]="getState(o)"></app-budget-tabs>
+<div class="budget-content" (swipeleft)="swipeLeft()" (swiperight)="swipedRight()" [@routerTransition]="getState(o)">
+  <router-outlet  #o="outlet"></router-outlet>
 </div>

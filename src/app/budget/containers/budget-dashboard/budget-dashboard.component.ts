@@ -19,6 +19,7 @@ import * as fromBudgetApp from '../../store/reducers/index';
 export class BudgetDashboardComponent  implements OnInit, OnDestroy {
 
 
+
   lastOffset: number;
   budget$: Observable<Budget>;
   budgetLines$: Observable<BudgetLine[]>;

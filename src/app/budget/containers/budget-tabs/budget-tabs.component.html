@@ -1,7 +1,7 @@
 <div [@tabsState]="tabsState" class="my-nav-tab">
   <nav mat-tab-nav-bar>
-    <a mat-tab-link *ngFor="let routeLink of routeLinks; let i = index;" [routerLink]="routeLink.link" routerLinkActive="mat-tab-link-active"
-      #rla="routerLinkActive" [active]="activeLinkIndex === i" (click)="onClick(i)" [routerLinkActiveOptions]="{exact: true}">
+    <a mat-tab-link [id]="'tab-link-'+i" *ngFor="let routeLink of routeLinks; let i = index;" [routerLink]="routeLink.link"
+      [active]="activeLinkIndex === i" (click)="onClick(i)">
       <mat-icon>{{routeLink.icon}}</mat-icon>
     </a>
   </nav>

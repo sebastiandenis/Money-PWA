@@ -1,12 +1,26 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable ,  Subscription } from 'rxjs';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ChangeDetectionStrategy,
+  Input,
+  Renderer2,
+  AfterViewInit
+} from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../../store/app.reducers';
-import { trigger, style, state, transition, animate } from '@angular/animations';
+import {
+  trigger,
+  style,
+  state,
+  transition,
+  animate
+} from '@angular/animations';
 import { ChangeDetectorRef } from '@angular/core';
-
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-budget-tabs',
@@ -14,30 +28,42 @@ import { ChangeDetectorRef } from '@angular/core';
   styleUrls: ['./budget-tabs.component.scss'],
   animations: [
     trigger('tabsState', [
-      state('normal1', style({
-        opacity: 1,
-        transform: 'translateY(0px)'
-      })),
-      state('hidden1', style({
-        opacity: 1,
-        transform: 'translateY(-150px)'
-      })),
+      state(
+        'normal1',
+        style({
+          opacity: 1,
+          transform: 'translateY(0px)'
+        })
+      ),
+      state(
+        'hidden1',
+        style({
+          opacity: 1,
+          transform: 'translateY(-150px)'
+        })
+      ),
       transition('normal1 => hidden1', animate(300)),
       transition('hidden1 => normal1', animate(600))
     ])
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BudgetTabsComponent implements OnInit, OnDestroy {
-
+export class BudgetTabsComponent implements OnInit, OnDestroy, AfterViewInit {
   routeLinks: any[];
   activeLinkIndex = -1;
   mainToolbarFixed$: Observable<boolean>;
   tabsState = 'normal1';
   mainToolbarSubscription: Subscription;
+  routerSubscription: Subscription;
 
-  constructor(private router: Router, public cd: ChangeDetectorRef,
-    private store: Store<fromRoot.AppState>) {
+  @Input() routerState: string;
+
+  constructor(
+    private router: Router,
+    private renderer: Renderer2,
+    public cd: ChangeDetectorRef,
+    private store: Store<fromRoot.AppState>
+  ) {
     this.routeLinks = [
       {
         icon: 'account_balance_wallet',
@@ -56,36 +82,74 @@ export class BudgetTabsComponent implements OnInit, OnDestroy {
       }
     ];
 
+
+
     this.mainToolbarFixed$ = this.store.select(fromRoot.selectMainToolbarFixed);
-
-
-
   }
-
 
   onClick(i: number) {
     this.activeLinkIndex = i;
   }
 
+  ngAfterViewInit(){
+
+  }
+
+  private activeLinkIndexResolver(url: string) {
+    console.log('activateLinkIndexResolver');
+    let onElement: any;
+    if (url.endsWith('dashboard')) {
+      this.activeLinkIndex = 0;
+      // if(this.renderer.selectRootElement('a#tab-link-0')){
+      //   onElement = this.renderer.selectRootElement('a#tab-link-0');
+      // }
+
+    } else if (url.endsWith('lines')) {
+      this.activeLinkIndex = 1;
+      // if(this.renderer.selectRootElement('a#tab-link-1')){
+      //   onElement = this.renderer.selectRootElement('a#tab-link-1');
+      // }
+    } else if (url.endsWith('alerts')) {
+      this.activeLinkIndex = 2;
+      // if(this.renderer.selectRootElement('a#tab-link-2')){
+      //   onElement = this.renderer.selectRootElement('a#tab-link-2');
+      // }
+    } else {
+      this.activeLinkIndex = -1;
+    }
+
+    // if(onElement){
+    //   setTimeout(() => onElement.focus(), 0);
+    // }
+
+
+
+  }
+
   ngOnInit() {
     this.activeLinkIndex = 0;
-    this.mainToolbarSubscription = this.mainToolbarFixed$.subscribe(
-      isFixed => {
-        if (isFixed && this.tabsState !== 'normal1') {
-          this.tabsState = 'normal1';
-          this.cd.detectChanges();
-        } else if (!isFixed && this.tabsState !== 'hidden1') {
-          this.tabsState = 'hidden1';
-          this.cd.detectChanges();
-        }
-      }
-    );
+    this.routerSubscription = this.router.events
+    .pipe(filter(event => event instanceof NavigationEnd))
+    .subscribe((event: NavigationEnd) => {
+      this.activeLinkIndexResolver(event.url);
+    });
 
+    this.mainToolbarSubscription = this.mainToolbarFixed$.subscribe(isFixed => {
+      if (isFixed && this.tabsState !== 'normal1') {
+        this.tabsState = 'normal1';
+        this.cd.detectChanges();
+      } else if (!isFixed && this.tabsState !== 'hidden1') {
+        this.tabsState = 'hidden1';
+        this.cd.detectChanges();
+      }
+    });
   }
   ngOnDestroy() {
     if (this.mainToolbarSubscription) {
       this.mainToolbarSubscription.unsubscribe();
     }
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
+    }
   }
-
 }

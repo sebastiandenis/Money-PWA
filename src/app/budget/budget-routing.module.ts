@@ -10,9 +10,9 @@ import { AddFastExpenseComponent } from './containers/add-fast-expense/add-fast-
 const budgetRoutes: Routes = [
     {
         path: 'budget', component: BudgetMainComponent, children: [
-            { path: 'dashboard', component: BudgetDashboardComponent },
-            { path: 'lines', component: BudgetLinesComponent },
-            { path: 'alerts', component: BudgetSettingsComponent },
+            { path: 'dashboard', component: BudgetDashboardComponent, data: {state: 'budget-dashboard'} },
+            { path: 'lines', component: BudgetLinesComponent, data: {state: 'budget-lines'} },
+            { path: 'alerts', component: BudgetSettingsComponent, data: {state: 'budget-alerts'} },
 
         ],
     },

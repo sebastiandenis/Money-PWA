@@ -27,6 +27,7 @@ import { LineMenuComponent } from './components/line-menu/line-menu.component';
 import { LineMenuService } from './components/line-menu/line-menu.service';
 import { AddCashDlgComponent } from './containers/add-cash-dlg/add-cash-dlg.component';
 import { ShiftEffects } from './store/effects/shift.effects';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { ShiftEffects } from './store/effects/shift.effects';
     SharedModule,
     RoundProgressModule,
     BudgetRoutingModule,
-    OverlayModule
+    OverlayModule,
+    BrowserAnimationsModule
   ],
   entryComponents: [
     AddCashDlgComponent,
