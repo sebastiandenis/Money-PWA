@@ -1,4 +1,4 @@
-## 0.35.2
+## 0.35.1
 * Animations on routing - improved tabs styling
 * Hammerjs for BudgetMain component - fixed scrolling issue
 
