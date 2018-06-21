@@ -88,6 +88,8 @@ export class BudgetMainComponent implements OnInit, OnDestroy {
     this.swipeResolver('right');
   }
 
+
+
   private swipeResolver(type: string) {
     if (type === 'left') {
       if (this.router.routerState.snapshot.url.endsWith('dashboard')) {

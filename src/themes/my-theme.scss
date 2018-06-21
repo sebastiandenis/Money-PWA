@@ -23,3 +23,15 @@ $money-app-theme : mat-light-theme($money-app-primary, $money-app-accent, $money
 $foreground: map-get($money-app-theme, foreground);
 $background: map-get($money-app-theme, background);
 // @include angular-material-theme($money-app-theme);
+mat-ink-bar.mat-ink-bar {
+  background-color: mat-color($money-app-accent) !important;
+}
+
+.mat-tab-label-active{
+  background-color: mat-color($money-app-primary, 400) !important;
+  opacity: 1 !important;
+  }
+
+ .mat-tab-link:not(.mat-tab-label-active):focus {
+  background: none !important;
+}

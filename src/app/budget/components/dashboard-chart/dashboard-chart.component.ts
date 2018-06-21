@@ -26,7 +26,8 @@ export class DashboardChartComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   getColor(left: number, total: number): string {
     if (left && total) {

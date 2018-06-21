@@ -82,8 +82,6 @@ export class BudgetTabsComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     ];
 
-
-
     this.mainToolbarFixed$ = this.store.select(fromRoot.selectMainToolbarFixed);
   }
 
@@ -91,19 +89,16 @@ export class BudgetTabsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.activeLinkIndex = i;
   }
 
-  ngAfterViewInit(){
-
-  }
+  ngAfterViewInit() {}
 
   private activeLinkIndexResolver(url: string) {
     console.log('activateLinkIndexResolver');
-    let onElement: any;
+    // let onElement: any;
     if (url.endsWith('dashboard')) {
       this.activeLinkIndex = 0;
       // if(this.renderer.selectRootElement('a#tab-link-0')){
       //   onElement = this.renderer.selectRootElement('a#tab-link-0');
       // }
-
     } else if (url.endsWith('lines')) {
       this.activeLinkIndex = 1;
       // if(this.renderer.selectRootElement('a#tab-link-1')){
@@ -121,18 +116,15 @@ export class BudgetTabsComponent implements OnInit, OnDestroy, AfterViewInit {
     // if(onElement){
     //   setTimeout(() => onElement.focus(), 0);
     // }
-
-
-
   }
 
   ngOnInit() {
     this.activeLinkIndex = 0;
     this.routerSubscription = this.router.events
-    .pipe(filter(event => event instanceof NavigationEnd))
-    .subscribe((event: NavigationEnd) => {
-      this.activeLinkIndexResolver(event.url);
-    });
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        this.activeLinkIndexResolver(event.url);
+      });
 
     this.mainToolbarSubscription = this.mainToolbarFixed$.subscribe(isFixed => {
       if (isFixed && this.tabsState !== 'normal1') {

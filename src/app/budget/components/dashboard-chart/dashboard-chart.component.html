@@ -3,15 +3,15 @@
       <span style="color: #2096ba;font-size: 1.8rem;">{{getRoundedCashLeft(budget.cashLeft)}}</span>
       <span style="font-size: 1.3rem"> / {{budget.totalCash}}</span>
       <br>
-      <span style="font-size: 1.1rem; color: #36384c;" *ngIf="daysLeft(budget.dateEnd)==1">
-          {{daysLeft(budget.dateEnd)}} {{ ('daysLeft' | translate)}}
+      <span style="font-size: 1.1rem; color: #36384c;" *ngIf="daysLeft(budget.dateEnd.toDate())==1">
+          {{daysLeft(budget.dateEnd.toDate())}} {{ ('daysLeft' | translate)}}
       </span>
-      <span style="font-size: 1.1rem; color: #36384c;" *ngIf="daysLeft(budget.dateEnd)!=1">
-          {{daysLeft(budget.dateEnd)}} {{ ('daysLeft' | translate)}}
+      <span style="font-size: 1.1rem; color: #36384c;" *ngIf="daysLeft(budget.dateEnd.toDate())!=1">
+          {{daysLeft(budget.dateEnd.toDate())}} {{ ('daysLeft' | translate)}}
       </span>
       <br>
-      <span style="font-size: 1.1rem; color: #36384c;" *ngIf="daysLeft(budget.dateEnd)!=0">
-          {{perDay(daysLeft(budget.dateEnd), budget.cashLeft)}} {{ ('perDay' | translate)}}
+      <span style="font-size: 1.1rem; color: #36384c;" *ngIf="daysLeft(budget.dateEnd.toDate())!=0">
+          {{perDay(daysLeft(budget.dateEnd.toDate()), budget.cashLeft)}} {{ ('perDay' | translate)}}
       </span>
       <br>
 
