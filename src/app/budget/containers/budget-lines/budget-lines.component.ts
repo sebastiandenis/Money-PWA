@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import * as fromRoot from '../../../store/app.reducers';
 import { OnDestroy } from '@angular/core';
-import { Subscription, Observable } from 'rxjs';
+import { Subscription, Observable, Subject } from 'rxjs';
 import * as BudgetLinesActions from '../../store/actions/budget-lines.actions';
 import * as fromBudgetApp from '../../store/reducers/index';
 import { Budget } from '../../models/budget.model';
@@ -27,12 +27,14 @@ import { NewShiftData } from '../../models/shift.model';
   templateUrl: './budget-lines.component.html',
   styleUrls: ['./budget-lines.component.scss']
 })
-export class BudgetLinesComponent implements OnInit, OnDestroy {
+export class BudgetLinesComponent implements OnInit, OnDestroy, AfterViewInit {
   lines$: Observable<any>;
   budget$: Observable<Budget>;
   budgetSubscription: Subscription;
   budgetId: string;
   budgetCashLeft = 0;
+  sortLinesSubject: Subject<string> = new Subject();
+  sortLinesBy = 'alphaUp';
 
   lineMenuDlgSubscription: Subscription;
   lineMenuAddExpenseSubscription: Subscription;
@@ -100,6 +102,15 @@ export class BudgetLinesComponent implements OnInit, OnDestroy {
     this.bottomSheet.open(LineMenuComponent, { data: budgetLineId });
   }
 
+  ngAfterViewInit() {
+    this.onSortLines('alphaUp');
+  }
+
+  onSortLines(sortBy: string) {
+    this.sortLinesBy = sortBy;
+    this.sortLinesSubject.next(this.sortLinesBy);
+  }
+
   private openAndSubscribeAddExpenseDlg(budgetLineId: string) {
     this.addExpenseDlgRef = this.dialog.open(AddExpenseDlgComponent, {
       data: budgetLineId
@@ -115,6 +126,7 @@ export class BudgetLinesComponent implements OnInit, OnDestroy {
             newBudgetLineCashLeft:
               this.selectedBudgetLine.cashLeft - result.expense.amount // zaktualizuj cashLeft dla linii wg wzoru
           });
+          this.sortLinesSubject.next(this.sortLinesBy);
         }
       });
   }
@@ -129,6 +141,7 @@ export class BudgetLinesComponent implements OnInit, OnDestroy {
         // jeżeli zamknięcie to dodaj linię wydatku
         if (newShiftData) {
           this.addCash(newShiftData);
+          this.sortLinesSubject.next(this.sortLinesBy);
         }
       });
   }

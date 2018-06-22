@@ -1,5 +1,9 @@
-<mat-nav-list #linesList>
-  <a mat-list-item *ngFor="let line of lines" style="margin-bottom: 2px;">
-    <app-lines-list-item [line]="line" (lineSelected)="onSelectLine(line.id)" style="width: 100%;height: 100%;"></app-lines-list-item>
-  </a>
-</mat-nav-list>
+<div fxLayout="column" fxLayoutAlign="space-between stretch">
+    <app-lines-sort fxFlexAlign="center" (sortLines)="onSortLines($event)"></app-lines-sort>
+    <mat-nav-list #linesList>
+      <a mat-list-item *ngFor="let line of sortLinesBy(sortBy)" style="margin-bottom: 2px;">
+        <app-lines-list-item [line]="line" (lineSelected)="onSelectLine(line.id)" style="width: 100%;height: 100%;"></app-lines-list-item>
+      </a>
+    </mat-nav-list>
+</div>
+

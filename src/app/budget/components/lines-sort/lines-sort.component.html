@@ -1,0 +1,14 @@
+<mat-button-toggle-group #group="matButtonToggleGroup" (change)="onChange(group.value)" [value]="selectedValue" >
+  <mat-button-toggle value="alphaUp">
+    <fa-icon [icon]="faSortAlphaUp"></fa-icon>
+  </mat-button-toggle>
+  <mat-button-toggle value="alphaDown">
+    <fa-icon [icon]="faSortAlphaDown"></fa-icon>
+  </mat-button-toggle>
+  <mat-button-toggle value="amountUp">
+    <fa-icon [icon]="faSortAmountUp"></fa-icon>
+  </mat-button-toggle>
+  <mat-button-toggle value="amountDown" >
+    <fa-icon [icon]="faSortAmountDown"></fa-icon>
+  </mat-button-toggle>
+</mat-button-toggle-group>

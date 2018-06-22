@@ -1,3 +1,6 @@
+## 0.36.0
+* Sorting budget lines
+
 ## 0.35.1
 * Animations on routing - improved tabs styling
 * Hammerjs for BudgetMain component - fixed scrolling issue

@@ -28,6 +28,7 @@ import { LineMenuService } from './components/line-menu/line-menu.service';
 import { AddCashDlgComponent } from './containers/add-cash-dlg/add-cash-dlg.component';
 import { ShiftEffects } from './store/effects/shift.effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LinesSortComponent } from './components/lines-sort/lines-sort.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AddFastExpenseComponent,
     DashboardChartComponent,
     BudgetMainComponent,
-    LineMenuComponent
+    LineMenuComponent,
+    LinesSortComponent
   ],
   imports: [
     CommonModule,
