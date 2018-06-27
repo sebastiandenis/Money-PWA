@@ -16,7 +16,7 @@ import { LineMenuService } from './line-menu.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LineMenuComponent implements OnInit {
-  @Output() addExpenseEmitter = new EventEmitter<any>();
+ // @Output() addExpenseEmitter = new EventEmitter<any>();
 
   constructor(
     private bottomSheetRef: MatBottomSheetRef<LineMenuComponent>,
@@ -36,6 +36,11 @@ export class LineMenuComponent implements OnInit {
 
   onAddCash() {
     this.lineMenuService.emitAddCash(this.data);
+    this.bottomSheetRef.dismiss();
+  }
+
+  onMore(){
+    this.lineMenuService.emitMore(this.data);
     this.bottomSheetRef.dismiss();
   }
 }

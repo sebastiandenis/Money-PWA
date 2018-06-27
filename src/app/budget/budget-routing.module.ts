@@ -6,6 +6,7 @@ import { BudgetLinesComponent } from './containers/budget-lines/budget-lines.com
 import { BudgetSettingsComponent } from './containers/budget-settings/budget-settings.component';
 import { BudgetMainComponent } from './containers/budget-main/budget-main.component';
 import { AddFastExpenseComponent } from './containers/add-fast-expense/add-fast-expense.component';
+import { LineDetailsComponent } from './containers/line-details/line-details.component';
 
 const budgetRoutes: Routes = [
     {
@@ -14,10 +15,14 @@ const budgetRoutes: Routes = [
             { path: 'lines', component: BudgetLinesComponent, data: {state: 'budget-lines'} },
             { path: 'alerts', component: BudgetSettingsComponent, data: {state: 'budget-alerts'} },
 
+
         ],
     },
     {
         path: 'addFastExpense', component: AddFastExpenseComponent
+    },
+    {
+       path: 'line', component: LineDetailsComponent
     }
 ];
 

@@ -208,6 +208,19 @@ export class AppComponent implements OnInit, OnDestroy {
       if (user && user.config && user.config.lang !== undefined) {
         this.translate.use(user.config.lang);
       }
+      if (
+        user &&
+        user.config &&
+        user.config.currentBudgetId !== undefined &&
+        user.userId !== undefined
+      ) {
+        this.store.dispatch(new BudgetActions.Query({ userId: user.userId }));
+        this.store.dispatch(
+          new BudgetActions.SetCurrentBudget({
+            budgetId: user.config.currentBudgetId
+          })
+        );
+      }
     });
 
     this.mainToolbarFixed$.subscribe((isFixed: boolean) => {

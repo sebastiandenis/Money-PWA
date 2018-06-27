@@ -1,5 +1,7 @@
 <div class="content">
-  <app-lines-list [lines]="lines$ | async"
-  (onSelectLineEmitter)="onSelectBudgetLine($event)"
-  [isFastExpenseMode]="true"></app-lines-list>
+  <app-lines-list [lines]="getLines()"
+  (selectLine)="onSelectBudgetLine($event)"
+  [isFastExpenseMode]="true"
+  [sortBy]="getSortLinesBy()"
+  (sortLines)="onSortLines($event)"></app-lines-list>
 </div>

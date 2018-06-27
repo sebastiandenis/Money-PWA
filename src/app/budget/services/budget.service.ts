@@ -9,13 +9,57 @@ import { Budget } from '../models/budget.model';
 import { BudgetLine } from '../models/budget-line.model';
 import { Expense } from '../models/expense.model';
 import { DocumentReference } from '@firebase/firestore-types';
-import { Observable, from, merge } from 'rxjs';
+import { Observable, from, merge, Subject } from 'rxjs';
 import { Shift, NewShiftData } from '../models/shift.model';
 import { selectShiftTotal } from '../store/reducers/shift.reducer';
+import { SortingLinesTypes } from '../components/lines-sort/lines-sort.component';
 
 @Injectable()
 export class BudgetService {
-  constructor(private afs: AngularFirestore) {}
+
+  sortingLinesBySubject: SortingLinesTypes = SortingLinesTypes.ALPHA_UP;
+
+  constructor(private afs: AngularFirestore) {
+  }
+
+  // *************************** BUDGET-LINES INTERNAL SERVICES *******************************
+
+  sortLinesBy(sortBy: SortingLinesTypes, lines: BudgetLine[]): BudgetLine[] {
+    switch (sortBy) {
+      case SortingLinesTypes.ALPHA_UP:
+        return lines
+          .sort((a: BudgetLine, b: BudgetLine) => {
+            return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+          })
+          .slice();
+      case SortingLinesTypes.ALPHA_DOWN:
+        return lines
+          .sort((a: BudgetLine, b: BudgetLine) => {
+            return b.name.toLowerCase().localeCompare(a.name.toLowerCase());
+          })
+          .slice();
+      case SortingLinesTypes.AMOUNT_UP:
+        return lines
+          .sort((a: BudgetLine, b: BudgetLine) => {
+            return a.cashLeft - b.cashLeft;
+          })
+          .slice();
+      case SortingLinesTypes.AMOUNT_DOWN:
+        return lines
+          .sort((a: BudgetLine, b: BudgetLine) => {
+            return b.cashLeft - a.cashLeft;
+          })
+          .slice();
+      default:
+        return lines
+          .sort((a: BudgetLine, b: BudgetLine) => {
+            return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+          })
+          .slice();
+    }
+  }
+
+  // ************************** FIRESTORE SERVICES ********************************************
 
   queryAllBudgets(userId: string): Observable<DocumentChangeAction<Budget>[]> {
     //  const colRef = this.afs.collection<Budget>('budgets');
@@ -127,15 +171,15 @@ export class BudgetService {
     return merge(...shiftsObs);
   }
 
-
-
   deleteShifts(shifts: Shift[], budgetId: string): Observable<void> {
     const shiftsObs: Observable<any>[] = [];
     shifts.forEach((shift: Shift) => {
       const obs = from(
         this.afs
           .doc<Expense>(
-            `budgets/${budgetId}/budgetLines/${shift.budgetLineId}/shifts/${shift.id}`
+            `budgets/${budgetId}/budgetLines/${shift.budgetLineId}/shifts/${
+              shift.id
+            }`
           )
           .delete()
       );

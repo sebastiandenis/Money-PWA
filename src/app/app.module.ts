@@ -77,8 +77,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     MaterialModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([AuthEffects, UserEffects]),
-    MatMenuModule,
-    MatButtonModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -87,10 +85,6 @@ export function HttpLoaderFactory(http: HttpClient) {
       enabled: environment.production
     }),
     LayoutModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

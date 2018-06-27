@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { ErrorSnackbarComponent } from '../core/components/error-snackbar/error-snackbar.component';
 import { UndoSnackbarComponent } from '../core/components/undo-snackbar/undo-snackbar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
   imports: [
@@ -13,14 +14,16 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     TranslateModule,
     FlexLayoutModule,
     FormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    NgxChartsModule
   ],
   exports: [
     CommonModule,
     TranslateModule,
     FlexLayoutModule,
     FormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    NgxChartsModule
   ],
   declarations: [ErrorSnackbarComponent, UndoSnackbarComponent],
   entryComponents: [UndoSnackbarComponent]

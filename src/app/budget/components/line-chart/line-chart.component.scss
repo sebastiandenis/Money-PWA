@@ -1,0 +1,15 @@
+.progress-wrapper {
+  position: relative;
+  font-size: 36px;
+  padding-left: 5%;
+  padding-right: 5%;
+  margin: 10px auto;
+  text-align: center;
+}
+
+.current {
+  position: absolute;
+  //color: #1a7b99;
+  font-weight: 100;
+  line-height: 1;
+}

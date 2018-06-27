@@ -1,2 +1,2 @@
-<app-lines-list [lines]="lines$ | async" (selectLine)="onSelectLine($event)" [sortSubject]="sortLinesSubject" (sortLines)="onSortLines($event)" [sortBy]="sortLinesBy">
+<app-lines-list [lines]="getLines()" (selectLine)="onSelectLine($event)" (sortLines)="onSortLines($event)" [sortBy]="getSortLinesBy()" [isFastExpenseMode]="false" >
 </app-lines-list>

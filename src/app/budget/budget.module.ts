@@ -10,7 +10,7 @@ import { BudgetSettingsComponent } from './containers/budget-settings/budget-set
 import { BudgetRoutingModule } from './budget-routing.module';
 import { LinesListComponent } from './components/lines-list/lines-list.component';
 import { LinesListItemComponent } from './components/lines-list-item/lines-list-item.component';
-import { LineDetailsComponent } from './components/line-details/line-details.component';
+import { LineDetailsComponent } from './containers/line-details/line-details.component';
 import { OverlayModule, OverlayContainer } from '@angular/cdk/overlay';
 import { TranslateModule } from '@ngx-translate/core';
 import { AddExpenseDlgComponent } from './containers/add-expense-dlg/add-expense-dlg.component';
@@ -29,6 +29,8 @@ import { AddCashDlgComponent } from './containers/add-cash-dlg/add-cash-dlg.comp
 import { ShiftEffects } from './store/effects/shift.effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LinesSortComponent } from './components/lines-sort/lines-sort.component';
+import { LineCardComponent } from './components/line-card/line-card.component';
+import { LineChartComponent } from './components/line-chart/line-chart.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { LinesSortComponent } from './components/lines-sort/lines-sort.component
     DashboardChartComponent,
     BudgetMainComponent,
     LineMenuComponent,
-    LinesSortComponent
+    LinesSortComponent,
+    LineCardComponent,
+    LineChartComponent
   ],
   imports: [
     CommonModule,
@@ -64,6 +68,7 @@ import { LinesSortComponent } from './components/lines-sort/lines-sort.component
     BrowserAnimationsModule
   ],
   entryComponents: [
+    BudgetMainComponent,
     AddCashDlgComponent,
     AddExpenseDlgComponent,
     LineMenuComponent

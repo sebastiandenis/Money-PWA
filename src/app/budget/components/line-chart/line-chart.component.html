@@ -1,0 +1,29 @@
+<div *ngIf="budget && line;else loading">
+  <div class="progress-wrapper">
+    <div class="current" [ngStyle]="getOverlayStyle()">
+      <span style="color: #2096ba;font-size: 1.8rem;">{{getRoundedCashLeft(line?.cashLeft)}}</span>
+      <span style="font-size: 1.3rem"> / {{line?.cashToSpend}}</span>
+      <br>
+      <span style="font-size: 1.1rem; color: #36384c;" *ngIf="daysLeft(budget?.dateEnd.toDate())==1">
+        {{daysLeft(budget?.dateEnd.toDate())}} {{ ('daysLeft' | translate)}}
+      </span>
+      <span style="font-size: 1.1rem; color: #36384c;" *ngIf="daysLeft(budget?.dateEnd.toDate())!=1">
+        {{daysLeft(budget?.dateEnd.toDate())}} {{ ('daysLeft' | translate)}}
+      </span>
+      <br>
+      <span style="font-size: 1.1rem; color: #36384c;" *ngIf="daysLeft(budget?.dateEnd.toDate())!=0">
+        {{perDay(daysLeft(budget?.dateEnd.toDate()), line?.cashLeft)}} {{ ('perDay' | translate)}}
+      </span>
+      <br>
+
+    </div>
+    <round-progress [current]="getRoundedCashLeft(line.cashLeft)" [max]="line?.cashToSpend" [responsive]="responsive" [stroke]="stroke"
+      [clockwise]="clockwise" [color]="getColor(line?.cashLeft, line?.cashToSpend)" [rounded]="rounded" [background]="getBackgroundColor(line?.cashLeft, line?.cashToSpend)"></round-progress>
+  </div>
+
+
+</div>
+
+<ng-template #loading>Loading...</ng-template>
+
+

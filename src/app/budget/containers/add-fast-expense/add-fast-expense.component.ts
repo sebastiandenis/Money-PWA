@@ -1,5 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable ,  Subscription } from 'rxjs';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ChangeDetectorRef,
+  ChangeDetectionStrategy
+} from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import * as fromRoot from '../../../store/app.reducers';
 import * as fromBudgetApp from '../../store/reducers/index';
@@ -10,14 +16,19 @@ import { AddExpenseDlgComponent } from '../../containers/add-expense-dlg/add-exp
 import * as ExpenseActions from '../../store/actions/expense.actions';
 import { BudgetLine } from '../../models/budget-line.model';
 import { Budget } from '../../models/budget.model';
+import { SortingLinesTypes } from '../../components/lines-sort/lines-sort.component';
+import { BudgetService } from '../../services/budget.service';
 
 @Component({
   selector: 'app-add-fast-expense',
   templateUrl: './add-fast-expense.component.html',
-  styleUrls: ['./add-fast-expense.component.scss']
+  styleUrls: ['./add-fast-expense.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddFastExpenseComponent implements OnInit, OnDestroy {
   lines$: Observable<any>;
+  lines: BudgetLine[] = [];
+  linesSubscription: Subscription;
   addExpenseDlgRef: MatDialogRef<AddExpenseDlgComponent>;
   beforeAddDlgCloseSubscription: Subscription;
   selectedBudgetLine: BudgetLine;
@@ -30,6 +41,8 @@ export class AddFastExpenseComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<fromRoot.AppState>,
+    private budgetService: BudgetService,
+    private changeDetectionRef: ChangeDetectorRef,
     private dialog: MatDialog
   ) {
     this.budget$ = this.store.pipe(select(fromBudgetApp.selectCurrentBudget));
@@ -67,6 +80,23 @@ export class AddFastExpenseComponent implements OnInit, OnDestroy {
         }
       }
     );
+
+    this.linesSubscription = this.lines$.subscribe((lines: BudgetLine[]) => {
+      this.lines = lines.slice();
+      this.changeDetectionRef.markForCheck();
+    });
+  }
+
+  getSortLinesBy(): SortingLinesTypes {
+    return this.budgetService.sortingLinesBySubject;
+  }
+
+  onSortLines(sortBy: SortingLinesTypes) {
+    this.budgetService.sortingLinesBySubject = sortBy;
+  }
+
+  getLines(): BudgetLine[] {
+    return this.budgetService.sortLinesBy(this.getSortLinesBy(), this.lines);
   }
 
   onSelectBudgetLine(budgetLineId: string) {
@@ -123,6 +153,9 @@ export class AddFastExpenseComponent implements OnInit, OnDestroy {
     }
     if (this.selectedBudgetLineSubscription) {
       this.selectedBudgetLineSubscription.unsubscribe();
+    }
+    if (this.linesSubscription) {
+      this.linesSubscription.unsubscribe();
     }
   }
 }

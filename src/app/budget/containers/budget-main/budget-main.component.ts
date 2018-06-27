@@ -58,20 +58,8 @@ export class BudgetMainComponent implements OnInit, OnDestroy {
     );
 
     this.userSubscription = this.user$.subscribe(user => {
-      // console.log('userSubscription: ', user);
-      if (
-        user &&
-        user.config &&
-        user.config.currentBudgetId !== undefined &&
-        user.userId !== undefined
-      ) {
-        this.store.dispatch(new BudgetActions.Query({ userId: user.userId }));
-        this.store.dispatch(
-          new BudgetActions.SetCurrentBudget({
-            budgetId: user.config.currentBudgetId
-          })
-        );
-      }
+      // coś specjalnego dla modułu budżetowego
+      // default budget id dla usera ustawiane w komponencie głównym (app)
     });
   }
 

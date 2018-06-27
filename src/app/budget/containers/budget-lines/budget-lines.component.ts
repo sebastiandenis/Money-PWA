@@ -1,4 +1,11 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
+} from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import * as fromRoot from '../../../store/app.reducers';
 import { OnDestroy } from '@angular/core';
@@ -21,24 +28,29 @@ import { LineMenuService } from '../../components/line-menu/line-menu.service';
 import { AddCashDlgComponent } from '../add-cash-dlg/add-cash-dlg.component';
 import { ShiftActionTypes } from '../../store/actions/shift.actions';
 import { NewShiftData } from '../../models/shift.model';
+import { SortingLinesTypes } from '../../components/lines-sort/lines-sort.component';
+import { BudgetService } from '../../services/budget.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-budget-lines',
   templateUrl: './budget-lines.component.html',
-  styleUrls: ['./budget-lines.component.scss']
+  styleUrls: ['./budget-lines.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BudgetLinesComponent implements OnInit, OnDestroy, AfterViewInit {
+export class BudgetLinesComponent implements OnInit, OnDestroy {
   lines$: Observable<any>;
+  lines: BudgetLine[] = [];
+  linesSubscription: Subscription;
   budget$: Observable<Budget>;
   budgetSubscription: Subscription;
   budgetId: string;
   budgetCashLeft = 0;
-  sortLinesSubject: Subject<string> = new Subject();
-  sortLinesBy = 'alphaUp';
 
   lineMenuDlgSubscription: Subscription;
   lineMenuAddExpenseSubscription: Subscription;
   lineMenuAddCashSubscription: Subscription;
+  lineMenuMoreSubscription: Subscription;
   addExpenseDlgRef: MatDialogRef<AddExpenseDlgComponent>;
   addCashDlgRef: MatDialogRef<AddCashDlgComponent>;
   beforeAddExpenseDlgCloseSubscription: Subscription;
@@ -49,9 +61,12 @@ export class BudgetLinesComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
     private store: Store<fromRoot.AppState>,
+    private budgetService: BudgetService,
     private dialog: MatDialog,
     private bottomSheet: MatBottomSheet,
-    private lineMenuService: LineMenuService
+    private lineMenuService: LineMenuService,
+    private changeDetectionRef: ChangeDetectorRef,
+    private router: Router
   ) {
     this.budget$ = this.store.pipe(select(fromBudgetApp.selectCurrentBudget));
     this.lines$ = this.store.pipe(select(fromBudgetApp.selectAllBudgetLines));
@@ -91,6 +106,27 @@ export class BudgetLinesComponent implements OnInit, OnDestroy, AfterViewInit {
         this.openAndSubscribeAddCashDlg(data);
       }
     );
+
+    this.lineMenuMoreSubscription = this.lineMenuService.more$.subscribe(
+      (budgetLineId: string) => {
+        this.router.navigate(['line'], {
+          queryParams: { id: budgetLineId }
+        });
+      }
+    );
+
+    this.linesSubscription = this.lines$.subscribe((lines: BudgetLine[]) => {
+      this.lines = lines.slice();
+      this.changeDetectionRef.markForCheck();
+    });
+  }
+
+  getSortLinesBy(): SortingLinesTypes {
+    return this.budgetService.sortingLinesBySubject;
+  }
+
+  getLines(): BudgetLine[] {
+    return this.budgetService.sortLinesBy(this.getSortLinesBy(), this.lines);
   }
 
   onSelectLine(budgetLineId: string) {
@@ -102,13 +138,8 @@ export class BudgetLinesComponent implements OnInit, OnDestroy, AfterViewInit {
     this.bottomSheet.open(LineMenuComponent, { data: budgetLineId });
   }
 
-  ngAfterViewInit() {
-    this.onSortLines('alphaUp');
-  }
-
-  onSortLines(sortBy: string) {
-    this.sortLinesBy = sortBy;
-    this.sortLinesSubject.next(this.sortLinesBy);
+  onSortLines(sortBy: SortingLinesTypes) {
+    this.budgetService.sortingLinesBySubject = sortBy;
   }
 
   private openAndSubscribeAddExpenseDlg(budgetLineId: string) {
@@ -126,7 +157,6 @@ export class BudgetLinesComponent implements OnInit, OnDestroy, AfterViewInit {
             newBudgetLineCashLeft:
               this.selectedBudgetLine.cashLeft - result.expense.amount // zaktualizuj cashLeft dla linii wg wzoru
           });
-          this.sortLinesSubject.next(this.sortLinesBy);
         }
       });
   }
@@ -141,7 +171,6 @@ export class BudgetLinesComponent implements OnInit, OnDestroy, AfterViewInit {
         // jeżeli zamknięcie to dodaj linię wydatku
         if (newShiftData) {
           this.addCash(newShiftData);
-          this.sortLinesSubject.next(this.sortLinesBy);
         }
       });
   }
@@ -191,6 +220,10 @@ export class BudgetLinesComponent implements OnInit, OnDestroy, AfterViewInit {
 
     if (this.lineMenuAddCashSubscription) {
       this.lineMenuAddCashSubscription.unsubscribe();
+    }
+
+    if (this.lineMenuMoreSubscription) {
+      this.lineMenuMoreSubscription.unsubscribe();
     }
   }
 }
