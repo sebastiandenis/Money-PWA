@@ -119,6 +119,7 @@ export class BudgetService {
     const id = this.afs.createId();
     expense.id = id;
 
+
     return from(
       this.afs
         .doc<BudgetLine>(`budgets/${budgetId}/budgetLines/${budgetLineId}`)
@@ -141,6 +142,7 @@ export class BudgetService {
 
     const id = this.afs.createId();
     shift.id = id;
+    shift.when = new Date().getTime();
 
     return from(
       this.afs
@@ -155,6 +157,7 @@ export class BudgetService {
     const shiftsObs: Observable<void>[] = [];
     shifts.forEach((shift: Shift) => {
       shift.id = this.afs.createId();
+      shift.when = new Date().getTime();
       shiftsObs.push(
         from(
           this.afs

@@ -54,7 +54,7 @@ export function budgetReducer(state = initialState, action: BudgetActions): Stat
         case BudgetActionTypes.SetCurrentBudget:
             return handleSetCurrentBudget(state, <any>action);
         case BudgetActionTypes.QUERY:
-            return { ...state };
+            return {...state};
         default:
             return state;
     }

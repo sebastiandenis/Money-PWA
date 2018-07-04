@@ -20,7 +20,8 @@ import {
   MatBottomSheetModule,
   MatSelectModule,
   MatButtonToggleModule,
-  MatProgressBarModule
+  MatProgressBarModule,
+  MatBadgeModule
 } from '@angular/material';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { ScrollDispatchModule } from '@angular/cdk/scrolling';
@@ -49,7 +50,8 @@ import { ScrollDispatchModule } from '@angular/cdk/scrolling';
     ScrollDispatchModule,
     MatSelectModule,
     MatButtonToggleModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatBadgeModule
   ],
   exports: [
     MatInputModule,
@@ -73,7 +75,8 @@ import { ScrollDispatchModule } from '@angular/cdk/scrolling';
     ScrollDispatchModule,
     MatSelectModule,
     MatButtonToggleModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatBadgeModule
   ],
   declarations: []
 })

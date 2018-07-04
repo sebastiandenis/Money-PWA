@@ -1,0 +1,32 @@
+<mat-nav-list #expensesList fxLayout="column" fxLayoutGap="5px">
+  <mat-list-item *ngFor="let expense of getSortedExpenses(expenses)">
+
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px"
+    style="margin: 5px 5px;">
+      <div fxLayout="column">
+          <span style="word-wrap: none;">
+            <mat-icon inline="true" style="margin-right: 10px;">calendar_today</mat-icon>
+            <span style="font-size: 80%;">{{expense.when | date:'dd/MM/yyyy'}}</span>
+          </span>
+        <span *ngIf="expense.description" class="my-desc">
+          {{getShortDesc(expense.description)}}
+        </span>
+      </div>
+      <div>
+        <span class="my-chip my-mat-chip-expense-amount" [ngClass]="getBadgeColor(expense.amount)">
+          {{expense.amount}}
+        </span>
+      </div>
+
+
+
+    </div>
+
+
+
+
+
+
+  </mat-list-item>
+
+</mat-nav-list>

@@ -1,3 +1,6 @@
+## 0.38.0
+* Shifts and expenses lists
+
 ## 0.37.0
 * Improved sorting budget lines
 * First sketch of line details

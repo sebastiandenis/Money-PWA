@@ -15,6 +15,7 @@
 .my-mat-chip-total-cash {
   font-size: 0.65rem;
   background-color: mat-color($mat-blue-grey, 100);
+  color: mat-color($money-app-primary, '100-contrast');
 }
 .my-chip {
   padding: 4px 10px;
@@ -23,14 +24,14 @@
   margin-left: 1px !important;
 }
 .my-chip-orange {
-  background-color: mat-color($mat-amber, 700);
-  color: #ffff;
+  background-color: mat-color($mat-amber, 'A700');
+  color: mat-color($money-app-primary, 'A700-contrast');
 }
 .my-chip-green {
-  background-color: mat-color($mat-light-green, 600);
-  color: #ffff;
+  background-color: mat-color($mat-light-green, 500);
+  color: mat-color($money-app-primary, '500-contrast');
 }
 .my-chip-red {
-  background-color: mat-color($mat-red, 400);
-  color: #ffff;
+  background-color: mat-color($mat-red, 'A200');
+  color: mat-color($money-app-primary, 'A200-contrast');
 }

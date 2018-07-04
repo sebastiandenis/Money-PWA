@@ -7,7 +7,12 @@ import * as fromRoot from '../../../store/app.reducers';
 import * as fromBudgetApp from '../../store/reducers/index';
 import { filter, take, switchMap, map } from 'rxjs/operators';
 import * as BudgetLinesActions from '../../store/actions/budget-lines.actions';
+import * as ExpenseActions from '../../store/actions/expense.actions';
 import { Budget } from '../../models/budget.model';
+import { Expense } from '../../models/expense.model';
+import { Shift } from '../../models/shift.model';
+import * as ShiftActions from '../../store/actions/shift.actions';
+import * as UiStateActions from '../../../core/store/uiState.actions';
 
 @Component({
   selector: 'app-line-details',
@@ -17,6 +22,8 @@ import { Budget } from '../../models/budget.model';
 export class LineDetailsComponent implements OnInit, OnDestroy {
   budget$: Observable<Budget>;
   budgetLine$: Observable<BudgetLine>;
+  expenses$: Observable<Expense[]>;
+  shifts$: Observable<Shift[]>;
   budgetLineId: string;
   budgetId: string;
 
@@ -32,6 +39,8 @@ export class LineDetailsComponent implements OnInit, OnDestroy {
     this.budgetLine$ = this.store.pipe(
       select(fromBudgetApp.selectCurrentBudgetLine)
     );
+    this.expenses$ = this.store.pipe(select(fromBudgetApp.selectAllExpenses));
+    this.shifts$ = this.store.pipe(select(fromBudgetApp.selectAllShifts));
     // this.budgetLine$ = this.store
     //   .pipe(select(fromBudgetApp.selectAllBudgetLines))
     //   .pipe(
@@ -56,12 +65,38 @@ export class LineDetailsComponent implements OnInit, OnDestroy {
       }
     });
 
+    this.store.dispatch(new UiStateActions.ChangeTitleAction('LineDetailsComponent_title'));
+    this.store.dispatch(
+      new UiStateActions.ChangeMainMenuBtnVisibleAction(false)
+    );
+    this.store.dispatch(
+      new UiStateActions.ChangeSideMenuBtnVisibleAction(false)
+    );
+    this.store.dispatch(
+      new UiStateActions.ChangeMainToolbarCloseBtnVisibleAction(true)
+    );
+
     this.budgetSub = this.budget$.subscribe(budget => {
       if (budget) {
         this.budgetId = budget.id;
         this.store.dispatch(
           new BudgetLinesActions.Query({ budgetId: budget.id })
         );
+
+        if (this.budgetLineId) {
+          this.store.dispatch(
+            new ExpenseActions.Query({
+              budgetId: budget.id,
+              budgetLineId: this.budgetLineId
+            })
+          );
+          this.store.dispatch(
+            new ShiftActions.Query({
+              budgetId: budget.id,
+              budgetLineId: this.budgetLineId
+            })
+          );
+        }
       }
     });
 

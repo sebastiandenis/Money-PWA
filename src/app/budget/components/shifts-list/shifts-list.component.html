@@ -1,0 +1,24 @@
+<mat-nav-list #shiftsList fxLayout="column" fxLayoutGap="5px">
+  <mat-list-item *ngFor="let shift of getSortedShifts(shifts)">
+
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px" style="margin: 5px 5px">
+      <div fxLayout="column">
+        <span style="word-wrap: none;">
+          <mat-icon inline="true" style="margin-right: 10px;">calendar_today</mat-icon>
+          <span style="font-size: 80%;">{{shift.when | date:'dd/MM/yyyy'}}</span>
+        </span>
+        <span *ngIf="shift.description" class="my-desc">
+          {{getShortDesc(shift.description)}}
+        </span>
+      </div>
+      <div>
+        <span class="my-chip my-mat-chip-shift-amount"  [ngClass]="getBadgeColor(shift.amount)">
+          {{shift.amount}}
+        </span>
+      </div>
+
+
+
+    </div>
+  </mat-list-item>
+</mat-nav-list>

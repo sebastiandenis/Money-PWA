@@ -1,0 +1,39 @@
+// Import all the tools needed to customize the theme and extract parts of it
+@import '~@angular/material/theming';
+@import 'src/themes/my-theme.scss';
+
+
+
+
+.my-mat-chip-shift-amount {
+  font-size: 0.75rem;
+  background-color: mat-color($money-app-primary, 300);
+  color: mat-color($money-app-primary, '300-contrast');
+  white-space: nowrap;
+}
+
+
+.my-chip {
+  padding: 4px 10px;
+  border-radius: 15px;
+}
+
+
+:host ::ng-deep .mat-list-item-content {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+  width: 100% !important;
+}
+
+.my-desc {
+  font-size: 70% !important;
+}
+
+.my-chip-green {
+  background-color: mat-color($mat-light-green, 500);
+  color: mat-color($money-app-primary, '500-contrast');
+}
+.my-chip-red {
+  background-color: mat-color($mat-red, 'A200');
+  color: mat-color($money-app-primary, 'A200-contrast');
+}

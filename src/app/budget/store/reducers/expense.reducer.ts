@@ -21,6 +21,8 @@ export const initialState: State = adapter.getInitialState({
 
 export function expenseReducer(state = initialState, action: ExpenseActions): State {
     switch (action.type) {
+      case ExpenseActionTypes.QUERY:
+      return adapter.removeAll(state);
         case ExpenseActionTypes.AddExpense:
             return { ...state };
         case ExpenseActionTypes.ADDED:

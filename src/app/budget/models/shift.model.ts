@@ -13,4 +13,5 @@ export interface Shift {
     wentTo?: string; // budget-line id
     cameFrom?: string; // budget-line id
     description?: string;
+    when?: number;
 }

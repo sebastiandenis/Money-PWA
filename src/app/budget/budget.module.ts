@@ -31,6 +31,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LinesSortComponent } from './components/lines-sort/lines-sort.component';
 import { LineCardComponent } from './components/line-card/line-card.component';
 import { LineChartComponent } from './components/line-chart/line-chart.component';
+import { ExpensesListComponent } from './components/expenses-list/expenses-list.component';
+import { ShiftsListComponent } from './components/shifts-list/shifts-list.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,9 @@ import { LineChartComponent } from './components/line-chart/line-chart.component
     LineMenuComponent,
     LinesSortComponent,
     LineCardComponent,
-    LineChartComponent
+    LineChartComponent,
+    ExpensesListComponent,
+    ShiftsListComponent
   ],
   imports: [
     CommonModule,

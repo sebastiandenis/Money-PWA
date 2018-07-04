@@ -24,6 +24,8 @@ export function shiftReducer(
   action: ShiftActions
 ): State {
   switch (action.type) {
+    case ShiftActionTypes.QUERY:
+      return adapter.removeAll(state);
     case ShiftActionTypes.AddShift:
       return { ...state };
     case ShiftActionTypes.AddNewShifts:

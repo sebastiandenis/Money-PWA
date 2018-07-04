@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { BudgetLine } from '../../models/budget-line.model';
 import { Budget } from '../../models/budget.model';
+import { Observable } from 'rxjs';
+import { Expense } from '../../models/expense.model';
+import { Shift } from '../../models/shift.model';
 
 @Component({
   selector: 'app-line-card',
@@ -10,6 +13,8 @@ import { Budget } from '../../models/budget.model';
 export class LineCardComponent implements OnInit {
   @Input() budget: Budget;
   @Input() budgetLine: BudgetLine;
+  @Input() expenses$: Observable<Expense[]>;
+  @Input() shifts$: Observable<Shift[]>;
 
   panelOpenState = false;
 
