@@ -1,3 +1,6 @@
+## 0.39.0
+* Updated to new Firestore security rules
+
 ## 0.38.0
 * Shifts and expenses lists
 

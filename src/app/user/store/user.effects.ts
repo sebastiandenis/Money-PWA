@@ -22,6 +22,6 @@ export class UserEffects {
     switchMap(userId => {
       return this.userService.loadUserById(userId);
     }),
-    map(results => new UserActions.UserDataLoadedAction(results[0]))
+    map(results => new UserActions.UserDataLoadedAction(results))
   );
 }

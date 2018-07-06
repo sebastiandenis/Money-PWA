@@ -8,9 +8,10 @@ export class UserService {
 
     constructor(private afs: AngularFirestore) { }
 
-    loadUserById(userId: string): Observable<User[]> {
-        console.log('userService.loadUserById->userId=', userId);
-        return this.afs.collection<User>('users', ref => ref.where('userId', '==', userId)).valueChanges();
+    loadUserById(userId: string): Observable<User> {
+        // console.log('userService.loadUserById->userId=', userId);
+        // return this.afs.collection<User>('users', ref => ref.where('userId', '==', userId)).valueChanges();
+        return this.afs.doc<User>(`users/${userId}`).valueChanges();
     }
 
 }
