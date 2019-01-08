@@ -13,6 +13,8 @@ import { Expense } from '../../models/expense.model';
 import { Shift } from '../../models/shift.model';
 import * as ShiftActions from '../../store/actions/shift.actions';
 import * as UiStateActions from '../../../core/store/uiState.actions';
+import { MatDialogRef, MatDialog } from '@angular/material';
+import { LineEditDlgComponent } from '../line-edit-dlg/line-edit-dlg.component';
 
 @Component({
   selector: 'app-line-details',
@@ -30,10 +32,14 @@ export class LineDetailsComponent implements OnInit, OnDestroy {
   budgetSub: Subscription;
   routingSub: Subscription;
 
+  lineEditDlgRef: MatDialogRef<LineEditDlgComponent>;
+  beforeLineEditDlgCloseSubscription: Subscription;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private store: Store<fromRoot.AppState>
+    private store: Store<fromRoot.AppState>,
+    private dialog: MatDialog
   ) {
     this.budget$ = this.store.pipe(select(fromBudgetApp.selectCurrentBudget));
     this.budgetLine$ = this.store.pipe(
@@ -41,16 +47,6 @@ export class LineDetailsComponent implements OnInit, OnDestroy {
     );
     this.expenses$ = this.store.pipe(select(fromBudgetApp.selectAllExpenses));
     this.shifts$ = this.store.pipe(select(fromBudgetApp.selectAllShifts));
-    // this.budgetLine$ = this.store
-    //   .pipe(select(fromBudgetApp.selectAllBudgetLines))
-    //   .pipe(
-    //     map((lines: BudgetLine[]) => {
-    //       const fl = lines.filter((line: BudgetLine) => {
-    //         return line.id === this.budgetLineId;
-    //       });
-    //       return fl.length > 0 ? fl[0] : null;
-    //     })
-    //   );
   }
 
   ngOnInit() {
@@ -65,7 +61,9 @@ export class LineDetailsComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.store.dispatch(new UiStateActions.ChangeTitleAction('LineDetailsComponent_title'));
+    this.store.dispatch(
+      new UiStateActions.ChangeTitleAction('LineDetailsComponent_title')
+    );
     this.store.dispatch(
       new UiStateActions.ChangeMainMenuBtnVisibleAction(false)
     );
@@ -99,14 +97,40 @@ export class LineDetailsComponent implements OnInit, OnDestroy {
         }
       }
     });
+  }
 
-    // this.selectedBudgetLineSubscription = this.budgetLine$.subscribe(
-    //   budgetLine => {
-    //     if (budgetLine) {
-    //       this.budgetLine = budgetLine;
-    //     }
-    //   }
-    // );
+  onStartEditLine(line: BudgetLine) {
+    console.log('LineDetailsComponent.onStartEditLine: ', line);
+    this.openAndSubscribeEditLineDlg(line);
+  }
+
+  private openAndSubscribeEditLineDlg(line: BudgetLine) {
+    this.lineEditDlgRef = this.dialog.open(LineEditDlgComponent, {
+      data: line
+    });
+    this.beforeLineEditDlgCloseSubscription = this.lineEditDlgRef
+      .beforeClose()
+      .subscribe(result => {
+        // jeżeli zamknięcie to zapisz
+        if (result) {
+          this.saveLine(result);
+        }
+      });
+  }
+
+  private saveLine(line: BudgetLine) {
+    console.log('call saveLine action (update):', line);
+    this.store.dispatch(
+      new BudgetLinesActions.UpdateBudgetLineAction({
+        budgetId: this.budgetId,
+        id: line.id,
+        changes: line
+      })
+    );
+  }
+
+  onStartDeleteLine(line: BudgetLine) {
+    console.log('delete line: ', line);
   }
 
   ngOnDestroy() {
@@ -115,6 +139,9 @@ export class LineDetailsComponent implements OnInit, OnDestroy {
     }
     if (this.budgetSub) {
       this.budgetSub.unsubscribe();
+    }
+    if (this.beforeLineEditDlgCloseSubscription) {
+      this.beforeLineEditDlgCloseSubscription.unsubscribe();
     }
   }
 }

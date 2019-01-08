@@ -1,18 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 import {
   AngularFirestore,
-  AngularFirestoreDocument,
   DocumentChangeAction,
-  AngularFirestoreCollection
-} from 'angularfire2/firestore';
-import { Budget } from '../models/budget.model';
-import { BudgetLine } from '../models/budget-line.model';
-import { Expense } from '../models/expense.model';
-import { DocumentReference } from '@firebase/firestore-types';
-import { Observable, from, merge, Subject } from 'rxjs';
-import { Shift, NewShiftData } from '../models/shift.model';
-import { selectShiftTotal } from '../store/reducers/shift.reducer';
-import { SortingLinesTypes } from '../components/lines-sort/lines-sort.component';
+} from "angularfire2/firestore";
+import { Budget } from "../models/budget.model";
+import { BudgetLine } from "../models/budget-line.model";
+import { Expense } from "../models/expense.model";
+import { Observable, from, merge } from "rxjs";
+import { Shift } from "../models/shift.model";
+import { SortingLinesTypes } from "../components/lines-sort/lines-sort.component";
 
 @Injectable()
 export class BudgetService {
@@ -67,8 +63,8 @@ export class BudgetService {
     //  return colRef.snapshotChanges();
 
     return this.afs
-      .collection<Budget>('budgets', ref =>
-        ref.where(`access.${userId}`, '==', true)
+      .collection<Budget>("budgets", ref =>
+        ref.where(`access.${userId}`, "==", true)
       )
       .snapshotChanges();
   }
@@ -79,7 +75,7 @@ export class BudgetService {
     // const budget: AngularFirestoreDocument<Budget> = this.afs.doc<Budget>(`budgets/${budgetId}`);
     return this.afs
       .doc<Budget>(`budgets/${budgetId}`)
-      .collection<BudgetLine>('budgetLines')
+      .collection<BudgetLine>("budgetLines")
       .stateChanges();
   }
 
@@ -90,7 +86,7 @@ export class BudgetService {
     // const budgetLine: AngularFirestoreDocument<Budget> = this.afs.doc<Budget>(`budgets/${budgetId}/budgetLines/${budgetLineId}`);
     return this.afs
       .doc<Budget>(`budgets/${budgetId}/budgetLines/${budgetLineId}`)
-      .collection<Expense>('expenses')
+      .collection<Expense>("expenses")
       .stateChanges();
   }
 
@@ -101,7 +97,7 @@ export class BudgetService {
     // const budgetLine: AngularFirestoreDocument<Budget> = this.afs.doc<Budget>(`budgets/${budgetId}/budgetLines/${budgetLineId}`);
     return this.afs
       .doc<Budget>(`budgets/${budgetId}/budgetLines/${budgetLineId}`)
-      .collection<Shift>('shifts')
+      .collection<Shift>("shifts")
       .stateChanges();
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { BudgetLine } from '../../models/budget-line.model';
 import { Budget } from '../../models/budget.model';
 import { Observable } from 'rxjs';
@@ -16,11 +16,22 @@ export class LineCardComponent implements OnInit {
   @Input() expenses$: Observable<Expense[]>;
   @Input() shifts$: Observable<Shift[]>;
 
+  @Output() startEditEmmiter = new EventEmitter<BudgetLine>();
+  @Output() startDeleteEmmiter = new EventEmitter<BudgetLine>();
+
   panelOpenState = false;
 
   constructor() {}
 
   ngOnInit() {}
+
+  onEdit() {
+    this.startEditEmmiter.emit(this.budgetLine);
+  }
+
+  onDelete() {
+    this.startDeleteEmmiter.emit(this.budgetLine);
+  }
 
   getProcentToTotalBudget(): number {
     if (

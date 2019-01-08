@@ -1,23 +1,17 @@
-import { Injectable } from '@angular/core';
-import { Observable, from } from 'rxjs';
-import * as firebase from 'firebase';
-
-
+import { Injectable } from "@angular/core";
+import { Observable, from } from "rxjs";
+import { AngularFireStorage } from "@angular/fire/storage";
 
 @Injectable()
 export class StorageService {
-    constructor() { }
+  constructor(private storage: AngularFireStorage) {}
 
+  getUserPhotoUrl(uid: string): Observable<string> {
+    const pathToProfilePhoto = this.storage.ref(`${uid}/me_small.jpg`);
+    return this.fromFirebaseStoragePromise(pathToProfilePhoto.getDownloadURL());
+  }
 
-    getUserPhotoUrl(uid: string): Observable<string> {
-        const storageRef = firebase.storage().ref();
-        const pathToProfilePhoto = storageRef.child(`${uid}/me_small.jpg`);
-        return this.fromFirebaseStoragePromise(
-            pathToProfilePhoto.getDownloadURL()
-        );
-    }
-
-    private fromFirebaseStoragePromise(promise): Observable<any> {
-        return from(<Promise<any>>promise);
-    }
+  private fromFirebaseStoragePromise(promise): Observable<any> {
+    return from(<Promise<any>>promise);
+  }
 }

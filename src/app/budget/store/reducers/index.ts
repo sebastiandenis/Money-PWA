@@ -1,10 +1,9 @@
-import * as fromApp from '../../../store/app.reducers';
-import * as fromBudget from './budget.reducer';
-import * as fromBudgetLine from './budget-line.reducer';
-import * as fromExpense from './expense.reducer';
-import * as fromShift from './shift.reducer';
-import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
-import { Budget } from '../../models/budget.model';
+import * as fromApp from "../../../store/app.reducers";
+import * as fromBudget from "./budget.reducer";
+import * as fromBudgetLine from "./budget-line.reducer";
+import * as fromExpense from "./expense.reducer";
+import * as fromShift from "./shift.reducer";
+import { ActionReducerMap, createFeatureSelector, createSelector } from "@ngrx/store";
 
 
 export interface FeatureState extends fromApp.AppState {
@@ -31,11 +30,11 @@ export const reducers: ActionReducerMap<State> = {
 };
 
 
-export const getBudgetModuleState = createFeatureSelector<State>('budgetModule');
-export const getBudgetsState = createFeatureSelector<fromBudget.State>('budgets');
-export const getBudgetLinesState = createFeatureSelector<fromBudgetLine.State>('budgetLines');
-export const getExpensesState = createFeatureSelector<fromExpense.State>('expenses');
-export const getShiftsState = createFeatureSelector<fromShift.State>('shifts');
+export const getBudgetModuleState = createFeatureSelector<State>("budgetModule");
+export const getBudgetsState = createFeatureSelector<fromBudget.State>("budgets");
+export const getBudgetLinesState = createFeatureSelector<fromBudgetLine.State>("budgetLines");
+export const getExpensesState = createFeatureSelector<fromExpense.State>("expenses");
+export const getShiftsState = createFeatureSelector<fromShift.State>("shifts");
 
 export const selectBudgetsState = createSelector(getBudgetModuleState, getBudgetsState);
 export const selectBudgetLinesState = createSelector(getBudgetModuleState, getBudgetLinesState);

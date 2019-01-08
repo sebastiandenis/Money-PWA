@@ -1,26 +1,23 @@
-import { Injectable } from '@angular/core';
-import { Actions, Effect } from '@ngrx/effects';
-import { AngularFirestore } from 'angularfire2/firestore';
-import { BudgetService } from '../../services/budget.service';
-import { Store, Action } from '@ngrx/store';
-import * as fromRoot from '../reducers/index';
-import { Observable } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { Actions, Effect, ofType } from "@ngrx/effects";
+import { AngularFirestore } from "angularfire2/firestore";
+import { BudgetService } from "../../services/budget.service";
+import { Store, Action } from "@ngrx/store";
+import * as fromRoot from "../reducers/index";
+import { Observable } from "rxjs";
 import {
   ExpenseActionTypes,
   Query,
   AddExpense,
   DeleteExpense
-} from '../actions/expense.actions';
-import { switchMap, mergeMap, map, withLatestFrom } from 'rxjs/operators';
-import { DocumentReference } from '@firebase/firestore-types';
-// import { BudgetLinesActionTypes, UpdateBudgetLineAction, ExpenseAdded } from '../actions/budget-lines.actions';
-import * as fromBudgetLinesActions from '../actions/budget-lines.actions';
-import * as fromBudgetActions from '../actions/budget.actions';
-import * as fromUiStateActions from '../../../core/store/uiState.actions';
-import { UndoPayloadMessages } from '../../../core/components/undo-snackbar/undo-snackbar.component';
-import { BudgetLine } from '../../models/budget-line.model';
-import { Budget } from '../../models/budget.model';
-import { State } from '@ngrx/store/src/state';
+} from "../actions/expense.actions";
+import { switchMap, mergeMap, map, withLatestFrom } from "rxjs/operators";
+import * as fromBudgetLinesActions from "../actions/budget-lines.actions";
+import * as fromBudgetActions from "../actions/budget.actions";
+import * as fromUiStateActions from "../../../core/store/uiState.actions";
+import { UndoPayloadMessages } from "../../../core/components/undo-snackbar/undo-snackbar.component";
+import { BudgetLine } from "../../models/budget-line.model";
+import { Budget } from "../../models/budget.model";
 
 @Injectable()
 export class ExpenseEffects {
@@ -32,29 +29,29 @@ export class ExpenseEffects {
   ) {}
 
   @Effect()
-  query$: Observable<Action> = this.actions$
-    .ofType(ExpenseActionTypes.QUERY)
-    .pipe(
-      switchMap((action: Query) => {
-        return this.budgetService.queryAllExpenses(
-          action.payload.budgetId,
-          action.payload.budgetLineId
-        );
-      }),
-      mergeMap(actions => actions),
-      map(action => {
-        return {
-          type: `[Expense] ${action.type}`,
-          payload: {
-            ...action.payload.doc.data(),
-            id: action.payload.doc.id
-          }
-        };
-      })
-    );
+  query$: Observable<Action> = this.actions$.pipe(
+    ofType(ExpenseActionTypes.QUERY),
+    switchMap((action: Query) => {
+      return this.budgetService.queryAllExpenses(
+        action.payload.budgetId,
+        action.payload.budgetLineId
+      );
+    }),
+    mergeMap(actions => actions),
+    map(action => {
+      return {
+        type: `[Expense] ${action.type}`,
+        payload: {
+          ...action.payload.doc.data(),
+          id: action.payload.doc.id
+        }
+      };
+    })
+  );
 
   @Effect()
-  deleteExpense$ = this.actions$.ofType(ExpenseActionTypes.DeleteExpense).pipe(
+  deleteExpense$ = this.actions$.pipe(
+    ofType(ExpenseActionTypes.DeleteExpense),
     map((action: DeleteExpense) => action.payload),
     withLatestFrom(this.store$.select(fromRoot.getBudgetModuleState)),
     switchMap(([payload, state]) => {
@@ -116,7 +113,8 @@ export class ExpenseEffects {
   );
 
   @Effect()
-  addExpense$ = this.actions$.ofType(ExpenseActionTypes.AddExpense).pipe(
+  addExpense$ = this.actions$.pipe(
+    ofType(ExpenseActionTypes.AddExpense),
     map((action: AddExpense) => action.payload),
     withLatestFrom(this.store$.select(fromRoot.getBudgetModuleState)),
     switchMap(([payload, state]) => {

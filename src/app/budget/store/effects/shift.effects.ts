@@ -1,10 +1,9 @@
-import { Injectable } from '@angular/core';
-import { Actions, Effect } from '@ngrx/effects';
-import { AngularFirestore } from 'angularfire2/firestore';
-import { BudgetService } from '../../services/budget.service';
-import { Store, Action } from '@ngrx/store';
-import * as fromRoot from '../reducers/index';
-import { Observable } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { Actions, Effect, ofType } from "@ngrx/effects";
+import { BudgetService } from "../../services/budget.service";
+import { Store, Action } from "@ngrx/store";
+import * as fromRoot from "../reducers/index";
+import { Observable } from "rxjs";
 import {
   ShiftActionTypes,
   Query,
@@ -12,54 +11,49 @@ import {
   DeleteShift,
   AddShifts,
   AddNewShifts,
-  UndoNewShifts,
   DeleteShifts
-} from '../actions/shift.actions';
-import { switchMap, mergeMap, map, withLatestFrom, tap } from 'rxjs/operators';
-import { DocumentReference } from '@firebase/firestore-types';
-// import { BudgetLinesActionTypes, UpdateBudgetLineAction, ShiftAdded } from '../actions/budget-lines.actions';
-import * as fromBudgetLinesActions from '../actions/budget-lines.actions';
-import * as fromBudgetActions from '../actions/budget.actions';
-import * as fromUiStateActions from '../../../core/store/uiState.actions';
-import { UndoPayloadMessages } from '../../../core/components/undo-snackbar/undo-snackbar.component';
-import { BudgetLine } from '../../models/budget-line.model';
-import { Budget } from '../../models/budget.model';
-import { State } from '@ngrx/store/src/state';
-import { Shift } from '../../models/shift.model';
+} from "../actions/shift.actions";
+import { switchMap, mergeMap, map, withLatestFrom } from "rxjs/operators";
+import * as fromBudgetLinesActions from "../actions/budget-lines.actions";
+import * as fromBudgetActions from "../actions/budget.actions";
+import * as fromUiStateActions from "../../../core/store/uiState.actions";
+import { UndoPayloadMessages } from "../../../core/components/undo-snackbar/undo-snackbar.component";
+import { BudgetLine } from "../../models/budget-line.model";
+import { Budget } from "../../models/budget.model";
+import { Shift } from "../../models/shift.model";
 
 @Injectable()
 export class ShiftEffects {
   constructor(
     private actions$: Actions,
     private store$: Store<fromRoot.FeatureState>,
-    private afs: AngularFirestore,
     private budgetService: BudgetService
   ) {}
 
   @Effect()
-  query$: Observable<Action> = this.actions$
-    .ofType(ShiftActionTypes.QUERY)
-    .pipe(
-      switchMap((action: Query) => {
-        return this.budgetService.queryAllShifts(
-          action.payload.budgetId,
-          action.payload.budgetLineId
-        );
-      }),
-      mergeMap(actions => actions),
-      map(action => {
-        return {
-          type: `[Shift] ${action.type}`,
-          payload: {
-            ...action.payload.doc.data(),
-            id: action.payload.doc.id
-          }
-        };
-      })
-    );
+  query$: Observable<Action> = this.actions$.pipe(
+    ofType(ShiftActionTypes.QUERY),
+    switchMap((action: Query) => {
+      return this.budgetService.queryAllShifts(
+        action.payload.budgetId,
+        action.payload.budgetLineId
+      );
+    }),
+    mergeMap(actions => actions),
+    map(action => {
+      return {
+        type: `[Shift] ${action.type}`,
+        payload: {
+          ...action.payload.doc.data(),
+          id: action.payload.doc.id
+        }
+      };
+    })
+  );
 
   @Effect()
-  deleteShift$ = this.actions$.ofType(ShiftActionTypes.DeleteShift).pipe(
+  deleteShift$ = this.actions$.pipe(
+    ofType(ShiftActionTypes.DeleteShift),
     map((action: DeleteShift) => action.payload),
     withLatestFrom(this.store$.select(fromRoot.getBudgetModuleState)),
     switchMap(([payload, state]) => {
@@ -117,7 +111,8 @@ export class ShiftEffects {
   );
 
   @Effect()
-  addShift$ = this.actions$.ofType(ShiftActionTypes.AddShift).pipe(
+  addShift$ = this.actions$.pipe(
+    ofType(ShiftActionTypes.AddShift),
     map((action: AddShift) => action.payload),
     withLatestFrom(this.store$.select(fromRoot.getBudgetModuleState)),
     switchMap(([payload, state]) => {
@@ -172,7 +167,8 @@ export class ShiftEffects {
   );
 
   @Effect()
-  addNewShifts$ = this.actions$.ofType(ShiftActionTypes.AddNewShifts).pipe(
+  addNewShifts$ = this.actions$.pipe(
+    ofType(ShiftActionTypes.AddNewShifts),
     map((action: AddNewShifts) => action.payload),
     withLatestFrom(this.store$.select(fromRoot.getBudgetModuleState)),
     switchMap(([payload, state]) => {
@@ -192,9 +188,12 @@ export class ShiftEffects {
       };
 
       if (payload.newShiftData.description) {
-        Object.assign(shiftFrom, {description: payload.newShiftData.description});
-        Object.assign(shiftTo, {description: payload.newShiftData.description});
-
+        Object.assign(shiftFrom, {
+          description: payload.newShiftData.description
+        });
+        Object.assign(shiftTo, {
+          description: payload.newShiftData.description
+        });
       }
 
       actions.push(
@@ -210,7 +209,8 @@ export class ShiftEffects {
   );
 
   @Effect()
-  addShifts$ = this.actions$.ofType(ShiftActionTypes.AddShifts).pipe(
+  addShifts$ = this.actions$.pipe(
+    ofType(ShiftActionTypes.AddShifts),
     map((action: AddShifts) => action.payload),
     withLatestFrom(this.store$.select(fromRoot.getBudgetModuleState)),
     switchMap(([payload, state]) => {
@@ -257,7 +257,8 @@ export class ShiftEffects {
   );
 
   @Effect()
-  deleteShifts$ = this.actions$.ofType(ShiftActionTypes.DeleteShifts).pipe(
+  deleteShifts$ = this.actions$.pipe(
+    ofType(ShiftActionTypes.DeleteShifts),
     map((action: DeleteShifts) => action.payload),
     withLatestFrom(this.store$.select(fromRoot.getBudgetModuleState)),
     switchMap(([payload, state]) => {

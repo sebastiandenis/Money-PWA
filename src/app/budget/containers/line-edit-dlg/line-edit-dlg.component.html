@@ -1,0 +1,38 @@
+<span matDialogTitle>
+  {{'LineEditDlgComponent_editline' | translate}}
+</span>
+<div *ngIf="line;else loading">
+  <form fxLayout="column" fxLayoutAlign="center center" #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <mat-dialog-content>
+      <div fxLayout="column" fxLayoutGap="7px">
+        <mat-form-field>
+          <input type="text" matInput placeholder="{{'LineEditDlgComponent_linename' | translate}}" [(ngModel)]="line.name" name="lineName"
+            id="lineName" required style="font-size: 90%;">
+          <mat-error>{{ 'fieldrequired' | translate }}!</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <textarea matInput placeholder="{{'LineEditDlgComponent_linename' | translate}}" [(ngModel)]="line.description" id="lineDesc"
+            name="lineDesc" #lineDesc="ngModel" style="font-size: 80%;" rows="4"></textarea>
+        </mat-form-field>
+        <mat-form-field>
+          <input type="number" matInput placeholder="{{'LineEditDlgComponent_linetotalamount' | translate}}" [(ngModel)]="line.cashToSpend"
+            name="lineCashToSpend" id="lineCashToSpend" required #lineCashToSpendInput="ngModel">
+          <mat-error>{{ 'typeanumber' | translate }}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input type="number" matInput placeholder="{{'LineEditDlgComponent_linecashleft' | translate}}" [(ngModel)]="line.cashLeft"
+            name="lineCashLeft" id="lineCashLeft" required #lineCashLeftInput="ngModel">
+          <mat-error>{{ 'typeanumber' | translate }}</mat-error>
+        </mat-form-field>
+
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button mat-button matDialogClose>{{'cancel' | translate}}</button>
+      <button type="submit" mat-raised-button color="accent" [disabled]="!f.valid">{{'save' | translate}}</button>
+
+    </mat-dialog-actions>
+  </form>
+</div>
+
+<ng-template #loading>Loading...</ng-template>

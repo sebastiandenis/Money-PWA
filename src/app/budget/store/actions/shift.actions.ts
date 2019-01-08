@@ -1,24 +1,24 @@
-import { Action } from '@ngrx/store';
-import { Update } from '@ngrx/entity';
-import { Shift, NewShiftData } from '../../models/shift.model';
+import { Action } from "@ngrx/store";
+import { Update } from "@ngrx/entity";
+import { Shift, NewShiftData } from "../../models/shift.model";
 
 export enum ShiftActionTypes {
-  QUERY = '[Shift] query Shift',
-  ADDED = '[Shift] added',
-  MODIFIED = '[Shift] modified',
-  REMOVED = '[Shift] removed',
-  LoadShifts = '[Shift] Load Shifts',
-  AddShift = '[Shift] Add Shift',
-  UpsertShift = '[Shift] Upsert Shift',
-  AddShifts = '[Shift] Add Shifts',
-  AddNewShifts = '[Shift] Add New Shifts',
-  UpsertShifts = '[Shift] Upsert Shifts',
-  UpdateShift = '[Shift] Update Shift',
-  UpdateShifts = '[Shift] Update Shifts',
-  DeleteShift = '[Shift] Delete Shift',
-  DeleteShifts = '[Shift] Delete Shifts',
-  ClearShifts = '[Shift] Clear Shifts',
-  UndoNewShifts = '[Shift] Undo New Shifts'
+  QUERY = "[Shift] query Shift",
+  ADDED = "[Shift] added",
+  MODIFIED = "[Shift] modified",
+  REMOVED = "[Shift] removed",
+  LoadShifts = "[Shift] Load Shifts",
+  AddShift = "[Shift] Add Shift",
+  UpsertShift = "[Shift] Upsert Shift",
+  AddShifts = "[Shift] Add Shifts",
+  AddNewShifts = "[Shift] Add New Shifts",
+  UpsertShifts = "[Shift] Upsert Shifts",
+  UpdateShift = "[Shift] Update Shift",
+  UpdateShifts = "[Shift] Update Shifts",
+  DeleteShift = "[Shift] Delete Shift",
+  DeleteShifts = "[Shift] Delete Shifts",
+  ClearShifts = "[Shift] Clear Shifts",
+  UndoNewShifts = "[Shift] Undo New Shifts"
 }
 
 export class Query implements Action {

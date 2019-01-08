@@ -33,6 +33,7 @@ import { LineCardComponent } from './components/line-card/line-card.component';
 import { LineChartComponent } from './components/line-chart/line-chart.component';
 import { ExpensesListComponent } from './components/expenses-list/expenses-list.component';
 import { ShiftsListComponent } from './components/shifts-list/shifts-list.component';
+import { LineEditDlgComponent } from './containers/line-edit-dlg/line-edit-dlg.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { ShiftsListComponent } from './components/shifts-list/shifts-list.compon
     LineCardComponent,
     LineChartComponent,
     ExpensesListComponent,
-    ShiftsListComponent
+    ShiftsListComponent,
+    LineEditDlgComponent
   ],
   imports: [
     CommonModule,
@@ -75,6 +77,7 @@ import { ShiftsListComponent } from './components/shifts-list/shifts-list.compon
     BudgetMainComponent,
     AddCashDlgComponent,
     AddExpenseDlgComponent,
+    LineEditDlgComponent,
     LineMenuComponent
   ],
   providers: [LineMenuService]

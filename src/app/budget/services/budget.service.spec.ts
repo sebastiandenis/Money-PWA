@@ -1,15 +1,15 @@
-import { TestBed } from '@angular/core/testing';
-import { Observable, of } from 'rxjs';
+import { TestBed } from "@angular/core/testing";
+import { Observable, of } from "rxjs";
 
-import { BudgetService } from './budget.service';
+import { BudgetService } from "./budget.service";
 import {
   AngularFirestore,
   AngularFirestoreCollection,
   DocumentChangeAction
-} from 'angularfire2/firestore';
-import { Query } from '@firebase/firestore-types';
-import { Expense } from '../models/expense.model';
-import { Budget } from '../models/budget.model';
+} from "angularfire2/firestore";
+import { Query } from "@firebase/firestore-types";
+import { Expense } from "../models/expense.model";
+import { Budget } from "../models/budget.model";
 
 let budgetService: BudgetService;
 let afsSpy: jasmine.SpyObj<AngularFirestore>;
@@ -27,27 +27,27 @@ let promise1: Promise<string>;
 let myExpense: Expense;
 let budgetChanges: Partial<Budget>;
 
-describe('BudgetService', () => {
+describe("BudgetService", () => {
   beforeEach(() => {
     myExpense = {
-      id: 'ex001',
+      id: "ex001",
       amount: 100
     };
     array1 = [
       {
-        type: 'added',
-        payload: 'dokument1'
+        type: "added",
+        payload: "dokument1"
       },
       {
-        type: 'removed',
-        payload: 'dokument2'
+        type: "removed",
+        payload: "dokument2"
       }
     ];
 
     array2 = [
       {
-        type: 'modified',
-        payload: 'dokument3'
+        type: "modified",
+        payload: "dokument3"
       }
     ];
 
@@ -56,28 +56,28 @@ describe('BudgetService', () => {
     });
 
     snapshotChangesSpy = jasmine
-      .createSpy('snapshotChanges')
+      .createSpy("snapshotChanges")
       .and.returnValue(of(array1));
 
     stateChangesSpy = jasmine
-      .createSpy('stateChangesSpy')
+      .createSpy("stateChangesSpy")
       .and.returnValue(of([array2]));
 
-    collectionSpy = jasmine.createSpy('collection').and.returnValue({
+    collectionSpy = jasmine.createSpy("collection").and.returnValue({
       snapshotChanges: snapshotChangesSpy,
       stateChanges: stateChangesSpy,
       doc: docSpy
     });
 
-    setSpy = jasmine.createSpy('set').and.returnValue(promise1);
-    createIdSpy = jasmine.createSpy('createId').and.returnValue('xyz');
-    deleteSpy = jasmine.createSpy('delete').and.returnValue(promise1);
-    updateSpy = jasmine.createSpy('update').and.returnValue(promise1);
+    setSpy = jasmine.createSpy("set").and.returnValue(promise1);
+    createIdSpy = jasmine.createSpy("createId").and.returnValue("xyz");
+    deleteSpy = jasmine.createSpy("delete").and.returnValue(promise1);
+    updateSpy = jasmine.createSpy("update").and.returnValue(promise1);
     budgetChanges = {
       totalCash: 1000
     };
 
-    docSpy = jasmine.createSpy('doc').and.returnValue({
+    docSpy = jasmine.createSpy("doc").and.returnValue({
       collection: collectionSpy,
       set: setSpy,
       delete: deleteSpy,
@@ -109,10 +109,10 @@ describe('BudgetService', () => {
     createIdSpy.calls.reset();
   });
 
-  it('#queryAllBudgets should return stubbed value from a spy', () => {
+  it("#queryAllBudgets should return stubbed value from a spy", () => {
     const query$: Observable<
       DocumentChangeAction<any>[]
-    > = budgetService.queryAllBudgets('user001');
+    > = budgetService.queryAllBudgets("user001");
 
     expect(collectionSpy).toHaveBeenCalledTimes(1);
     expect(snapshotChangesSpy).toHaveBeenCalledTimes(1);
@@ -120,17 +120,17 @@ describe('BudgetService', () => {
     expect(query$).toBeDefined();
   });
 
-  it('#queryAllBudgets should return value from observable', (done: DoneFn) => {
-    budgetService.queryAllBudgets('user001').subscribe(value => {
+  it("#queryAllBudgets should return value from observable", (done: DoneFn) => {
+    budgetService.queryAllBudgets("user001").subscribe(value => {
       expect(value).toBe(array1);
       done();
     });
   });
 
-  it('#queryAllBudgetLines should return stubbed value from a spy', () => {
+  it("#queryAllBudgetLines should return stubbed value from a spy", () => {
     const query$: Observable<
       DocumentChangeAction<any>[]
-    > = budgetService.queryAllBudgetLines('b001');
+    > = budgetService.queryAllBudgetLines("b001");
 
     expect(collectionSpy).toHaveBeenCalledTimes(1);
     expect(docSpy).toHaveBeenCalledTimes(1);
@@ -140,17 +140,17 @@ describe('BudgetService', () => {
     expect(query$).toBeDefined();
   });
 
-  it('#queryAllBudgetLines should return value from observable', (done: DoneFn) => {
-    budgetService.queryAllBudgetLines('b001').subscribe(value => {
+  it("#queryAllBudgetLines should return value from observable", (done: DoneFn) => {
+    budgetService.queryAllBudgetLines("b001").subscribe(value => {
       expect(value[0]).toBe(array2);
       done();
     });
   });
 
-  it('#queryAllExpenses should return stubbed value from a spy', () => {
+  it("#queryAllExpenses should return stubbed value from a spy", () => {
     const query$: Observable<
       DocumentChangeAction<any>[]
-    > = budgetService.queryAllExpenses('b001', 'bl001');
+    > = budgetService.queryAllExpenses("b001", "bl001");
 
     expect(collectionSpy).toHaveBeenCalledTimes(1);
     expect(docSpy).toHaveBeenCalledTimes(1);
@@ -160,18 +160,18 @@ describe('BudgetService', () => {
     expect(query$).toBeDefined();
   });
 
-  it('#queryAllExpenses should return value from observable', (done: DoneFn) => {
-    budgetService.queryAllExpenses('b001', 'bl001').subscribe(value => {
+  it("#queryAllExpenses should return value from observable", (done: DoneFn) => {
+    budgetService.queryAllExpenses("b001", "bl001").subscribe(value => {
       expect(value[0]).toBe(array2);
       done();
     });
   });
 
-  it('#addExpense should return stubbed value from a spy', () => {
+  it("#addExpense should return stubbed value from a spy", () => {
     const add$: Observable<void> = budgetService.addExpense(
       myExpense,
-      'b001',
-      'bl001'
+      "b001",
+      "bl001"
     );
 
     expect(collectionSpy).toHaveBeenCalledTimes(1);
@@ -182,33 +182,33 @@ describe('BudgetService', () => {
     expect(add$).toBeDefined();
   });
 
-  it('#addExpense should return empty observable', (done: DoneFn) => {
-    budgetService.addExpense(myExpense, 'b001', 'bl001').subscribe(value => {
+  it("#addExpense should return empty observable", (done: DoneFn) => {
+    budgetService.addExpense(myExpense, "b001", "bl001").subscribe(value => {
       expect(value).toBeUndefined();
       done();
     });
   });
 
-  it('#deleteExpense should return stubbed value from a spy', () => {
+  it("#deleteExpense should return stubbed value from a spy", () => {
     const delete$: Observable<void> = budgetService.deleteExpense(
-      'exp001',
-      'bl001',
-      'b001'
+      "exp001",
+      "bl001",
+      "b001"
     );
     expect(docSpy).toHaveBeenCalledTimes(1);
     expect(deleteSpy).toHaveBeenCalledTimes(1);
     expect(delete$).toBeDefined();
   });
-  it('#deleteExpense should return empty observable', (done: DoneFn) => {
-    budgetService.deleteExpense('exp001', 'b001', 'bl001').subscribe(value => {
+  it("#deleteExpense should return empty observable", (done: DoneFn) => {
+    budgetService.deleteExpense("exp001", "b001", "bl001").subscribe(value => {
       expect(value).toBeUndefined();
       done();
     });
   });
 
-  it('#updateBudget should return stubbed value from a spy', () => {
+  it("#updateBudget should return stubbed value from a spy", () => {
     const update$: Observable<void> = budgetService.updateBudget(
-      'b001',
+      "b001",
       budgetChanges
     );
     expect(docSpy).toHaveBeenCalledTimes(1);
@@ -216,8 +216,8 @@ describe('BudgetService', () => {
     expect(update$).toBeDefined();
   });
 
-  it('#updateBudget should return empty observable', (done: DoneFn) => {
-    budgetService.updateBudget('exp001', budgetChanges).subscribe(value => {
+  it("#updateBudget should return empty observable", (done: DoneFn) => {
+    budgetService.updateBudget("exp001", budgetChanges).subscribe(value => {
       expect(value).toBeUndefined();
       done();
     });
