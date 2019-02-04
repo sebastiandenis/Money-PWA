@@ -1,14 +1,15 @@
-import * as fromBudgetReducer from './budget.reducer';
+import * as fromBudgetReducer from "./budget.reducer";
 import {
   BudgetActions,
   UpdateBudget,
   Query,
   SetCurrentBudget
-} from '../actions/budget.actions';
-import { State } from './budget.reducer';
-import { Budget } from '../../models/budget.model';
+} from "../actions/budget.actions";
+import { State } from "./budget.reducer";
+import { Budget } from "../../models/budget.model";
+import { Timestamp } from "@firebase/firestore-types";
 
-describe('BudgetReducer', () => {
+describe("BudgetReducer", () => {
   let budget01: Budget;
   let budget02: Budget;
   let budgetArray: Budget[];
@@ -16,17 +17,17 @@ describe('BudgetReducer', () => {
 
   beforeEach(() => {
     budget01 = {
-      id: 'b001',
-      name: 'My budget',
-      dateStart: new Date(),
+      id: "b001",
+      name: "My budget",
+      dateStart: Timestamp.fromDate(new Date()),
       dateEnd: undefined,
       totalCash: 5000,
       cashLeft: 1400
     };
 
     budget02 = {
-      id: 'b002',
-      name: 'Nowy budżet',
+      id: "b002",
+      name: "Nowy budżet",
       dateStart: null,
       dateEnd: null,
       totalCash: 10000,
@@ -45,7 +46,7 @@ describe('BudgetReducer', () => {
     };
   });
 
-  it('Undefined action should return the default state', () => {
+  it("Undefined action should return the default state", () => {
     const { initialState } = fromBudgetReducer;
     const action: BudgetActions = {
       type: undefined
@@ -54,11 +55,11 @@ describe('BudgetReducer', () => {
     expect(state).toBe(initialState);
   });
 
-  it('UpdateBudget action should update the state', () => {
+  it("UpdateBudget action should update the state", () => {
     const changes: Partial<Budget> = {
       cashLeft: budget02.cashLeft,
       totalCash: 0,
-      name: 'Update budget'
+      name: "Update budget"
     };
     const payload = {
       budgetId: budget01.id,
@@ -81,15 +82,15 @@ describe('BudgetReducer', () => {
     expect(state.entities[budget01.id].dateEnd).toEqual(budget01.dateEnd);
   });
 
-  it('Query action should return initial state', () => {
-    const action: BudgetActions = new Query({ userId: 'user001' });
+  it("Query action should return initial state", () => {
+    const action: BudgetActions = new Query({ userId: "user001" });
     const { initialState } = fromBudgetReducer;
     const state = fromBudgetReducer.budgetReducer(initialState, action);
 
     expect(state).toEqual(initialState);
   });
 
-  it('getCurrentBudgetId should return id from state', () => {
+  it("getCurrentBudgetId should return id from state", () => {
     const action: BudgetActions = new SetCurrentBudget({
       budgetId: budget02.id
     });
