@@ -1,26 +1,24 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { BudgetLine } from '../../models/budget-line.model';
-import { Budget } from '../../models/budget.model';
-import { single } from 'rxjs/operators';
+import { Component, OnInit, Input } from "@angular/core";
+import { BudgetLine } from "../../models/budget-line.model";
+import { Budget } from "../../models/budget.model";
+import { single } from "rxjs/operators";
 
 @Component({
-  selector: 'app-line-chart',
-  templateUrl: './line-chart.component.html',
-  styleUrls: ['./line-chart.component.scss']
+  selector: "app-line-chart",
+  templateUrl: "./line-chart.component.html",
+  styleUrls: ["./line-chart.component.scss"]
 })
 export class LineChartComponent implements OnInit {
-
-
   stroke = 15;
   radius = 105;
   semicircle = false;
   rounded = true;
   responsive = true;
   clockwise = false;
-  color = '#baa0c5';
-  background = '#c4d2db';
+  color = "#baa0c5";
+  background = "#c4d2db";
   duration = 800;
-  animation = 'easeOutCubic';
+  animation = "easeOutCubic";
   animationDelay = 1000;
   animations: string[] = [];
   gradient = false;
@@ -29,14 +27,9 @@ export class LineChartComponent implements OnInit {
   @Input() budget: Budget;
   @Input() line: BudgetLine;
 
+  constructor() {}
 
-
-  constructor() {
-  }
-
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onSelect(event) {
     console.log(event);
@@ -46,11 +39,11 @@ export class LineChartComponent implements OnInit {
     if (left && total) {
       const p = left / total;
       if (p <= 0.15) {
-        return '#ff6666';
+        return "#ff6666";
       } else if (p >= 0.5) {
-        return '#99cc00';
+        return "#99cc00";
       } else {
-        return '#ffaa00';
+        return "#ffaa00";
       }
     } else {
       return this.color;
@@ -61,11 +54,11 @@ export class LineChartComponent implements OnInit {
     if (left && total) {
       const p = left / total;
       if (p <= 0.15) {
-        return '#ffe6e6';
+        return "#ffe6e6";
       } else if (p >= 0.5) {
-        return '#ecf9ec';
+        return "#ecf9ec";
       } else {
-        return '#fff7e6';
+        return "#fff7e6";
       }
     } else {
       return this.color;
@@ -74,16 +67,16 @@ export class LineChartComponent implements OnInit {
 
   getOverlayStyle() {
     const isSemi = this.semicircle;
-    const transform = (isSemi ? '' : 'translateY(-50%) ') + 'translateX(-50%)';
+    const transform = isSemi ? "translateX(-50%) " : "translate(-50%,-50%)";
 
     return {
-      top: isSemi ? 'auto' : '50%',
-      bottom: isSemi ? '5%' : 'auto',
-      left: '50%',
+      top: isSemi ? "auto" : "50%",
+      bottom: isSemi ? "5%" : "auto",
+      left: "50%",
       transform: transform,
-      '-moz-transform': transform,
-      '-webkit-transform': transform,
-      'font-size': this.radius / 3.5 + 'px'
+      "-moz-transform": transform,
+      "-webkit-transform": transform,
+      "font-size": this.radius / 3.5 + "px"
     };
   }
 
