@@ -60,7 +60,7 @@ export class DashboardChartComponent implements OnInit {
 
   getOverlayStyle() {
     const isSemi = this.semicircle;
-    const transform = (isSemi ? "" : "translateY(-50%) ") + "translateX(-50%)";
+    const transform = isSemi ? "translateX(-50%) " : "translate(-50%,-50%)";
 
     return {
       top: isSemi ? "auto" : "50%",
